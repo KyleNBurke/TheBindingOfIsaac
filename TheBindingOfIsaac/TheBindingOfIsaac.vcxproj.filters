@@ -36,6 +36,9 @@
     <Filter Include="Source Files\Systems">
       <UniqueIdentifier>{66caeea1-29f5-4bb9-afed-24bd3b23e80b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Components\Collision">
+      <UniqueIdentifier>{971d94e5-458c-4802-9c01-06e70d2ccad2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -101,6 +104,12 @@
     <ClInclude Include="CollisionSystem.hpp">
       <Filter>Source Files\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="PitCollisionCom.hpp">
+      <Filter>Source Files\Components\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="WallCollisionCom.hpp">
+      <Filter>Source Files\Components\Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -165,6 +174,12 @@
     </ClCompile>
     <ClCompile Include="CollisionSystem.cpp">
       <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="PitCollisionCom.cpp">
+      <Filter>Source Files\Components\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="WallCollisionCom.cpp">
+      <Filter>Source Files\Components\Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

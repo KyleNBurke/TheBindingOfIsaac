@@ -3,6 +3,8 @@
 #include "Entity.hpp"
 #include "PlayerControlledCom.hpp"
 #include "VelocityCom.hpp"
+#include "PitCollisionCom.hpp"
+#include "WallCollisionCom.hpp"
 
 class Assemblages
 {

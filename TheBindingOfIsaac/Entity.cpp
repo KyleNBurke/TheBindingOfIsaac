@@ -42,9 +42,14 @@ const sf::Sprite& Entity::getSprite() const
 	return sprite;
 }
 
-sf::Vector2f Entity::getPosition() const
+sf::Vector2f& Entity::getPosition()
 {
 	return position;
+}
+
+sf::FloatRect Entity::getEntityBounds() const
+{
+	return sf::FloatRect(position.x, position.y, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
 }
 
 void Entity::setScale(float factorX, float factorY)

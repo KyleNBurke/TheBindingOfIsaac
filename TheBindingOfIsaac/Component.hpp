@@ -7,7 +7,9 @@ class Component
 public:
 	enum ComponentType {
 		PlayerControlled,
-		Velocity
+		Velocity,
+		PitCollision,
+		WallCollision
 	};
 
 	Component();

@@ -22,7 +22,8 @@ Entity Assemblages::createPlayer()
 
 	player.addComponent(std::unique_ptr<Component>(new PlayerControlledCom()));
 	player.addComponent(std::unique_ptr<Component>(new VelocityCom(70.0f, 0.85f)));
-	//add more components like collision detection
+	player.addComponent(std::unique_ptr<Component>(new PitCollisionCom()));
+	player.addComponent(std::unique_ptr<Component>(new WallCollisionCom()));
 
 	return player;
 }

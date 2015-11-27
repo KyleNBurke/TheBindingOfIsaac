@@ -16,7 +16,8 @@ public:
 	std::shared_ptr<Component> getComponent(Component::ComponentType type);
 
 	const sf::Sprite& getSprite() const;
-	sf::Vector2f getPosition() const;
+	sf::Vector2f& getPosition();
+	sf::FloatRect getEntityBounds() const;
 
 	void setScale(float factorX, float factorY);
 private:
