@@ -2,7 +2,7 @@
 #include "GameplayState.hpp"
 #include "Input.hpp"
 
-GameplayState::GameplayState(sf::RenderWindow& window, const sf::Time& deltaTime) : map(hud), renderSystem(window), inputSystem(), collisionSystem(deltaTime)
+GameplayState::GameplayState(StatsState& statsState, sf::RenderWindow& window, const sf::Time& deltaTime) : statsState(statsState), map(hud), renderSystem(window), inputSystem(), collisionSystem(deltaTime)
 {
 	Room::initialize();
 
@@ -23,6 +23,14 @@ void GameplayState::update(sf::Time deltaTime)
 	{
 		std::srand((int)std::time(0) * std::rand());
 		map.generate(std::rand());
+	}
+
+	if(Input::getInstance().keyPressed(sf::Keyboard::Key::F1)) {
+		statsState.setActive(!statsState.getActive());
+
+		if(statsState.getActive()) {
+			statsState.reset();
+		}
 	}
 
 	//-----------------------------------------------------------------------------

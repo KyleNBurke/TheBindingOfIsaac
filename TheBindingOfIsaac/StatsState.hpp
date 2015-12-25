@@ -12,6 +12,8 @@ public:
 	void update(sf::Time deltaTime);
 	void draw(sf::RenderWindow& window);
 
+	void reset();
+
 private:
 	sf::Text fps;
 	sf::Text drawCalls;

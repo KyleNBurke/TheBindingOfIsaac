@@ -2,6 +2,7 @@
 
 #include "stdafx.h"
 #include "State.hpp"
+#include "StatsState.hpp"
 #include "Map.hpp"
 #include "HUD.hpp"
 #include "Player.hpp"
@@ -15,7 +16,7 @@
 class GameplayState : public State
 {
 public:
-	GameplayState(sf::RenderWindow& window, const sf::Time& deltaTime);
+	GameplayState(StatsState& statsState, sf::RenderWindow& window, const sf::Time& deltaTime);
 
 	void initialize();
 
@@ -23,6 +24,7 @@ public:
 	void draw(sf::RenderWindow& window);
 
 private:
+	StatsState& statsState;
 	HUD hud;
 	Map map;
 	Player player;

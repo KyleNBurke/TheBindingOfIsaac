@@ -31,3 +31,12 @@ void StatsState::draw(sf::RenderWindow& window) {
 	window.draw(fps);
 	window.draw(drawCalls);
 }
+
+void StatsState::reset() {
+	frames = 0;
+	draws = 0;
+	fps.setString("FPS: -");
+	drawCalls.setString("Draw Calls: -");
+	clockUpdate.restart();
+	clockDraw.restart();
+}
