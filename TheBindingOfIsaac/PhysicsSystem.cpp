@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "PhysicsSystem.hpp"
 
-PhysicsSystem::PhysicsSystem(const sf::Time& deltaTime) : deltaTime(deltaTime) {}
+PhysicsSystem::PhysicsSystem() {}
 
 void PhysicsSystem::update(std::vector<Entity>& entities)
 {
@@ -14,8 +14,6 @@ void PhysicsSystem::update(std::vector<Entity>& entities)
 
 			velocityCom->getVelocity().x = (velocityCom->getVelocity().x + velocityCom->getAcceleration() * velocityCom->getDirection().x) * velocityCom->getDeceleration();
 			velocityCom->getVelocity().y = (velocityCom->getVelocity().y + velocityCom->getAcceleration() * velocityCom->getDirection().y) * velocityCom->getDeceleration();
-
-			it->move(velocityCom->getVelocity() * deltaTime.asSeconds());
 		}
 	}
 }

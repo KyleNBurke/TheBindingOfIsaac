@@ -2,7 +2,7 @@
 #include "GameplayState.hpp"
 #include "Input.hpp"
 
-GameplayState::GameplayState(sf::RenderWindow& window, const sf::Time& deltaTime) : map(hud), renderSystem(window), inputSystem(), physicsSystem(deltaTime)
+GameplayState::GameplayState(sf::RenderWindow& window, const sf::Time& deltaTime) : map(hud), renderSystem(window), inputSystem(), collisionSystem(deltaTime)
 {
 	Room::initialize();
 

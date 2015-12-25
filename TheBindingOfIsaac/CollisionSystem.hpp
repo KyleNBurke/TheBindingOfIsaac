@@ -8,12 +8,14 @@
 
 class CollisionSystem : public System {
 public:
-	CollisionSystem();
+	CollisionSystem(const sf::Time& deltaTime);
 
 	void update(std::vector<Entity>& entities);
 
 private:
 	enum Direction { Horizontal, Vertical };
 
-	void resolveCollisions(Direction direction, Entity& entity, VelocityCom& velocityCom, bool hasPitCollision, bool hasWallCollision);
+	void resolveCollisions(Direction direction, Entity& entity, sf::Vector2f& position, sf::Vector2f& velocity, bool hasPitCollision, bool hasWallCollision);
+
+	const sf::Time& deltaTime;
 };

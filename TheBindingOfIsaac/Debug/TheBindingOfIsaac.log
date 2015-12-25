@@ -1,11 +1,6 @@
-﻿Build started 11/27/2015 1:08:23 PM.
-     1>Project "C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\TheBindingOfIsaac\TheBindingOfIsaac.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Dependencies\SFML-2.2-Win32-VS2013\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\TheBindingOfIsaac.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt CollisionSystem.cpp
-         CollisionSystem.cpp
-     1>c:\users\kyle\documents\projects\thebindingofisaac\thebindingofisaac\collisionsystem.cpp(17): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\kyle\documents\projects\thebindingofisaac\thebindingofisaac\collisionsystem.cpp(21): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-       Link:
+﻿Build started 12/25/2015 1:19:55 AM.
+     1>Project "C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\TheBindingOfIsaac\TheBindingOfIsaac.vcxproj" on node 3 (Build target(s)).
+     1>Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\Debug\TheBindingOfIsaac.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Dependencies\SFML-2.2-Win32-VS2013\lib" "sfml-graphics-d.lib" "sfml-audio-d.lib" "sfml-system-d.lib" "sfml-window-d.lib" "sfml-network-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\Debug\TheBindingOfIsaac.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\Debug\TheBindingOfIsaac.lib" /MACHINE:X86 Debug\Assemblages.obj
          Debug\CollisionSystem.obj
          Debug\Component.obj
@@ -23,6 +18,7 @@
          Debug\RenderSystem.obj
          Debug\Room.obj
          Debug\State.obj
+         Debug\StatsState.obj
          Debug\stdafx.obj
          Debug\main.obj
          Debug\System.obj
@@ -34,4 +30,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.05
+Time Elapsed 00:00:00.78

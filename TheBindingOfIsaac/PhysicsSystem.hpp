@@ -3,14 +3,12 @@
 #include "stdafx.h"
 #include "System.hpp"
 #include "VelocityCom.hpp"
+#include "Utilities.hpp"
 
 class PhysicsSystem : public System
 {
 public:
-	PhysicsSystem(const sf::Time& deltaTime);
+	PhysicsSystem();
 
 	void update(std::vector<Entity>& entities);
-
-private:
-	const sf::Time& deltaTime;
 };

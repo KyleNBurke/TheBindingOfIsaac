@@ -15,7 +15,7 @@ public:
 	bool hasComponent(Component::ComponentType type) const;
 	std::shared_ptr<Component> getComponent(Component::ComponentType type);
 
-	const sf::Sprite& getSprite() const;
+	sf::Sprite& getSprite();
 	sf::Vector2f& getPosition();
 	sf::FloatRect getEntityBounds() const;
 

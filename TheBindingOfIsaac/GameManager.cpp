@@ -2,6 +2,7 @@
 #include "GameManager.hpp"
 #include "Input.hpp"
 #include "GameplayState.hpp"
+#include "StatsState.hpp"
 #include "Utilities.hpp"
 
 GameManager::GameManager() : windowHasFocus(true),
@@ -15,6 +16,8 @@ GameManager& GameManager::getInstance()
 
 void GameManager::initialize()
 {
+	Utilities::getInstance().initialize();
+
 	int scale = Utilities::getInstance().getScale();
 	int tileSize = Room::tileSize;
 
@@ -25,8 +28,11 @@ void GameManager::initialize()
 	window.setKeyRepeatEnabled(false);
 
 	std::shared_ptr<GameplayState> gameplayState(new GameplayState(window, timeStep));
+	std::shared_ptr<StatsState> statsState(new StatsState());
 	addState(gameplayState);
 	gameplayState->initialize();
+	addState(statsState);
+	statsState->initialize();
 }
 
 void GameManager::gameLoop()

@@ -37,7 +37,7 @@ std::shared_ptr<Component> Entity::getComponent(Component::ComponentType type)
 	return std::shared_ptr<Component>();
 }
 
-const sf::Sprite& Entity::getSprite() const
+sf::Sprite& Entity::getSprite()
 {
 	return sprite;
 }

@@ -110,6 +110,9 @@
     <ClInclude Include="WallCollisionCom.hpp">
       <Filter>Source Files\Components\Collision</Filter>
     </ClInclude>
+    <ClInclude Include="StatsState.hpp">
+      <Filter>Source Files\States</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -180,6 +183,9 @@
     </ClCompile>
     <ClCompile Include="WallCollisionCom.cpp">
       <Filter>Source Files\Components\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="StatsState.cpp">
+      <Filter>Source Files\States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

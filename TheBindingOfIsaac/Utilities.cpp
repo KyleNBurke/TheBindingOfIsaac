@@ -10,6 +10,11 @@ Utilities& Utilities::getInstance()
 	return instance;
 }
 
+void Utilities::initialize()
+{
+	font.loadFromFile("lucon.ttf");
+}
+
 float Utilities::round(float value) const
 {
 	return value > 0.0 ? std::floor(value + 0.5f) : std::ceil(value - 0.5f);
@@ -57,4 +62,9 @@ float Utilities::getVertIntersectionDepth(sf::IntRect rectA, sf::IntRect rectB) 
 int Utilities::getScale() const
 {
 	return scale;
+}
+
+sf::Font& Utilities::getFont()
+{
+	return font;
 }

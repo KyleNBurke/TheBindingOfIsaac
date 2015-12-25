@@ -9,7 +9,7 @@ Player::Player() : sprite(spriteSheet, sf::IntRect(0, 0, 7, 7)), acceleration(70
 	spriteSheet.loadFromFile("Player.png");
 	sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
 
-	position = sf::Vector2f(200.0f, 200.0f);
+	position = sf::Vector2f(250.0f, 200.0f);
 }
 
 void Player::update(sf::Time deltaTime)
@@ -59,6 +59,7 @@ void Player::resolveCollisions(Player::Direction direction)
 			if(tileType == Room::TileType::wall || tileType == Room::TileType::pit)
 			{
 				sf::IntRect tile(x * scale, y * scale, scale, scale);
+				std::cout << direction<< std::endl;
 
 				float depth;
 				if(direction == Direction::horizontal)
