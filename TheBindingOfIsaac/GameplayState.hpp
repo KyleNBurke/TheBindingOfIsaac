@@ -23,13 +23,15 @@ public:
 	void update(sf::Time deltaTime);
 	void draw(sf::RenderWindow& window);
 
+	std::vector<Entity> entityQueue;
+	std::vector<Entity> entities;
+
 private:
 	StatsState& statsState;
 	HUD hud;
 	Map map;
 	Player player;
 
-	std::vector<Entity> entities;
 	RenderSystem renderSystem;
 	InputSystem inputSystem;
 	PhysicsSystem physicsSystem;

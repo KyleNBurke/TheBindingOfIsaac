@@ -10,7 +10,7 @@ void StatsState::initialize() {
 }
 
 void StatsState::update(sf::Time deltaTime) {
-	if(clockUpdate.getElapsedTime().asSeconds() > 1.0f) {
+	if(clockUpdate.getElapsedTime().asSeconds() >= 1.0f) {
 		fps.setString("FPS: " + std::to_string(frames));
 		frames = 0;
 		clockUpdate.restart();
@@ -20,7 +20,7 @@ void StatsState::update(sf::Time deltaTime) {
 }
 
 void StatsState::draw(sf::RenderWindow& window) {
-	if(clockDraw.getElapsedTime().asSeconds() > 1.0f) {
+	if(clockDraw.getElapsedTime().asSeconds() >= 1.0f) {
 		drawCalls.setString("Draw Calls: " + std::to_string(draws));
 		draws = 0;
 		clockDraw.restart();

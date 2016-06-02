@@ -39,6 +39,9 @@
     <Filter Include="Source Files\Components\Collision">
       <UniqueIdentifier>{971d94e5-458c-4802-9c01-06e70d2ccad2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Components\Projectile">
+      <UniqueIdentifier>{3f6fb13a-ebc5-4a1b-8f07-8fe52f57c3cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -113,6 +116,12 @@
     <ClInclude Include="StatsState.hpp">
       <Filter>Source Files\States</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerProjectileCom.hpp">
+      <Filter>Source Files\Components\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectileSystem.hpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -186,6 +195,12 @@
     </ClCompile>
     <ClCompile Include="StatsState.cpp">
       <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerProjectileCom.cpp">
+      <Filter>Source Files\Components\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectileSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

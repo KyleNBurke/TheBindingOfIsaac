@@ -2,7 +2,7 @@
 #include "Utilities.hpp"
 #include "Room.hpp"
 
-Utilities::Utilities() : scale(10) {}
+Utilities::Utilities() : scale(8) {}
 
 Utilities& Utilities::getInstance()
 {

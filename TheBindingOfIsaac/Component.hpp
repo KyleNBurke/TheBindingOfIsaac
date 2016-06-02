@@ -9,7 +9,8 @@ public:
 		PlayerControlled,
 		Velocity,
 		PitCollision,
-		WallCollision
+		WallCollision,
+		PlayerProjectileCom
 	};
 
 	Component();

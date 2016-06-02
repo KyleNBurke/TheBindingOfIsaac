@@ -14,6 +14,7 @@ public:
 	void initialize();
 
 	Entity createPlayer();
+	Entity createProjectile(sf::Vector2f position, sf::Vector2f velocity);
 
 private:
 	Assemblages();
@@ -21,4 +22,5 @@ private:
 	void operator=(const Assemblages&);
 
 	sf::Texture playerSpriteSheet;
+	sf::Texture projectilesSpriteSheet;
 };

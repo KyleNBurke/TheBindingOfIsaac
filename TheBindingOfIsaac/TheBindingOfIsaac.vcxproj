@@ -99,6 +99,8 @@
     <ClInclude Include="PitCollisionCom.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="PlayerControlledCom.hpp" />
+    <ClInclude Include="PlayerProjectileCom.hpp" />
+    <ClInclude Include="ProjectileSystem.hpp" />
     <ClInclude Include="RenderSystem.hpp" />
     <ClInclude Include="Room.hpp" />
     <ClInclude Include="State.hpp" />
@@ -125,6 +127,8 @@
     <ClCompile Include="PitCollisionCom.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerControlledCom.cpp" />
+    <ClCompile Include="PlayerProjectileCom.cpp" />
+    <ClCompile Include="ProjectileSystem.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="State.cpp" />
