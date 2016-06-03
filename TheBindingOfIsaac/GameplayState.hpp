@@ -11,7 +11,6 @@
 #include "RenderSystem.hpp"
 #include "InputSystem.hpp"
 #include "PhysicsSystem.hpp"
-#include "CollisionSystem.hpp"
 
 class GameplayState : public State
 {
@@ -35,5 +34,4 @@ private:
 	RenderSystem renderSystem;
 	InputSystem inputSystem;
 	PhysicsSystem physicsSystem;
-	CollisionSystem collisionSystem;
 };

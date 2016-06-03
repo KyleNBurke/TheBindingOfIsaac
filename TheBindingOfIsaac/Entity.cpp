@@ -3,12 +3,6 @@
 
 Entity::Entity(sf::Sprite sprite) : sprite(sprite) {}
 
-void Entity::move(sf::Vector2f amount)
-{
-	position += amount;
-	sprite.setPosition(position);
-}
-
 void Entity::addComponent(std::unique_ptr<Component> component)
 {
 	components.push_back(std::move(component));
@@ -16,7 +10,7 @@ void Entity::addComponent(std::unique_ptr<Component> component)
 
 void Entity::removeComponent(Component& component)
 {
-
+	std::cout << "removeComponent() not implemented" << std::endl;
 }
 
 bool Entity::hasComponent(Component::ComponentType type) const
@@ -35,24 +29,4 @@ std::shared_ptr<Component> Entity::getComponent(Component::ComponentType type)
 			return *it;
 
 	return std::shared_ptr<Component>();
-}
-
-sf::Sprite& Entity::getSprite()
-{
-	return sprite;
-}
-
-sf::Vector2f& Entity::getPosition()
-{
-	return position;
-}
-
-sf::FloatRect Entity::getEntityBounds() const
-{
-	return sf::FloatRect(position.x, position.y, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
-}
-
-void Entity::setScale(float factorX, float factorY)
-{
-	sprite.setScale(factorX, factorY);
 }

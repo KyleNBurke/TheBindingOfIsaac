@@ -104,9 +104,6 @@
     <ClInclude Include="PhysicsSystem.hpp">
       <Filter>Source Files\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionSystem.hpp">
-      <Filter>Source Files\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="PitCollisionCom.hpp">
       <Filter>Source Files\Components\Collision</Filter>
     </ClInclude>
@@ -121,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="ProjectileSystem.hpp">
       <Filter>Source Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="AccelDecelCom.hpp">
+      <Filter>Source Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -184,9 +184,6 @@
     <ClCompile Include="PhysicsSystem.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionSystem.cpp">
-      <Filter>Source Files\Systems</Filter>
-    </ClCompile>
     <ClCompile Include="PitCollisionCom.cpp">
       <Filter>Source Files\Components\Collision</Filter>
     </ClCompile>
@@ -201,6 +198,9 @@
     </ClCompile>
     <ClCompile Include="ProjectileSystem.cpp">
       <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="AccelDecelCom.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -12,6 +12,7 @@ public:
 	void addProjectile(sf::Vector2f position, sf::Vector2f direction, std::vector<Entity>& entities);
 	Component::ComponentType getType() const;
 
-	//std::vector<Entity> projectiles;
-	const static float velocityConst;
+	static sf::Clock fireResetClock;
+	static const float fireResetTime;
+	static const float velocityConst;
 };

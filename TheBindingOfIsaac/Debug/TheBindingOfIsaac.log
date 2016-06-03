@@ -1,11 +1,11 @@
-﻿Build started 6/1/2016 1:14:19 AM.
+﻿Build started 6/3/2016 1:56:51 AM.
      1>Project "C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\TheBindingOfIsaac\TheBindingOfIsaac.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Dependencies\SFML-2.2-Win32-VS2013\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\TheBindingOfIsaac.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt InputSystem.cpp
          InputSystem.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\Debug\TheBindingOfIsaac.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Dependencies\SFML-2.2-Win32-VS2013\lib" "sfml-graphics-d.lib" "sfml-audio-d.lib" "sfml-system-d.lib" "sfml-window-d.lib" "sfml-network-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\Debug\TheBindingOfIsaac.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\Debug\TheBindingOfIsaac.lib" /MACHINE:X86 Debug\Assemblages.obj
-         Debug\CollisionSystem.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\Debug\TheBindingOfIsaac.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Dependencies\SFML-2.2-Win32-VS2013\lib" "sfml-graphics-d.lib" "sfml-audio-d.lib" "sfml-system-d.lib" "sfml-window-d.lib" "sfml-network-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\Debug\TheBindingOfIsaac.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\Debug\TheBindingOfIsaac.lib" /MACHINE:X86 Debug\AccelDecelCom.obj
+         Debug\Assemblages.obj
          Debug\Component.obj
          Debug\Entity.obj
          Debug\GameManager.obj
@@ -35,4 +35,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.59
+Time Elapsed 00:00:00.55

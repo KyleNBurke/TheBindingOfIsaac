@@ -3,6 +3,7 @@
 #include "Entity.hpp"
 #include "PlayerControlledCom.hpp"
 #include "VelocityCom.hpp"
+#include "AccelDecelCom.hpp"
 #include "PitCollisionCom.hpp"
 #include "WallCollisionCom.hpp"
 

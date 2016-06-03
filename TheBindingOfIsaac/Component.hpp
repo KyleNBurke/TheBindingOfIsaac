@@ -8,6 +8,7 @@ public:
 	enum ComponentType {
 		PlayerControlled,
 		Velocity,
+		AccelDecel,
 		PitCollision,
 		WallCollision,
 		PlayerProjectileCom

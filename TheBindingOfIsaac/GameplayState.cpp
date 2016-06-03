@@ -7,7 +7,7 @@ GameplayState::GameplayState(StatsState& statsState, sf::RenderWindow& window, c
 	map(hud),
 	renderSystem(window),
 	inputSystem(entityQueue),
-	collisionSystem(deltaTime)
+	physicsSystem(deltaTime)
 {
 	Room::initialize();
 
@@ -48,7 +48,6 @@ void GameplayState::update(sf::Time deltaTime)
 	//-----------------------------------------------------------------------------
 	inputSystem.update(entities);
 	physicsSystem.update(entities);
-	collisionSystem.update(entities);
 
 }
 

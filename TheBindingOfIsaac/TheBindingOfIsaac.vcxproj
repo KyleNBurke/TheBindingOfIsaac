@@ -85,8 +85,8 @@
     <Text Include="Notes.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AccelDecelCom.hpp" />
     <ClInclude Include="Assemblages.hpp" />
-    <ClInclude Include="CollisionSystem.hpp" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="GameManager.hpp" />
@@ -113,8 +113,8 @@
     <ClInclude Include="WallCollisionCom.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AccelDecelCom.cpp" />
     <ClCompile Include="Assemblages.cpp" />
-    <ClCompile Include="CollisionSystem.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameManager.cpp" />
