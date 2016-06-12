@@ -4,15 +4,12 @@
 #include "VelocityCom.hpp"
 #include "PlayerProjectileCom.hpp"
 
-class VelocityCom;
+//class GameplayState;
 
 class InputSystem : public System
 {
 public:
-	InputSystem(std::vector<Entity>& entityQueue);
+	InputSystem();
 
-	void update(std::vector<Entity>& entities);
-
-private:
-	std::vector<Entity>& entityQueue;
+	void update(Entity& entity);
 };

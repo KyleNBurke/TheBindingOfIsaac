@@ -6,7 +6,12 @@
 class ProjectileSystem : public System
 {
 public:
-	ProjectileSystem();
+	ProjectileSystem(const sf::Time& deltaTime);
 
-	void update(std::vector<Entity>& entities);
+	void update(Entity& entity);
+
+private:
+	void removeProjectile(Entity& projectile);
+
+	const sf::Time& deltaTime;
 };

@@ -13,7 +13,7 @@ class PhysicsSystem : public System
 public:
 	PhysicsSystem(const sf::Time& deltaTime);
 
-	void update(std::vector<Entity>& entities);
+	void update(Entity& entity);
 
 private:
 	enum Direction { Horizontal, Vertical };

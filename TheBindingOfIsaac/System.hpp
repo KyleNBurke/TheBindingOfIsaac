@@ -8,5 +8,5 @@ class System
 public:
 	System();
 
-	virtual void update(std::vector<Entity>& entities) = 0;
+	virtual void update(Entity& entity) = 0;
 };

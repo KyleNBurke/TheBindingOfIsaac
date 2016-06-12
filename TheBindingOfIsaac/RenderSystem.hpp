@@ -8,7 +8,7 @@ class RenderSystem : public System
 public:
 	RenderSystem(sf::RenderWindow& window);
 
-	void update(std::vector<Entity>& entities);
+	void update(Entity& entity);
 private:
 	sf::RenderWindow& window;
 };

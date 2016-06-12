@@ -3,4 +3,4 @@
 
 System::System() {}
 
-void System::update(std::vector<Entity>& entities) {};
+void System::update(Entity& entity) {};

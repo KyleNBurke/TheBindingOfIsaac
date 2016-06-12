@@ -2,8 +2,8 @@
 #include "PlayerProjectileCom.hpp"
 #include "Assemblages.hpp"
 
-const float PlayerProjectileCom::velocityConst = 800.0f;
-const float PlayerProjectileCom::fireResetTime = 0.375;
+const float PlayerProjectileCom::velocityConst = 600.0f;
+const float PlayerProjectileCom::fireResetTime = 0.1f;//0.375f;
 sf::Clock PlayerProjectileCom::fireResetClock = sf::Clock();
 
 PlayerProjectileCom::PlayerProjectileCom() {}

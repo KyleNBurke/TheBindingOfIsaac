@@ -97,7 +97,6 @@
     <ClInclude Include="Map.hpp" />
     <ClInclude Include="PhysicsSystem.hpp" />
     <ClInclude Include="PitCollisionCom.hpp" />
-    <ClInclude Include="Player.hpp" />
     <ClInclude Include="PlayerControlledCom.hpp" />
     <ClInclude Include="PlayerProjectileCom.hpp" />
     <ClInclude Include="ProjectileSystem.hpp" />
@@ -125,7 +124,6 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="PitCollisionCom.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerControlledCom.cpp" />
     <ClCompile Include="PlayerProjectileCom.cpp" />
     <ClCompile Include="ProjectileSystem.cpp" />

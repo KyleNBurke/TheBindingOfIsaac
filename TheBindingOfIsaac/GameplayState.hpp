@@ -5,12 +5,12 @@
 #include "StatsState.hpp"
 #include "Map.hpp"
 #include "HUD.hpp"
-#include "Player.hpp"
 
 #include "Assemblages.hpp"
 #include "RenderSystem.hpp"
 #include "InputSystem.hpp"
 #include "PhysicsSystem.hpp"
+#include "ProjectileSystem.hpp"
 
 class GameplayState : public State
 {
@@ -22,16 +22,13 @@ public:
 	void update(sf::Time deltaTime);
 	void draw(sf::RenderWindow& window);
 
-	std::vector<Entity> entityQueue;
-	std::vector<Entity> entities;
-
 private:
 	StatsState& statsState;
 	HUD hud;
 	Map map;
-	Player player;
 
 	RenderSystem renderSystem;
 	InputSystem inputSystem;
 	PhysicsSystem physicsSystem;
+	ProjectileSystem projectileSystem;
 };

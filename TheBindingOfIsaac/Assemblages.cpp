@@ -37,6 +37,7 @@ Entity Assemblages::createProjectile(sf::Vector2f position, sf::Vector2f velocit
 	projectile.position.x = position.x + 1.5f * (float)Utilities::getInstance().getScale();
 	projectile.position.y = position.y + 1.5f * (float)Utilities::getInstance().getScale();
 	projectile.addComponent(std::unique_ptr<Component>(new VelocityCom(velocity)));
+	projectile.addComponent(std::unique_ptr<Component>(new PlayerProjectileCom()));
 
 	return projectile;
 }

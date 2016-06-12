@@ -1,12 +1,16 @@
 #include "stdafx.h"
 #include "Room.hpp"
 #include "Utilities.hpp"
+#include "Assemblages.hpp"
 
 sf::Texture& Room::backgroundTex = sf::Texture();
 sf::Texture& Room::foregroundTex = sf::Texture();
 const int Room::tileSize;
 const int Room::width;
 const int Room::height;
+std::vector<Entity> Room::entities;
+std::vector<Entity> Room::addEntityQueue;
+std::vector<std::unique_ptr<Entity>> Room::removeEntityQueue;
 
 Room::Room() : active(false)
 {
@@ -18,6 +22,8 @@ void Room::initialize()
 {
 	backgroundTex.loadFromFile("Background.png");
 	foregroundTex.loadFromFile("Foreground.png");
+
+	entities.push_back(Assemblages::getInstance().createPlayer());
 }
 
 void Room::load(std::string fileName)

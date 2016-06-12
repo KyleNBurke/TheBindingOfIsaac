@@ -6,6 +6,7 @@
 #include "AccelDecelCom.hpp"
 #include "PitCollisionCom.hpp"
 #include "WallCollisionCom.hpp"
+#include "PlayerProjectileCom.hpp"
 
 class Assemblages
 {

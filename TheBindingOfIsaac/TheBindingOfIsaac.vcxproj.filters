@@ -24,9 +24,6 @@
     <Filter Include="Source Files\HUD">
       <UniqueIdentifier>{fcc15683-c81f-4b60-9315-749847a83e72}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Player">
-      <UniqueIdentifier>{c4da1fa7-4485-447a-a64a-dd88c2642b78}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Components">
       <UniqueIdentifier>{fb28fefd-e359-4c0a-9b80-95f58e58175a}</UniqueIdentifier>
     </Filter>
@@ -73,9 +70,6 @@
     </ClInclude>
     <ClInclude Include="HUD.hpp">
       <Filter>Source Files\HUD</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.hpp">
-      <Filter>Source Files\Player</Filter>
     </ClInclude>
     <ClInclude Include="Entity.hpp">
       <Filter>Source Files\Entities</Filter>
@@ -153,9 +147,6 @@
     </ClCompile>
     <ClCompile Include="HUD.cpp">
       <Filter>Source Files\HUD</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files\Player</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\Entities</Filter>
