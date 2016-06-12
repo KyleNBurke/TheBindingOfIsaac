@@ -1,9 +1,0 @@
-C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\MapConverter\bin\Release\MapConverter.exe.config
-C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\MapConverter\bin\Release\MapConverter.exe
-C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\MapConverter\bin\Release\MapConverter.pdb
-C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\MapConverter\obj\Release\MapConverter.csprojResolveAssemblyReference.cache
-C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\MapConverter\obj\Release\MapConverter.Form1.resources
-C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\MapConverter\obj\Release\MapConverter.Properties.Resources.resources
-C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\MapConverter\obj\Release\MapConverter.csproj.GenerateResource.Cache
-C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\MapConverter\obj\Release\MapConverter.exe
-C:\Users\Kyle\Documents\Projects\TheBindingOfIsaac\MapConverter\obj\Release\MapConverter.pdb
