@@ -13,6 +13,7 @@ void Assemblages::initialize()
 {
 	playerSpriteSheet.loadFromFile("Player.png");
 	projectilesSpriteSheet.loadFromFile("Projectiles.png");
+	enemySpriteSheet.loadFromFile("Enemies.png");
 }
 
 Entity Assemblages::createPlayer()
@@ -40,4 +41,14 @@ Entity Assemblages::createProjectile(sf::Vector2f position, sf::Vector2f velocit
 	projectile.addComponent(std::unique_ptr<Component>(new PlayerProjectileCom()));
 
 	return projectile;
+}
+
+Entity Assemblages::createTurret(sf::Vector2f position)
+{
+	Entity turret(sf::Sprite(enemySpriteSheet, sf::IntRect(0, 0, 6, 6)));
+	turret.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
+	turret.sprite.setPosition(position);
+	turret.addComponent(std::unique_ptr<Component>(new DamageCom(1)));
+
+	return turret;
 }

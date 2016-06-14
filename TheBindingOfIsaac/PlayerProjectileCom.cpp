@@ -10,5 +10,5 @@ PlayerProjectileCom::PlayerProjectileCom() {}
 
 Component::ComponentType PlayerProjectileCom::getType() const
 {
-	return Component::ComponentType::PlayerProjectileCom;
+	return Component::ComponentType::PlayerProjectile;
 }

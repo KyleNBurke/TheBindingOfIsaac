@@ -7,6 +7,7 @@
 #include "PitCollisionCom.hpp"
 #include "WallCollisionCom.hpp"
 #include "PlayerProjectileCom.hpp"
+#include "DamageCom.hpp"
 
 class Assemblages
 {
@@ -17,6 +18,7 @@ public:
 
 	Entity createPlayer();
 	Entity createProjectile(sf::Vector2f position, sf::Vector2f velocity);
+	Entity createTurret(sf::Vector2f position);
 
 private:
 	Assemblages();
@@ -25,4 +27,5 @@ private:
 
 	sf::Texture playerSpriteSheet;
 	sf::Texture projectilesSpriteSheet;
+	sf::Texture enemySpriteSheet;
 };

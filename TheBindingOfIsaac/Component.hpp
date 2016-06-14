@@ -11,7 +11,8 @@ public:
 		AccelDecel,
 		PitCollision,
 		WallCollision,
-		PlayerProjectileCom
+		PlayerProjectile,
+		Damage
 	};
 
 	Component();

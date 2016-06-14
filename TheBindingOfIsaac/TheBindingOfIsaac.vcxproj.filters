@@ -116,6 +116,9 @@
     <ClInclude Include="AccelDecelCom.hpp">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="DamageCom.hpp">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -191,6 +194,9 @@
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
     <ClCompile Include="AccelDecelCom.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageCom.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>

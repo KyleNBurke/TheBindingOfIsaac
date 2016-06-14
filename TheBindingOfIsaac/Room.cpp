@@ -24,6 +24,7 @@ void Room::initialize()
 	foregroundTex.loadFromFile("Foreground.png");
 
 	entities.push_back(Assemblages::getInstance().createPlayer());
+	entities.push_back(Assemblages::getInstance().createTurret(sf::Vector2f(800.0f, 500.0f)));
 }
 
 void Room::load(std::string fileName)
