@@ -12,7 +12,8 @@ public:
 		PitCollision,
 		WallCollision,
 		PlayerProjectile,
-		Damage
+		Damage,
+		Health
 	};
 
 	Component();

@@ -119,6 +119,9 @@
     <ClInclude Include="DamageCom.hpp">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="HealthCom.hpp">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -198,6 +201,9 @@
     </ClCompile>
     <ClCompile Include="DamageCom.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthCom.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
