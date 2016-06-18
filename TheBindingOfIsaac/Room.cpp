@@ -10,7 +10,6 @@ const int Room::width;
 const int Room::height;
 std::vector<Entity> Room::entities;
 std::vector<Entity> Room::addEntityQueue;
-std::vector<std::unique_ptr<Entity>> Room::removeEntityQueue;
 
 Room::Room() : active(false)
 {

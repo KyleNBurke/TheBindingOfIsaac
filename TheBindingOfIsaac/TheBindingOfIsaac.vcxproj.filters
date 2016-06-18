@@ -203,7 +203,7 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="HealthCom.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

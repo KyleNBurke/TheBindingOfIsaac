@@ -97,7 +97,7 @@ void PhysicsSystem::resolveCollisions(Direction direction, Entity& entity, bool 
 					if(depth != 0.0f)
 					{
 						entity.position.y += depth;
-						std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity))->velocity.x = 0.0f;
+						std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity))->velocity.y = 0.0f;
 						entityBounds = getEntityBounds(entity);
 					}
 				}

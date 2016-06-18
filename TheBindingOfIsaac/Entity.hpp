@@ -17,6 +17,7 @@ public:
 
 	sf::Sprite sprite;
 	sf::Vector2f position;
+	bool shouldDelete;
 
 private:
 	std::vector<std::shared_ptr<Component>> components;

@@ -31,21 +31,21 @@ void InputSystem::update(Entity& entity)
 		if(length != 0)
 			velocityCom->direction /= length;
 
-		sf::Vector2f direction;
-
 		if(PlayerProjectileCom::fireResetClock.getElapsedTime().asSeconds() >= PlayerProjectileCom::fireResetTime)
 		{
+			sf::Vector2f direction;
+
 			if(Input::getInstance().keyHeld(sf::Keyboard::Key::I))
-				direction.y = -1;
+				direction.y -= 1;
 
 			if(Input::getInstance().keyHeld(sf::Keyboard::Key::K))
-				direction.y = 1;
+				direction.y += 1;
 
 			if(Input::getInstance().keyHeld(sf::Keyboard::Key::J))
-				direction.x = -1;
+				direction.x -= 1;
 
 			if(Input::getInstance().keyHeld(sf::Keyboard::Key::L))
-				direction.x = 1;
+				direction.x += 1;
 
 			length = std::sqrt(std::abs(direction.x) + std::abs(direction.y));
 			if(length != 0)
@@ -57,6 +57,8 @@ void InputSystem::update(Entity& entity)
 
 				PlayerProjectileCom::fireResetClock.restart();
 			}
+
+
 		}
 	}
 }

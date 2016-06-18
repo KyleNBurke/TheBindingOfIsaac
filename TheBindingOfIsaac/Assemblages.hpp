@@ -8,6 +8,7 @@
 #include "WallCollisionCom.hpp"
 #include "PlayerProjectileCom.hpp"
 #include "DamageCom.hpp"
+#include "HealthCom.hpp"
 
 class Assemblages
 {

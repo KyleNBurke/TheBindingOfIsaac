@@ -18,6 +18,7 @@ void ProjectileSystem::update(Entity& entity)
 			entityBounds.top + entityBounds.height >(Room::height + 1) * scale)
 		{
 			removeProjectile(entity);
+			return;
 		}
 
 		int left = (int)(std::floorf(entityBounds.left / scale));
@@ -33,5 +34,5 @@ void ProjectileSystem::update(Entity& entity)
 }
 
 void ProjectileSystem::removeProjectile(Entity& projectile) {
-	Room::removeEntityQueue.push_back(std::unique_ptr<Entity>(&projectile));
+	projectile.shouldDelete = true;
 }

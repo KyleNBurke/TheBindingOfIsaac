@@ -39,16 +39,18 @@ void GameplayState::update(sf::Time deltaTime)
 		}
 	}
 
-	for(std::vector<Entity>::iterator it = Room::entities.begin(); it != Room::entities.end(); ++it)
+	std::vector<Entity>::iterator it = Room::entities.begin();
+	while(it != Room::entities.end())
 	{
 		inputSystem.update(*it);
 		physicsSystem.update(*it);
 		projectileSystem.update(*it);
-	}
 
-	for(std::vector<std::unique_ptr<Entity>>::iterator it = Room::removeEntityQueue.begin(); it != Room::removeEntityQueue.end(); ++it)
-		Room::entities.erase(std::remove(Room::entities.begin(), Room::entities.end(), *it->release()), Room::entities.end());
-	Room::removeEntityQueue.clear();
+		if (it->shouldDelete)
+			it = Room::entities.erase(it);
+		else
+			++it;
+	}
 }
 
 void GameplayState::draw(sf::RenderWindow& window)

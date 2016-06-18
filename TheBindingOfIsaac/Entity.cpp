@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Entity.hpp"
 
-Entity::Entity(sf::Sprite sprite) : sprite(sprite) {}
+Entity::Entity(sf::Sprite sprite) : sprite(sprite), shouldDelete(false) {}
 
 void Entity::addComponent(std::unique_ptr<Component> component)
 {

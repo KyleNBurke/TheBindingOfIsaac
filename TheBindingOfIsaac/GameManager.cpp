@@ -26,7 +26,6 @@ void GameManager::initialize()
 
 	window.create(sf::VideoMode(windowSize.x, windowSize.y), "The Binding of Isaac - Pre Alpha v0.0.0"),
 	window.setKeyRepeatEnabled(false);
-
 	std::shared_ptr<StatsState> statsState(new StatsState());
 	std::shared_ptr<GameplayState> gameplayState(new GameplayState(*statsState, window, timeStep));
 	addState(gameplayState);

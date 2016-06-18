@@ -26,7 +26,6 @@ public:
 	static const int height = 10;
 	static std::vector<Entity> entities;
 	static std::vector<Entity> addEntityQueue;
-	static std::vector<std::unique_ptr<Entity>> removeEntityQueue;
 
 private:
 	bool active;

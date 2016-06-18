@@ -49,6 +49,7 @@ Entity Assemblages::createTurret(sf::Vector2f position)
 	turret.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
 	turret.sprite.setPosition(position);
 	turret.addComponent(std::unique_ptr<Component>(new DamageCom(1)));
+	turret.addComponent(std::unique_ptr<Component>(new HealthCom(3)));
 
 	return turret;
 }
