@@ -34,9 +34,8 @@ void GameplayState::update(sf::Time deltaTime)
 	if(Input::getInstance().keyPressed(sf::Keyboard::Key::F1)) {
 		statsState.setActive(!statsState.getActive());
 
-		if(statsState.getActive()) {
+		if(statsState.getActive())
 			statsState.reset();
-		}
 	}
 
 	std::vector<Entity>::iterator it = Room::entities.begin();
