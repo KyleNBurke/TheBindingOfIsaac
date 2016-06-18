@@ -58,7 +58,5 @@ void GameplayState::draw(sf::RenderWindow& window)
 	hud.draw(window);
 
 	for(std::vector<Entity>::iterator it = Room::entities.begin(); it != Room::entities.end(); ++it)
-	{
 		renderSystem.update(*it);
-	}
 }
