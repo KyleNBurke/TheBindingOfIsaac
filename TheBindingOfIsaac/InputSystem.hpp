@@ -4,7 +4,7 @@
 #include "System.hpp"
 #include "Input.hpp"
 #include "VelocityCom.hpp"
-#include "ProjectileCom.hpp"
+#include "PlayerProjectileCom.hpp"
 
 //class GameplayState;
 

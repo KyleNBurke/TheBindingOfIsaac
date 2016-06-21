@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "PlayerControlledCom.hpp"
 
-PlayerControlledCom::PlayerControlledCom() : fireResetTime(0.1f) {}
+PlayerControlledCom::PlayerControlledCom() {}
 
 Component::ComponentType PlayerControlledCom::getType() const
 {

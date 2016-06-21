@@ -30,36 +30,5 @@ void InputSystem::update(Entity& entity)
 		float length = std::sqrt(std::abs(velocityCom->direction.x) + std::abs(velocityCom->direction.y));
 		if(length != 0)
 			velocityCom->direction /= length;
-
-		std::shared_ptr<PlayerControlledCom> playerCom = std::dynamic_pointer_cast<PlayerControlledCom>(entity.getComponent(Component::ComponentType::PlayerControlled));
-
-		if(playerCom->fireResetClock.getElapsedTime().asSeconds() >= playerCom->fireResetTime)
-		{
-			sf::Vector2f direction;
-
-			if(Input::getInstance().keyHeld(sf::Keyboard::Key::I))
-				direction.y -= 1;
-
-			if(Input::getInstance().keyHeld(sf::Keyboard::Key::K))
-				direction.y += 1;
-
-			if(Input::getInstance().keyHeld(sf::Keyboard::Key::J))
-				direction.x -= 1;
-
-			if(Input::getInstance().keyHeld(sf::Keyboard::Key::L))
-				direction.x += 1;
-
-			length = std::sqrt(std::abs(direction.x) + std::abs(direction.y));
-			if(length != 0)
-			{
-				direction /= length;
-
-				Room::addEntityQueue.push_back(Assemblages::getInstance().createPlayerProjectile(entity.position, sf::Vector2f(500.0f * direction.x, 500.0f * direction.y)));
-
-				playerCom->fireResetClock.restart();
-			}
-
-
-		}
 	}
 }

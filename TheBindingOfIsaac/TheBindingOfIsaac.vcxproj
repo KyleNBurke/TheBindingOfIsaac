@@ -88,7 +88,7 @@
     <ClInclude Include="AccelDecelCom.hpp" />
     <ClInclude Include="Assemblages.hpp" />
     <ClInclude Include="Component.hpp" />
-    <ClInclude Include="DamageCom.hpp" />
+    <ClInclude Include="EnemyProjectileCom.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="GameManager.hpp" />
     <ClInclude Include="GameplayState.hpp" />
@@ -100,7 +100,8 @@
     <ClInclude Include="PhysicsSystem.hpp" />
     <ClInclude Include="PitCollisionCom.hpp" />
     <ClInclude Include="PlayerControlledCom.hpp" />
-    <ClInclude Include="ProjectileCom.hpp" />
+    <ClInclude Include="PlayerProjectileCom.hpp" />
+    <ClInclude Include="PlayerShotCom.hpp" />
     <ClInclude Include="ProjectileSystem.hpp" />
     <ClInclude Include="RenderSystem.hpp" />
     <ClInclude Include="Room.hpp" />
@@ -119,7 +120,7 @@
     <ClCompile Include="AccelDecelCom.cpp" />
     <ClCompile Include="Assemblages.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="DamageCom.cpp" />
+    <ClCompile Include="EnemyProjectileCom.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameplayState.cpp" />
@@ -131,7 +132,8 @@
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="PitCollisionCom.cpp" />
     <ClCompile Include="PlayerControlledCom.cpp" />
-    <ClCompile Include="ProjectileCom.cpp" />
+    <ClCompile Include="PlayerProjectileCom.cpp" />
+    <ClCompile Include="PlayerShotCom.cpp" />
     <ClCompile Include="ProjectileSystem.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="Room.cpp" />

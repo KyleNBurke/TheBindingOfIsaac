@@ -1,12 +1,14 @@
 #include "stdafx.h"
 #include "ProjectileSystem.hpp"
+#include "PlayerProjectileCom.hpp"
+#include "EnemyProjectileCom.hpp"
 #include "Map.hpp"
 
 ProjectileSystem::ProjectileSystem(const sf::Time& deltaTime) : deltaTime(deltaTime) {}
 
 void ProjectileSystem::update(Entity& entity)
 {
-	if(entity.hasComponent(Component::ComponentType::Projectile))
+	if(entity.hasComponent(Component::ComponentType::PlayerProjectile) || entity.hasComponent(Component::ComponentType::EnemyProjectile))
 	{
 		sf::FloatRect entityBounds = entity.sprite.getGlobalBounds();
 		int scale = Room::tileSize * Utilities::getInstance().getScale();
@@ -26,8 +28,17 @@ void ProjectileSystem::update(Entity& entity)
 		int bottom = (int)(std::ceilf((entityBounds.top + entityBounds.height) / scale)) - 1;
 
 		for(int x = left; x <= right; x++)
+		{
 			for(int y = top; y <= bottom; y++)
+			{
 				if(Map::getCurrentRoom().getTileType(x, y) == Room::TileType::wall)
+				{
 					entity.shouldDelete = true;
+					return;
+				}
+			}
+		}
+
+
 	}
 }

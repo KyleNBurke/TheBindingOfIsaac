@@ -1,7 +1,6 @@
 #pragma once
 
 #include "System.hpp"
-#include "ProjectileCom.hpp"
 
 class ProjectileSystem : public System
 {

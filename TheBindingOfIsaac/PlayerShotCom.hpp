@@ -3,12 +3,13 @@
 #include "stdafx.h"
 #include "Component.hpp"
 
-class DamageCom : public Component
+class PlayerShotCom : public Component
 {
 public:
-	DamageCom(int damage);
+	PlayerShotCom();
 
 	Component::ComponentType getType() const;
 
-	const int damage;
+	sf::Clock fireResetClock;
+	const float fireResetTime;
 };

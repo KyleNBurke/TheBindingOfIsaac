@@ -39,6 +39,9 @@
     <Filter Include="Source Files\Components\Shot">
       <UniqueIdentifier>{662f4381-bb8d-4316-a769-2c03d32a29b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Components\Projectile">
+      <UniqueIdentifier>{7d29f30b-e807-42cf-b508-868d458a9c68}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -113,20 +116,23 @@
     <ClInclude Include="AccelDecelCom.hpp">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="DamageCom.hpp">
-      <Filter>Source Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="HealthCom.hpp">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="TurretShotCom.hpp">
       <Filter>Source Files\Components\Shot</Filter>
     </ClInclude>
-    <ClInclude Include="ProjectileCom.hpp">
-      <Filter>Source Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="ShotSystem.hpp">
       <Filter>Source Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerProjectileCom.hpp">
+      <Filter>Source Files\Components\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyProjectileCom.hpp">
+      <Filter>Source Files\Components\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerShotCom.hpp">
+      <Filter>Source Files\Components\Shot</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -202,20 +208,23 @@
     <ClCompile Include="AccelDecelCom.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="DamageCom.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="HealthCom.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="TurretShotCom.cpp">
       <Filter>Source Files\Components\Shot</Filter>
     </ClCompile>
-    <ClCompile Include="ProjectileCom.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="ShotSystem.cpp">
       <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerProjectileCom.cpp">
+      <Filter>Source Files\Components\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyProjectileCom.cpp">
+      <Filter>Source Files\Components\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerShotCom.cpp">
+      <Filter>Source Files\Components\Shot</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -3,10 +3,10 @@
 #include "stdafx.h"
 #include "Component.hpp"
 
-class PlayerControlledCom : public Component
+class PlayerProjectileCom : public Component
 {
 public:
-	PlayerControlledCom();
+	PlayerProjectileCom();
 
 	Component::ComponentType getType() const;
 };
