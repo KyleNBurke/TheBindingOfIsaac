@@ -31,14 +31,25 @@ Entity Assemblages::createPlayer()
 	return player;
 }
 
-Entity Assemblages::createProjectile(sf::Vector2f position, sf::Vector2f velocity)
+Entity Assemblages::createPlayerProjectile(sf::Vector2f position, sf::Vector2f velocity)
 {
 	Entity projectile(sf::Sprite(projectilesSpriteSheet, sf::IntRect(0, 0, 4, 4)));
 	projectile.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
 	projectile.position.x = position.x + 1.5f * (float)Utilities::getInstance().getScale();
 	projectile.position.y = position.y + 1.5f * (float)Utilities::getInstance().getScale();
 	projectile.addComponent(std::unique_ptr<Component>(new VelocityCom(velocity)));
-	projectile.addComponent(std::unique_ptr<Component>(new PlayerProjectileCom()));
+	projectile.addComponent(std::unique_ptr<Component>(new ProjectileCom(ProjectileCom::ProjectileType::Player)));
+
+	return projectile;
+}
+
+Entity Assemblages::createRegularProjectile(sf::Vector2f position, sf::Vector2f velocity)
+{
+	Entity projectile(sf::Sprite(projectilesSpriteSheet, sf::IntRect(4, 0, 4, 4)));
+	projectile.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
+	projectile.position = position;
+	projectile.addComponent(std::unique_ptr<Component>(new VelocityCom(velocity)));
+	projectile.addComponent(std::unique_ptr<Component>(new ProjectileCom(ProjectileCom::ProjectileType::Regular)));
 
 	return projectile;
 }
@@ -50,6 +61,7 @@ Entity Assemblages::createTurret(sf::Vector2f position)
 	turret.sprite.setPosition(position);
 	turret.addComponent(std::unique_ptr<Component>(new DamageCom(1)));
 	turret.addComponent(std::unique_ptr<Component>(new HealthCom(3)));
+	turret.addComponent(std::unique_ptr<Component>(new TurretShotCom()));
 
 	return turret;
 }

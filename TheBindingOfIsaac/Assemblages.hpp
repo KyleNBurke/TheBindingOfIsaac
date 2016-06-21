@@ -6,9 +6,10 @@
 #include "AccelDecelCom.hpp"
 #include "PitCollisionCom.hpp"
 #include "WallCollisionCom.hpp"
-#include "PlayerProjectileCom.hpp"
+#include "ProjectileCom.hpp"
 #include "DamageCom.hpp"
 #include "HealthCom.hpp"
+#include "TurretShotCom.hpp"
 
 class Assemblages
 {
@@ -18,7 +19,8 @@ public:
 	void initialize();
 
 	Entity createPlayer();
-	Entity createProjectile(sf::Vector2f position, sf::Vector2f velocity);
+	Entity createPlayerProjectile(sf::Vector2f position, sf::Vector2f velocity);
+	Entity createRegularProjectile(sf::Vector2f position, sf::Vector2f direction);
 	Entity createTurret(sf::Vector2f position);
 
 private:

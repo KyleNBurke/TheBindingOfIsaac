@@ -1,8 +1,10 @@
+#pragma once
+
 #include "stdafx.h"
 #include "System.hpp"
 #include "Input.hpp"
 #include "VelocityCom.hpp"
-#include "PlayerProjectileCom.hpp"
+#include "ProjectileCom.hpp"
 
 //class GameplayState;
 

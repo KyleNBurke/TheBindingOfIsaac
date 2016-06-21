@@ -1,7 +1,7 @@
 #pragma once
 
 #include "System.hpp"
-#include "PlayerProjectileCom.hpp"
+#include "ProjectileCom.hpp"
 
 class ProjectileSystem : public System
 {
@@ -11,7 +11,5 @@ public:
 	void update(Entity& entity);
 
 private:
-	void removeProjectile(Entity& projectile);
-
 	const sf::Time& deltaTime;
 };

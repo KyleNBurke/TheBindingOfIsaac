@@ -10,6 +10,7 @@
 #include "RenderSystem.hpp"
 #include "InputSystem.hpp"
 #include "PhysicsSystem.hpp"
+#include "ShotSystem.hpp"
 #include "ProjectileSystem.hpp"
 
 class GameplayState : public State
@@ -30,5 +31,6 @@ private:
 	RenderSystem renderSystem;
 	InputSystem inputSystem;
 	PhysicsSystem physicsSystem;
+	ShotSystem shotSystem;
 	ProjectileSystem projectileSystem;
 };

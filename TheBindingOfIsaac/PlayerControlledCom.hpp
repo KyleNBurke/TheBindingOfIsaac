@@ -9,4 +9,7 @@ public:
 	PlayerControlledCom();
 
 	Component::ComponentType getType() const;
+
+	sf::Clock fireResetClock;
+	const float fireResetTime;
 };

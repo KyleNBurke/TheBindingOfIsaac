@@ -43,6 +43,7 @@ void GameplayState::update(sf::Time deltaTime)
 	{
 		inputSystem.update(*it);
 		physicsSystem.update(*it);
+		shotSystem.update(*it);
 		projectileSystem.update(*it);
 
 		if (it->shouldDelete)

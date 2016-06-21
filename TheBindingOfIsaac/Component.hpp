@@ -11,9 +11,10 @@ public:
 		AccelDecel,
 		PitCollision,
 		WallCollision,
-		PlayerProjectile,
+		Projectile,
 		Damage,
-		Health
+		Health,
+		TurretShot
 	};
 
 	Component();

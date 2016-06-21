@@ -36,8 +36,8 @@
     <Filter Include="Source Files\Components\Collision">
       <UniqueIdentifier>{971d94e5-458c-4802-9c01-06e70d2ccad2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Components\Projectile">
-      <UniqueIdentifier>{3f6fb13a-ebc5-4a1b-8f07-8fe52f57c3cd}</UniqueIdentifier>
+    <Filter Include="Source Files\Components\Shot">
+      <UniqueIdentifier>{662f4381-bb8d-4316-a769-2c03d32a29b9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -107,9 +107,6 @@
     <ClInclude Include="StatsState.hpp">
       <Filter>Source Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerProjectileCom.hpp">
-      <Filter>Source Files\Components\Projectile</Filter>
-    </ClInclude>
     <ClInclude Include="ProjectileSystem.hpp">
       <Filter>Source Files\Systems</Filter>
     </ClInclude>
@@ -121,6 +118,15 @@
     </ClInclude>
     <ClInclude Include="HealthCom.hpp">
       <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TurretShotCom.hpp">
+      <Filter>Source Files\Components\Shot</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectileCom.hpp">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ShotSystem.hpp">
+      <Filter>Source Files\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -190,9 +196,6 @@
     <ClCompile Include="StatsState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerProjectileCom.cpp">
-      <Filter>Source Files\Components\Projectile</Filter>
-    </ClCompile>
     <ClCompile Include="ProjectileSystem.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
@@ -204,6 +207,15 @@
     </ClCompile>
     <ClCompile Include="HealthCom.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TurretShotCom.cpp">
+      <Filter>Source Files\Components\Shot</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectileCom.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ShotSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

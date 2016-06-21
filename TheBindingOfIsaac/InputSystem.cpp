@@ -31,7 +31,9 @@ void InputSystem::update(Entity& entity)
 		if(length != 0)
 			velocityCom->direction /= length;
 
-		if(PlayerProjectileCom::fireResetClock.getElapsedTime().asSeconds() >= PlayerProjectileCom::fireResetTime)
+		std::shared_ptr<PlayerControlledCom> playerCom = std::dynamic_pointer_cast<PlayerControlledCom>(entity.getComponent(Component::ComponentType::PlayerControlled));
+
+		if(playerCom->fireResetClock.getElapsedTime().asSeconds() >= playerCom->fireResetTime)
 		{
 			sf::Vector2f direction;
 
@@ -52,10 +54,9 @@ void InputSystem::update(Entity& entity)
 			{
 				direction /= length;
 
-				sf::Vector2f velocity(PlayerProjectileCom::velocityConst * direction.x, PlayerProjectileCom::velocityConst * direction.y);
-				Room::addEntityQueue.push_back(Assemblages::getInstance().createProjectile(entity.position, velocity));
+				Room::addEntityQueue.push_back(Assemblages::getInstance().createPlayerProjectile(entity.position, sf::Vector2f(500.0f * direction.x, 500.0f * direction.y)));
 
-				PlayerProjectileCom::fireResetClock.restart();
+				playerCom->fireResetClock.restart();
 			}
 
 
