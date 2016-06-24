@@ -28,9 +28,6 @@ private:
 	HUD hud;
 	Map map;
 
+	std::vector<std::unique_ptr<System>> systems;
 	RenderSystem renderSystem;
-	InputSystem inputSystem;
-	PhysicsSystem physicsSystem;
-	ShotSystem shotSystem;
-	ProjectileSystem projectileSystem;
 };

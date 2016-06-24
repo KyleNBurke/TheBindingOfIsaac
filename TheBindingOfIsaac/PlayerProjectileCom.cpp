@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "PlayerProjectileCom.hpp"
 
-PlayerProjectileCom::PlayerProjectileCom() {}
+PlayerProjectileCom::PlayerProjectileCom() : damage(1) {}
 
 Component::ComponentType PlayerProjectileCom::getType() const
 {

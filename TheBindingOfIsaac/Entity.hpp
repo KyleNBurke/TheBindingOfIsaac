@@ -13,8 +13,6 @@ public:
 	bool hasComponent(Component::ComponentType type) const;
 	std::shared_ptr<Component> getComponent(Component::ComponentType type);
 
-	bool operator==(const Entity& entity) const;
-
 	sf::Sprite sprite;
 	sf::Vector2f position;
 	bool shouldDelete;

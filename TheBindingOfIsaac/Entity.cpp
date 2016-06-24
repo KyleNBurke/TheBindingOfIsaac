@@ -30,8 +30,3 @@ std::shared_ptr<Component> Entity::getComponent(Component::ComponentType type)
 
 	return std::shared_ptr<Component>();
 }
-
-bool Entity::operator==(const Entity& entity) const
-{
-	return this == &entity;
-}

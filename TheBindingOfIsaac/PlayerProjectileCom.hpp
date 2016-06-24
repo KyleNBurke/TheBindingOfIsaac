@@ -9,4 +9,6 @@ public:
 	PlayerProjectileCom();
 
 	Component::ComponentType getType() const;
+
+	int damage;
 };

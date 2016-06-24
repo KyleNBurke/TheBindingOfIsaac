@@ -24,8 +24,8 @@ public:
 	static const int tileSize = 8;
 	static const int width = 15;
 	static const int height = 10;
-	static std::vector<Entity> entities;
-	static std::vector<Entity> addEntityQueue;
+	std::vector<Entity> entities;
+	std::vector<Entity> addEntityQueue;
 
 private:
 	bool active;

@@ -10,5 +10,7 @@ public:
 	void update(Entity& entity);
 
 private:
+	void applyDamage(Entity& entity, int damage);
+
 	const sf::Time& deltaTime;
 };

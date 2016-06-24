@@ -83,6 +83,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Notes.txt" />
+    <Text Include="OldCode.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccelDecelCom.hpp" />

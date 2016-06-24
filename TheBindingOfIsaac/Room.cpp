@@ -8,8 +8,6 @@ sf::Texture& Room::foregroundTex = sf::Texture();
 const int Room::tileSize;
 const int Room::width;
 const int Room::height;
-std::vector<Entity> Room::entities;
-std::vector<Entity> Room::addEntityQueue;
 
 Room::Room() : active(false)
 {
@@ -21,9 +19,6 @@ void Room::initialize()
 {
 	backgroundTex.loadFromFile("Background.png");
 	foregroundTex.loadFromFile("Foreground.png");
-
-	entities.push_back(Assemblages::getInstance().createPlayer());
-	entities.push_back(Assemblages::getInstance().createTurret(sf::Vector2f(800.0f, 500.0f)));
 }
 
 void Room::load(std::string fileName)
@@ -159,6 +154,9 @@ void Room::load(std::string fileName)
 	fileStream.close();
 
 	active = true;
+
+	//Read file for entities...
+	entities.push_back(Assemblages::getInstance().createTurret(sf::Vector2f(800.0f, 500.0f)));
 }
 
 Room::TileType Room::getTileType(int x, int y)

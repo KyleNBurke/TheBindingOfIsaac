@@ -17,6 +17,7 @@ public:
 
 	static const int sizeX = 9;
 	static const int sizeY = 5;
+	static Entity player;
 
 private:
 	enum Direction { up, down, left, right };

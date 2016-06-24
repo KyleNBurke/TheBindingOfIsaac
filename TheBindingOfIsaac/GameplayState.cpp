@@ -2,16 +2,18 @@
 #include "GameplayState.hpp"
 #include "Input.hpp"
 
-GameplayState::GameplayState(StatsState& statsState, sf::RenderWindow& window, const sf::Time& deltaTime) : 
+GameplayState::GameplayState(StatsState& statsState, sf::RenderWindow& window, const sf::Time& deltaTime) :
 	statsState(statsState),
 	map(hud),
-	renderSystem(window),
-	physicsSystem(deltaTime),
-	projectileSystem(deltaTime)
+	renderSystem(window)
 {
 	Room::initialize();
-
 	map.generate(std::rand());
+
+	systems.push_back(std::unique_ptr<System>(new InputSystem()));
+	systems.push_back(std::unique_ptr<System>(new PhysicsSystem(deltaTime)));
+	systems.push_back(std::unique_ptr<System>(new ShotSystem()));
+	systems.push_back(std::unique_ptr<System>(new ProjectileSystem(deltaTime)));
 }
 
 void GameplayState::initialize()
@@ -21,9 +23,9 @@ void GameplayState::initialize()
 
 void GameplayState::update(sf::Time deltaTime)
 {
-	for(std::vector<Entity>::iterator& it = Room::addEntityQueue.begin(); it != Room::addEntityQueue.end(); ++it)
-		Room::entities.push_back(*it);
-	Room::addEntityQueue.clear();
+	for(std::vector<Entity>::iterator& it = Map::getCurrentRoom().addEntityQueue.begin(); it != Map::getCurrentRoom().addEntityQueue.end(); ++it)
+		Map::getCurrentRoom().entities.push_back(*it);
+	Map::getCurrentRoom().addEntityQueue.clear();
 
 	if(Input::getInstance().keyPressed(sf::Keyboard::Key::Space))
 	{
@@ -38,18 +40,19 @@ void GameplayState::update(sf::Time deltaTime)
 			statsState.reset();
 	}
 
-	std::vector<Entity>::iterator it = Room::entities.begin();
-	while(it != Room::entities.end())
-	{
-		inputSystem.update(*it);
-		physicsSystem.update(*it);
-		shotSystem.update(*it);
-		projectileSystem.update(*it);
+	for(std::vector<std::unique_ptr<System>>::iterator it = systems.begin(); it != systems.end(); ++it)
+		(*it)->update(Map::player);
 
-		if (it->shouldDelete)
-			it = Room::entities.erase(it);
+	std::vector<Entity>::iterator entityIt = Map::getCurrentRoom().entities.begin();
+	while(entityIt != Map::getCurrentRoom().entities.end())
+	{
+		for(std::vector<std::unique_ptr<System>>::iterator systemIt = systems.begin(); systemIt != systems.end(); ++systemIt)
+			(*systemIt)->update(*entityIt);
+
+		if (entityIt->shouldDelete)
+			entityIt = Map::getCurrentRoom().entities.erase(entityIt);
 		else
-			++it;
+			++entityIt;
 	}
 }
 
@@ -58,6 +61,7 @@ void GameplayState::draw(sf::RenderWindow& window)
 	map.draw(window);
 	hud.draw(window);
 
-	for(std::vector<Entity>::iterator it = Room::entities.begin(); it != Room::entities.end(); ++it)
+	renderSystem.update(Map::player);
+	for(std::vector<Entity>::iterator it = Map::getCurrentRoom().entities.begin(); it != Map::getCurrentRoom().entities.end(); ++it)
 		renderSystem.update(*it);
 }

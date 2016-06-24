@@ -1,0 +1,86 @@
+RAYCASTING OLD CODE
+
+void ProjectileSystem::update(Entity& entity)
+{
+	if(entity.hasComponent(Component::ComponentType::PlayerProjectileCom))
+	{
+		std::shared_ptr<VelocityCom> velocityCom = std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity));
+		sf::Vector2i start = (sf::Vector2i)entity.position;
+		sf::Vector2i end;
+		end.x = start.x + (int)Utilities::getInstance().round(velocityCom->velocity.x * deltaTime.asSeconds());
+		end.y = start.y + (int)Utilities::getInstance().round(velocityCom->velocity.y * deltaTime.asSeconds());
+		std::vector<sf::Vector2i> rayLine;
+		bool steep = std::abs(end.y - start.y) > std::abs(start.x - end.x);
+			
+		if(steep)
+		{
+			std::swap(start.x, start.y);
+			std::swap(end.x, end.y);
+		}
+
+		if(start.x > end.x) {
+			std::swap(start.x, end.x);
+			std::swap(start.y, end.y);
+		}
+
+		int deltax = end.x - start.x;
+		int deltay = std::abs(end.y - start.y);
+		int error = 0;
+		int ystep = (start.y < end.y) ? 1 : -1;
+		int y = start.y;
+
+		for(int x = start.x; x <= end.x; x++) {
+			if(steep)
+				rayLine.push_back(sf::Vector2i(y, x));
+			else
+				rayLine.push_back(sf::Vector2i(x, y));
+
+			error += deltay;
+			if(2 * error >= deltax) {
+				y += ystep;
+				error -= deltax;
+			}
+		}
+
+		std::size_t i = 0;
+		if(rayLine[0] != start)
+			i = rayLine.size() - 1;
+
+		int scale = Room::tileSize * Utilities::getInstance().getScale();
+		while(true)
+		{
+			int tilex = (int)(std::floorf((float)rayLine[i].x / (float)scale));
+			int tiley = (int)(std::floorf((float)rayLine[i].y / (float)scale));
+
+			if(!isTileTraversable(tilex, tiley))
+			{
+				removeProjectile();
+				break;
+			}
+
+			if(rayLine[0] != start)
+			{
+				i--;
+				if(i < 0)
+					break;
+			}
+			else
+			{
+				i++;
+				if(i >= rayLine.size())
+					break;
+			}
+		}
+	}
+}
+
+bool ProjectileSystem::isTileTraversable(int x, int y)
+{
+	if(x < 0 || y < 0)
+		return false;
+
+	if(x > Room::width || y > Room::height)
+		return false;
+
+	return !Map::getCurrentRoom().getTileType(x, y) == Room::TileType::wall;
+}

@@ -27,7 +27,7 @@ Entity Assemblages::createPlayer()
 	player.addComponent(std::unique_ptr<Component>(new AccelDecelCom(70.0f, 0.85f)));
 	player.addComponent(std::unique_ptr<Component>(new PitCollisionCom()));
 	player.addComponent(std::unique_ptr<Component>(new WallCollisionCom()));
-	player.addComponent(std::unique_ptr<Component>(new HealthCom(4)));
+	player.addComponent(std::unique_ptr<Component>(new HealthCom(10)));
 	player.addComponent(std::unique_ptr<Component>(new PlayerShotCom()));
 
 	return player;

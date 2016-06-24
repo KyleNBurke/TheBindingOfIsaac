@@ -4,7 +4,7 @@
 #include "PlayerShotCom.hpp"
 #include "Utilities.hpp"
 #include "Assemblages.hpp"
-#include "Room.hpp"
+#include "Map.hpp"
 #include "Input.hpp"
 
 ShotSystem::ShotSystem() {}
@@ -36,12 +36,10 @@ void ShotSystem::update(Entity& entity)
 			{
 				direction /= length;
 
-				Room::addEntityQueue.push_back(Assemblages::getInstance().createPlayerProjectile(entity.position, sf::Vector2f(500.0f * direction.x, 500.0f * direction.y)));
+				Map::getCurrentRoom().addEntityQueue.push_back(Assemblages::getInstance().createPlayerProjectile(entity.position, sf::Vector2f(500.0f * direction.x, 500.0f * direction.y)));
 
 				playerShotCom->fireResetClock.restart();
 			}
-
-
 		}
 	}
 
@@ -79,10 +77,10 @@ void ShotSystem::update(Entity& entity)
 			Entity p3 = Assemblages::getInstance().createRegularProjectile(pos, turret->projectileSpeed * dir3);
 			Entity p4 = Assemblages::getInstance().createRegularProjectile(pos, turret->projectileSpeed * dir4);
 
-			Room::addEntityQueue.push_back(p1);
-			Room::addEntityQueue.push_back(p2);
-			Room::addEntityQueue.push_back(p3);
-			Room::addEntityQueue.push_back(p4);
+			Map::getCurrentRoom().addEntityQueue.push_back(p1);
+			Map::getCurrentRoom().addEntityQueue.push_back(p2);
+			Map::getCurrentRoom().addEntityQueue.push_back(p3);
+			Map::getCurrentRoom().addEntityQueue.push_back(p4);
 
 			turret->timer.restart();
 			turret->flip = !turret->flip;

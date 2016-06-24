@@ -1,8 +1,10 @@
 #include "stdafx.h"
 #include "Map.hpp"
 #include "Utilities.hpp"
+#include "Assemblages.hpp"
 
 std::unique_ptr<Room> Map::currentRoom;
+Entity Map::player(Assemblages::getInstance().createPlayer());
 
 Map::Map(HUD& hud) : vertexArray(sf::Quads), hud(hud)
 {
