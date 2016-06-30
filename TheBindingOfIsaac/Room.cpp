@@ -26,9 +26,6 @@ void Room::load(std::string fileName)
 	std::ifstream fileStream;
 	fileStream.open(fileName, std::ios::in | std::ios::binary);
 
-	const int width = 15; //move these somewhere else
-	const int height = 10;
-
 	const int tileTexSize = tileSize;
 	const int tileScreenSize = tileTexSize * Utilities::getInstance().getScale();
 
@@ -50,7 +47,7 @@ void Room::load(std::string fileName)
 					continue;
 
 				tile--;
-				const int tilesInTexture = i == 0 ? backgroundTex.getSize().x / tileTexSize : foregroundTex.getSize().x / tileTexSize;
+				int tilesInTexture = i == 0 ? backgroundTex.getSize().x / tileTexSize : foregroundTex.getSize().x / tileTexSize;
 				sf::Vector2f texPos((float)(tile % tilesInTexture) * tileTexSize, (float)std::floor(tile / tilesInTexture) * tileTexSize);
 
 				vertTL.texCoords = sf::Vector2f(texPos);
@@ -58,10 +55,10 @@ void Room::load(std::string fileName)
 				vertBR.texCoords = sf::Vector2f(texPos.x + tileTexSize, texPos.y + tileTexSize);
 				vertTR.texCoords = sf::Vector2f(texPos.x + tileTexSize, texPos.y);
 
-				vertTL.position = sf::Vector2f((float)(k + 1) * tileScreenSize, (float)(j + 1) * tileScreenSize);
-				vertBL.position = sf::Vector2f((float)(k + 1) * tileScreenSize, (float)(j + 2) * tileScreenSize);
-				vertBR.position = sf::Vector2f((float)(k + 2) * tileScreenSize, (float)(j + 2) * tileScreenSize);
-				vertTR.position = sf::Vector2f((float)(k + 2) * tileScreenSize, (float)(j + 1) * tileScreenSize);
+				vertTL.position = sf::Vector2f((float)(k + 0) * tileScreenSize, (float)(j + 0) * tileScreenSize);
+				vertBL.position = sf::Vector2f((float)(k + 0) * tileScreenSize, (float)(j + 1) * tileScreenSize);
+				vertBR.position = sf::Vector2f((float)(k + 1) * tileScreenSize, (float)(j + 1) * tileScreenSize);
+				vertTR.position = sf::Vector2f((float)(k + 1) * tileScreenSize, (float)(j + 0) * tileScreenSize);
 
 				if(i == 0)
 				{
@@ -88,75 +85,17 @@ void Room::load(std::string fileName)
 			unsigned char tileType;
 			fileStream.read(reinterpret_cast<char*>(&tileType), sizeof(char));
 
-			tileTypes[y + 1][x + 1] = (TileType)tileType;
+			tileTypes[y][x] = (TileType)tileType;
 		}
 	}
-
-#pragma region add border tiles
-		vertTL.texCoords = sf::Vector2f(8.0f, 0.0f);
-		vertBL.texCoords = sf::Vector2f(8.0f, 8.0f);
-		vertBR.texCoords = sf::Vector2f(16.0f, 8.0f);
-		vertTR.texCoords = sf::Vector2f(16.0f, 0.0f);
-
-		for(int x = 0; x < width + 2; x++)
-		{
-			vertTL.position = sf::Vector2f((float)x * tileScreenSize, 0.0f);
-			vertBL.position = sf::Vector2f((float)x * tileScreenSize, (float)tileScreenSize);
-			vertBR.position = sf::Vector2f((float)(x + 1) * tileScreenSize, (float)tileScreenSize);
-			vertTR.position = sf::Vector2f((float)(x + 1) * tileScreenSize, 0.0f);
-
-			backgroundVertArr.append(vertTL);
-			backgroundVertArr.append(vertBL);
-			backgroundVertArr.append(vertBR);
-			backgroundVertArr.append(vertTR);
-
-			vertTL.position = sf::Vector2f((float)x * tileScreenSize, (float)(height + 1) * tileScreenSize);
-			vertBL.position = sf::Vector2f((float)x * tileScreenSize, (float)(height + 2) * tileScreenSize);
-			vertBR.position = sf::Vector2f((float)(x + 1) * tileScreenSize, (float)(height + 2) * tileScreenSize);
-			vertTR.position = sf::Vector2f((float)(x + 1) * tileScreenSize, (float)(height + 1) * tileScreenSize);
-
-			backgroundVertArr.append(vertTL);
-			backgroundVertArr.append(vertBL);
-			backgroundVertArr.append(vertBR);
-			backgroundVertArr.append(vertTR);
-
-			tileTypes[x][0] = TileType::wall;
-			tileTypes[x][height + 1] = TileType::wall;
-		}
-
-		for(int y = 1; y < height + 1; y++)
-		{
-			vertTL.position = sf::Vector2f(0.0f, (float)y * tileScreenSize);
-			vertBL.position = sf::Vector2f(0.0f, (float)(y + 1) * tileScreenSize);
-			vertBR.position = sf::Vector2f((float)tileScreenSize, (float)(y + 1) * tileScreenSize);
-			vertTR.position = sf::Vector2f((float)tileScreenSize, (float)y * tileScreenSize);
-
-			backgroundVertArr.append(vertTL);
-			backgroundVertArr.append(vertBL);
-			backgroundVertArr.append(vertBR);
-			backgroundVertArr.append(vertTR);
-
-			vertTL.position = sf::Vector2f((float)(width + 1) * tileScreenSize, (float)y * tileScreenSize);
-			vertBL.position = sf::Vector2f((float)(width + 1) * tileScreenSize, (float)(y + 1) * tileScreenSize);
-			vertBR.position = sf::Vector2f((float)(width + 2) * tileScreenSize, (float)(y + 1) * tileScreenSize);
-			vertTR.position = sf::Vector2f((float)(width + 2) * tileScreenSize, (float)y * tileScreenSize);
-
-			backgroundVertArr.append(vertTL);
-			backgroundVertArr.append(vertBL);
-			backgroundVertArr.append(vertBR);
-			backgroundVertArr.append(vertTR);
-
-			tileTypes[0][y] = TileType::wall;
-			tileTypes[width + 1][y] = TileType::wall;
-		}
-#pragma endregion
 
 	fileStream.close();
 
 	active = true;
 
 	//Read file for entities...
-	entities.push_back(Assemblages::getInstance().createTurret(sf::Vector2f(800.0f, 500.0f)));
+	//entities.push_back(Assemblages::getInstance().createTurret(sf::Vector2f(800.0f, 500.0f)));
+	//entities.push_back(Assemblages::getInstance().createBouncer(sf::Vector2f(500.f, 200.0f), sf::Vector2f(std::sqrt(0.5f), std::sqrt(0.5f))));
 }
 
 Room::TileType Room::getTileType(int x, int y)

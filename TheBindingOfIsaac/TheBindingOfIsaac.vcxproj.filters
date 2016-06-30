@@ -134,6 +134,9 @@
     <ClInclude Include="PlayerShotCom.hpp">
       <Filter>Source Files\Components\Shot</Filter>
     </ClInclude>
+    <ClInclude Include="BouncerCom.hpp">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -225,6 +228,9 @@
     </ClCompile>
     <ClCompile Include="PlayerShotCom.cpp">
       <Filter>Source Files\Components\Shot</Filter>
+    </ClCompile>
+    <ClCompile Include="BouncerCom.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

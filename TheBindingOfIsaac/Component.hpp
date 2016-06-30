@@ -16,7 +16,8 @@ public:
 		Damage,
 		Health,
 		TurretShot,
-		PlayerShot
+		PlayerShot,
+		Bouncer
 	};
 
 	Component();

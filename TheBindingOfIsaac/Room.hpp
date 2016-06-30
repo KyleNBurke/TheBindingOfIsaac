@@ -22,8 +22,8 @@ public:
 	void setActive(bool active);
 
 	static const int tileSize = 8;
-	static const int width = 15;
-	static const int height = 10;
+	static const int width = 17;
+	static const int height = 13;
 	std::vector<Entity> entities;
 	std::vector<Entity> addEntityQueue;
 

@@ -9,16 +9,16 @@ HUD::HUD() : bomb(spriteSheet, sf::IntRect(7, 0, 4, 6)), coin(spriteSheet, sf::I
 	float scale = (float)Utilities::getInstance().getScale();
 
 	bomb.setScale(scale, scale);
-	bomb.setPosition(66 * scale, 99 * scale);
+	bomb.setPosition(66 * scale, 107 * scale);
 
 	coin.setScale(scale, scale);
-	coin.setPosition(65 * scale, 109 * scale);
+	coin.setPosition(65 * scale, 117 * scale);
 
 	for(int i = 0; i < initialHearts; i++)
 	{
 		sf::Sprite heart = sf::Sprite(spriteSheet, sf::IntRect(0, 0, 7, 6));
 		heart.setScale(scale, scale);
-		heart.setPosition(88 * scale + 8 * (i % 6) * scale, 97 * scale);
+		heart.setPosition(88 * scale + 8 * (i % 6) * scale, 105 * scale);
 
 		if(i > 11)
 			heart.move(0, 14 * scale);

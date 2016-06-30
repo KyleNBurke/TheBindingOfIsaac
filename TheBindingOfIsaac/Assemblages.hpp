@@ -11,6 +11,7 @@
 #include "HealthCom.hpp"
 #include "TurretShotCom.hpp"
 #include "PlayerShotCom.hpp"
+#include "BouncerCom.hpp"
 
 class Assemblages
 {
@@ -23,6 +24,7 @@ public:
 	Entity createPlayerProjectile(sf::Vector2f position, sf::Vector2f velocity);
 	Entity createRegularProjectile(sf::Vector2f position, sf::Vector2f direction);
 	Entity createTurret(sf::Vector2f position);
+	Entity createBouncer(sf::Vector2f position, sf::Vector2f direction);
 
 private:
 	Assemblages();

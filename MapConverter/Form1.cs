@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
+using System.Diagnostics;
+
 namespace MapConverter
 {
     public partial class Form1 : Form
@@ -39,8 +41,8 @@ namespace MapConverter
             FileStream mapFile = new FileStream(outputDirTextBox.Text, FileMode.Create, FileAccess.Write);
             BinaryWriter writer = new BinaryWriter(mapFile);
 
-            const int width = 15;
-            const int height = 10;
+            const int width = 17;
+            const int height = 13;
             int[] startGids = new int[3]; //[background, foreground, tileTypes]
 
             xmlReader.ReadToNextSibling("map");
@@ -62,6 +64,13 @@ namespace MapConverter
                     writer.Write(tile == 0 ? (byte)0 : (byte)(tile - startGids[i] + 1));
                     xmlReader.ReadToNextSibling("tile");
                 }
+            }
+
+            xmlReader.ReadToFollowing("objectgroup");
+
+            while(xmlReader.ReadToFollowing("object"))
+            {
+                Debug.WriteLine(xmlReader.GetAttribute("name"));
             }
 
             writer.Close();

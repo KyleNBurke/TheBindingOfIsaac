@@ -21,8 +21,7 @@ void GameManager::initialize()
 	int scale = Utilities::getInstance().getScale();
 	int tileSize = Room::tileSize;
 
-	sf::Vector2i roomSize = sf::Vector2i(Room::width + 2, Room::height + 2);
-	sf::Vector2i windowSize = sf::Vector2i(tileSize * scale * roomSize.x, tileSize * scale * roomSize.y + (22 * scale));
+	sf::Vector2i windowSize = sf::Vector2i(tileSize * scale * Room::width, tileSize * scale * Room::height + (22 * scale));
 
 	window.create(sf::VideoMode(windowSize.x, windowSize.y), "The Binding of Isaac - Pre Alpha v0.0.0"),
 	window.setKeyRepeatEnabled(false);

@@ -210,10 +210,10 @@ void Map::activateRoom(int x, int y)
 	vertBR.texCoords = sf::Vector2f(18, 1);
 	vertTR.texCoords = sf::Vector2f(18, 0);
 
-	vertTL.position = sf::Vector2f(1 * scale + x * 6 * scale, 97 * scale + y * 4 * scale);
-	vertBL.position = sf::Vector2f(1 * scale + x * 6 * scale, 100 * scale + y * 4 * scale);
-	vertBR.position = sf::Vector2f(6 * scale + x * 6 * scale, 100 * scale + y * 4 * scale);
-	vertTR.position = sf::Vector2f(6 * scale + x * 6 * scale, 97 * scale + y * 4 * scale);
+	vertTL.position = sf::Vector2f(1 * scale + x * 6 * scale, 105 * scale + y * 4 * scale);
+	vertBL.position = sf::Vector2f(1 * scale + x * 6 * scale, 108 * scale + y * 4 * scale);
+	vertBR.position = sf::Vector2f(6 * scale + x * 6 * scale, 108 * scale + y * 4 * scale);
+	vertTR.position = sf::Vector2f(6 * scale + x * 6 * scale, 105 * scale + y * 4 * scale);
 
 	vertexArray.append(vertTL);
 	vertexArray.append(vertBL);

@@ -17,10 +17,10 @@ void ProjectileSystem::update(Entity& entity)
 		sf::FloatRect entityBounds = entity.sprite.getGlobalBounds();
 		int scale = Room::tileSize * Utilities::getInstance().getScale();
 
-		if(entityBounds.left < scale ||
-			entityBounds.top < scale ||
-			entityBounds.left + entityBounds.width >(Room::width + 1) * scale ||
-			entityBounds.top + entityBounds.height >(Room::height + 1) * scale)
+		if(entityBounds.left < 0.0f ||
+			entityBounds.top < 0.0f ||
+			entityBounds.left + entityBounds.width > Room::width * scale ||
+			entityBounds.top + entityBounds.height > Room::height * scale)
 		{
 			entity.shouldDelete = true;
 		}

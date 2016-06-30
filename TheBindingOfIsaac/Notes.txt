@@ -14,3 +14,7 @@ Game design:
 Maybies
 - End game final boss
 - Boss before scenery changes
+
+Roaadmap:
+- Tile visuals
+- Fix bouncer code (a projectile type might use it)

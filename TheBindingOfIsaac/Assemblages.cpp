@@ -18,7 +18,7 @@ void Assemblages::initialize()
 
 Entity Assemblages::createPlayer()
 {
-	Entity player(sf::Sprite(playerSpriteSheet, sf::IntRect(0, 0, 7, 7)));
+	Entity player(sf::Sprite(playerSpriteSheet, sf::IntRect(0, 0, 7, 6)));
 	player.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
 	player.position += sf::Vector2f(200.0f, 200.0f);
 
@@ -65,4 +65,16 @@ Entity Assemblages::createTurret(sf::Vector2f position)
 	turret.addComponent(std::unique_ptr<Component>(new TurretShotCom()));
 
 	return turret;
+}
+
+Entity Assemblages::createBouncer(sf::Vector2f position, sf::Vector2f direction)
+{
+	Entity bouncer(sf::Sprite(enemySpriteSheet, sf::IntRect(6, 0, 10, 10)));
+	bouncer.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
+	bouncer.position = position;
+	bouncer.addComponent(std::unique_ptr<Component>(new VelocityCom(direction * 50.0f)));
+	bouncer.addComponent(std::unique_ptr<Component>(new BouncerCom()));
+	bouncer.addComponent(std::unique_ptr<Component>(new HealthCom(3)));
+
+	return bouncer;
 }

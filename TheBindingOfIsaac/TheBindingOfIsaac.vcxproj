@@ -88,6 +88,7 @@
   <ItemGroup>
     <ClInclude Include="AccelDecelCom.hpp" />
     <ClInclude Include="Assemblages.hpp" />
+    <ClInclude Include="BouncerCom.hpp" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="EnemyProjectileCom.hpp" />
     <ClInclude Include="Entity.hpp" />
@@ -120,6 +121,7 @@
   <ItemGroup>
     <ClCompile Include="AccelDecelCom.cpp" />
     <ClCompile Include="Assemblages.cpp" />
+    <ClCompile Include="BouncerCom.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="EnemyProjectileCom.cpp" />
     <ClCompile Include="Entity.cpp" />
