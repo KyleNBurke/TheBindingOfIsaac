@@ -66,12 +66,35 @@ namespace MapConverter
                 }
             }
 
-            xmlReader.ReadToFollowing("objectgroup");
+			uint entityCount = 0;
 
-            while(xmlReader.ReadToFollowing("object"))
-            {
-                Debug.WriteLine(xmlReader.GetAttribute("name"));
-            }
+			if (xmlReader.ReadToFollowing("objectgroup"))
+			{
+				xmlReader.ReadToFollowing("property");
+				entityCount = (uint)Convert.ToInt32(xmlReader.GetAttribute("value"));
+				writer.Write(entityCount);
+
+				for(int i = 0; i < entityCount; i++)
+				{
+					xmlReader.ReadToFollowing("object");
+					writer.Write((uint)Convert.ToInt32(xmlReader.GetAttribute("x").Split('.')[0]));
+					writer.Write((uint)Convert.ToInt32(xmlReader.GetAttribute("y").Split('.')[0]));
+
+					switch (xmlReader.GetAttribute("name"))
+					{
+						case "turret":
+							{
+								writer.Write((byte)0);
+								break;
+							}
+					}
+
+				}
+			}
+			else
+			{
+				writer.Write(entityCount);
+			}
 
             writer.Close();
             mapFile.Close();

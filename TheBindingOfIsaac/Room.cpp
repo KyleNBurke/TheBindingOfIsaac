@@ -89,6 +89,31 @@ void Room::load(std::string fileName)
 		}
 	}
 
+	unsigned int count;
+	fileStream.read(reinterpret_cast<char*>(&count), sizeof(int));
+
+	for(int i = 0; i < count; i++)
+	{
+		unsigned int x;
+		unsigned int y;
+		unsigned char type;
+
+		fileStream.read(reinterpret_cast<char*>(&x), sizeof(int));
+		fileStream.read(reinterpret_cast<char*>(&y), sizeof(int));
+		fileStream.read(reinterpret_cast<char*>(&type), sizeof(char));
+
+		sf::Vector2f position((float)x * Utilities::getInstance().getScale(), (float)y * Utilities::getInstance().getScale());
+
+		switch(type)
+		{
+			case 0:
+			{
+				entities.push_back(Assemblages::getInstance().createTurret(position));
+				break;
+			}
+		}
+	}
+
 	fileStream.close();
 
 	active = true;
