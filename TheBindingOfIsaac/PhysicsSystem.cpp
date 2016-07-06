@@ -53,7 +53,7 @@ void PhysicsSystem::update(Entity& entity)
 		{
 			for(int y = top; y <= bottom; y++)
 			{
-				if(Map::getCurrentRoom().getTileType(x, y) == Room::TileType::wall)
+				if(Floor::getCurrentRoom().getTileType(x, y) == Room::TileType::wall)
 				{
 					sf::IntRect tile(x * scale, y * scale, scale, scale);
 					std::shared_ptr<VelocityCom> velocityCom = std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity));
@@ -92,7 +92,7 @@ void PhysicsSystem::resolveCollisions(Direction direction, Entity& entity, bool 
 	{
 		for(int y = top; y <= bottom; y++)
 		{
-			Room::TileType tileType = Map::getCurrentRoom().getTileType(x, y);
+			Room::TileType tileType = Floor::getCurrentRoom().getTileType(x, y);
 
 			if((hasPitCollision && tileType == Room::TileType::pit) || (hasWallCollision && tileType == Room::TileType::wall))
 			{

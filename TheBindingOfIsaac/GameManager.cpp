@@ -4,6 +4,7 @@
 #include "GameplayState.hpp"
 #include "StatsState.hpp"
 #include "Utilities.hpp"
+#include "Room.hpp"
 
 GameManager::GameManager() : windowHasFocus(true),
 timeStep(sf::seconds(1.0f / 60.0f)) {}

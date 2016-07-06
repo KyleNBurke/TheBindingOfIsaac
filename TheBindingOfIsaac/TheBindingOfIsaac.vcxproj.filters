@@ -68,9 +68,6 @@
     <ClInclude Include="Room.hpp">
       <Filter>Source Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Map.hpp">
-      <Filter>Source Files\Map</Filter>
-    </ClInclude>
     <ClInclude Include="HUD.hpp">
       <Filter>Source Files\HUD</Filter>
     </ClInclude>
@@ -137,6 +134,9 @@
     <ClInclude Include="BouncerCom.hpp">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Floor.hpp">
+      <Filter>Source Files\Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -161,9 +161,6 @@
       <Filter>Source Files\States</Filter>
     </ClCompile>
     <ClCompile Include="Room.cpp">
-      <Filter>Source Files\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
     <ClCompile Include="HUD.cpp">
@@ -231,6 +228,9 @@
     </ClCompile>
     <ClCompile Include="BouncerCom.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Floor.cpp">
+      <Filter>Source Files\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

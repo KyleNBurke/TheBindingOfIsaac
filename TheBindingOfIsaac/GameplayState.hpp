@@ -3,7 +3,7 @@
 #include "stdafx.h"
 #include "State.hpp"
 #include "StatsState.hpp"
-#include "Map.hpp"
+#include "Floor.hpp"
 #include "HUD.hpp"
 
 #include "Assemblages.hpp"
@@ -26,7 +26,7 @@ public:
 private:
 	StatsState& statsState;
 	HUD hud;
-	Map map;
+	Floor floor;
 
 	std::vector<std::unique_ptr<System>> systems;
 	RenderSystem renderSystem;

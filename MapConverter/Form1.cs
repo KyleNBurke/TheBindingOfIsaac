@@ -41,8 +41,8 @@ namespace MapConverter
             FileStream mapFile = new FileStream(outputDirTextBox.Text, FileMode.Create, FileAccess.Write);
             BinaryWriter writer = new BinaryWriter(mapFile);
 
-            const int width = 17;
-            const int height = 13;
+            const int width = 15;
+            const int height = 11;
             int[] startGids = new int[3]; //[background, foreground, tileTypes]
 
             xmlReader.ReadToNextSibling("map");

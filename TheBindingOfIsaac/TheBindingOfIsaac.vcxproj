@@ -98,7 +98,7 @@
     <ClInclude Include="HUD.hpp" />
     <ClInclude Include="Input.hpp" />
     <ClInclude Include="InputSystem.hpp" />
-    <ClInclude Include="Map.hpp" />
+    <ClInclude Include="Floor.hpp" />
     <ClInclude Include="PhysicsSystem.hpp" />
     <ClInclude Include="PitCollisionCom.hpp" />
     <ClInclude Include="PlayerControlledCom.hpp" />
@@ -131,7 +131,7 @@
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="InputSystem.cpp" />
-    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Floor.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="PitCollisionCom.cpp" />
     <ClCompile Include="PlayerControlledCom.cpp" />

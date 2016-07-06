@@ -2,7 +2,7 @@
 #include "ProjectileSystem.hpp"
 #include "PlayerProjectileCom.hpp"
 #include "EnemyProjectileCom.hpp"
-#include "Map.hpp"
+#include "Floor.hpp"
 #include "HealthCom.hpp"
 
 ProjectileSystem::ProjectileSystem(const sf::Time& deltaTime) : deltaTime(deltaTime) {}
@@ -33,14 +33,14 @@ void ProjectileSystem::update(Entity& entity)
 
 			for(int x = left; x <= right; x++)
 				for(int y = top; y <= bottom; y++)
-					if(Map::getCurrentRoom().getTileType(x, y) == Room::TileType::wall)
+					if(Floor::getCurrentRoom().getTileType(x, y) == Room::TileType::wall)
 						entity.shouldDelete = true;
 		}
 	}
 
 	if(playerProjectile)
 	{
-		for(std::vector<Entity>::iterator it = Map::getCurrentRoom().entities.begin(); it != Map::getCurrentRoom().entities.end(); ++it)
+		for(std::vector<Entity>::iterator it = Floor::getCurrentRoom().entities.begin(); it != Floor::getCurrentRoom().entities.end(); ++it)
 		{
 			bool intersects = entity.sprite.getGlobalBounds().intersects(it->sprite.getGlobalBounds());
 			if(it->hasComponent(Component::ComponentType::Health) && intersects)
@@ -55,10 +55,10 @@ void ProjectileSystem::update(Entity& entity)
 
 	if(enemyProjectile)
 	{
-		if(entity.sprite.getGlobalBounds().intersects(Map::player.sprite.getGlobalBounds()))
+		if(entity.sprite.getGlobalBounds().intersects(Floor::player.sprite.getGlobalBounds()))
 		{
 			entity.shouldDelete = true;
-			applyDamage(Map::player, 1);
+			applyDamage(Floor::player, 1);
 		}
 	}
 }
