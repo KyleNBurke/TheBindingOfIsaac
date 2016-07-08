@@ -4,7 +4,7 @@
 
 HUD::HUD() : bomb(spriteSheet, sf::IntRect(7, 0, 4, 6)), coin(spriteSheet, sf::IntRect(11, 0, 6, 6)), initialHearts(15)
 {
-	spriteSheet.loadFromFile("HUD.png");
+	spriteSheet.loadFromFile("Resources/HUD.png");
 
 	float scale = (float)Utilities::getInstance().getScale();
 
@@ -36,6 +36,8 @@ void HUD::setMap(sf::VertexArray map)
 
 void HUD::draw(sf::RenderWindow& window)
 {
+	window.setView(window.getDefaultView());
+
 	window.draw(map, &spriteSheet);
 
 	window.draw(bomb);

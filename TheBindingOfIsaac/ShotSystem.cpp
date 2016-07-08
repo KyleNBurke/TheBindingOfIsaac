@@ -36,7 +36,7 @@ void ShotSystem::update(Entity& entity)
 			{
 				direction /= length;
 
-				Floor::getCurrentRoom().addEntityQueue.push_back(Assemblages::getInstance().createPlayerProjectile(entity.position, sf::Vector2f(500.0f * direction.x, 500.0f * direction.y)));
+				Floor::getCurrentRoom().addEntityQueue.push_back(Assemblages::getInstance().createPlayerProjectile(entity.sprite.getPosition(), sf::Vector2f(500.0f * direction.x, 500.0f * direction.y)));
 
 				playerShotCom->fireResetClock.restart();
 			}

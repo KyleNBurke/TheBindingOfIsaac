@@ -12,7 +12,7 @@ Utilities& Utilities::getInstance()
 
 void Utilities::initialize()
 {
-	font.loadFromFile("lucon.ttf");
+	font.loadFromFile("Resources/lucon.ttf");
 }
 
 float Utilities::round(float value) const

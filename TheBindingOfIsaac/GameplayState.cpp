@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GameplayState.hpp"
 #include "Input.hpp"
+#include "GameManager.hpp"
 
 GameplayState::GameplayState(StatsState& statsState, sf::RenderWindow& window, const sf::Time& deltaTime) :
 	statsState(statsState),

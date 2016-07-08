@@ -18,9 +18,6 @@
     <Filter Include="Source Files\States">
       <UniqueIdentifier>{6764575e-df3c-44d1-bef6-faac51e35b66}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Map">
-      <UniqueIdentifier>{2c648827-da81-45a3-82ad-d10b0bd74b59}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\HUD">
       <UniqueIdentifier>{fcc15683-c81f-4b60-9315-749847a83e72}</UniqueIdentifier>
     </Filter>
@@ -41,6 +38,9 @@
     </Filter>
     <Filter Include="Source Files\Components\Projectile">
       <UniqueIdentifier>{7d29f30b-e807-42cf-b508-868d458a9c68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Floor">
+      <UniqueIdentifier>{2c648827-da81-45a3-82ad-d10b0bd74b59}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -66,7 +66,7 @@
       <Filter>Source Files\States</Filter>
     </ClInclude>
     <ClInclude Include="Room.hpp">
-      <Filter>Source Files\Map</Filter>
+      <Filter>Source Files\Floor</Filter>
     </ClInclude>
     <ClInclude Include="HUD.hpp">
       <Filter>Source Files\HUD</Filter>
@@ -135,7 +135,7 @@
       <Filter>Source Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Floor.hpp">
-      <Filter>Source Files\Map</Filter>
+      <Filter>Source Files\Floor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -161,7 +161,7 @@
       <Filter>Source Files\States</Filter>
     </ClCompile>
     <ClCompile Include="Room.cpp">
-      <Filter>Source Files\Map</Filter>
+      <Filter>Source Files\Floor</Filter>
     </ClCompile>
     <ClCompile Include="HUD.cpp">
       <Filter>Source Files\HUD</Filter>
@@ -230,7 +230,7 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="Floor.cpp">
-      <Filter>Source Files\Map</Filter>
+      <Filter>Source Files\Floor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

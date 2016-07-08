@@ -11,16 +11,16 @@ Assemblages& Assemblages::getInstance()
 
 void Assemblages::initialize()
 {
-	playerSpriteSheet.loadFromFile("Player.png");
-	projectilesSpriteSheet.loadFromFile("Projectiles.png");
-	enemySpriteSheet.loadFromFile("Enemies.png");
+	playerSpriteSheet.loadFromFile("Resources/Player.png");
+	projectilesSpriteSheet.loadFromFile("Resources/Projectiles.png");
+	enemySpriteSheet.loadFromFile("Resources/Enemies.png");
 }
 
-Entity Assemblages::createPlayer()
+Entity Assemblages::createPlayer(sf::Vector2f position)
 {
-	Entity player(sf::Sprite(playerSpriteSheet, sf::IntRect(0, 0, 7, 6)));
+	Entity player(sf::Sprite(playerSpriteSheet, sf::IntRect(0, 0, 7, 6)), sf::IntRect(1, 1, 5, 4));
 	player.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
-	player.position += sf::Vector2f(200.0f, 200.0f);
+	player.sprite.setPosition(position);
 
 	player.addComponent(std::unique_ptr<Component>(new PlayerControlledCom()));
 	player.addComponent(std::unique_ptr<Component>(new VelocityCom()));
@@ -35,10 +35,9 @@ Entity Assemblages::createPlayer()
 
 Entity Assemblages::createPlayerProjectile(sf::Vector2f position, sf::Vector2f velocity)
 {
-	Entity projectile(sf::Sprite(projectilesSpriteSheet, sf::IntRect(0, 0, 4, 4)));
+	Entity projectile(sf::Sprite(projectilesSpriteSheet, sf::IntRect(0, 0, 4, 4)), sf::IntRect(1, 1, 2, 2));
 	projectile.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
-	projectile.position.x = position.x + 1.5f * (float)Utilities::getInstance().getScale();
-	projectile.position.y = position.y + 1.5f * (float)Utilities::getInstance().getScale();
+	projectile.sprite.setPosition(sf::Vector2f(position.x + 1.5f * (float)Utilities::getInstance().getScale(), position.y + 1.5f * (float)Utilities::getInstance().getScale()));
 	projectile.addComponent(std::unique_ptr<Component>(new VelocityCom(velocity)));
 	projectile.addComponent(std::unique_ptr<Component>(new PlayerProjectileCom()));
 
@@ -47,9 +46,9 @@ Entity Assemblages::createPlayerProjectile(sf::Vector2f position, sf::Vector2f v
 
 Entity Assemblages::createRegularProjectile(sf::Vector2f position, sf::Vector2f velocity)
 {
-	Entity projectile(sf::Sprite(projectilesSpriteSheet, sf::IntRect(4, 0, 4, 4)));
+	Entity projectile(sf::Sprite(projectilesSpriteSheet, sf::IntRect(4, 0, 4, 4)), sf::IntRect(1, 1, 2, 2));
 	projectile.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
-	projectile.position = position;
+	projectile.sprite.setPosition(position);
 	projectile.addComponent(std::unique_ptr<Component>(new VelocityCom(velocity)));
 	projectile.addComponent(std::unique_ptr<Component>(new EnemyProjectileCom(EnemyProjectileCom::Type::Regular)));
 
@@ -71,7 +70,7 @@ Entity Assemblages::createBouncer(sf::Vector2f position, sf::Vector2f direction)
 {
 	Entity bouncer(sf::Sprite(enemySpriteSheet, sf::IntRect(6, 0, 10, 10)));
 	bouncer.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
-	bouncer.position = position;
+	bouncer.sprite.setPosition(position);
 	bouncer.addComponent(std::unique_ptr<Component>(new VelocityCom(direction * 50.0f)));
 	bouncer.addComponent(std::unique_ptr<Component>(new BouncerCom()));
 	bouncer.addComponent(std::unique_ptr<Component>(new HealthCom(3)));

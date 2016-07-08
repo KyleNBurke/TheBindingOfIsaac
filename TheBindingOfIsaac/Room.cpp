@@ -54,11 +54,6 @@ void Room::load(std::string fileName, bool upOpen, bool downOpen, bool leftOpen,
 				vertBR.position = sf::Vector2f((float)(k + 1) * tileScreenSize, (float)(j + 1) * tileScreenSize);
 				vertTR.position = sf::Vector2f((float)(k + 1) * tileScreenSize, (float)(j + 0) * tileScreenSize);
 
-				//vertTL.position = sf::Vector2f((float)(k + 0) * tileScreenSize * x * width, (float)(j + 0) * tileScreenSize * y * width);
-				//vertBL.position = sf::Vector2f((float)(k + 0) * tileScreenSize * x * width, (float)(j + 1) * tileScreenSize * y * width);
-				//vertBR.position = sf::Vector2f((float)(k + 1) * tileScreenSize * x * width, (float)(j + 1) * tileScreenSize * y * width);
-				//vertTR.position = sf::Vector2f((float)(k + 1) * tileScreenSize * x * width, (float)(j + 0) * tileScreenSize * y * width);
-
 				if(i == 0)
 				{
 					backgroundVertArr.append(vertTL);
@@ -88,7 +83,7 @@ void Room::load(std::string fileName, bool upOpen, bool downOpen, bool leftOpen,
 		}
 	}
 
-#pragma region Top and bottom border
+	#pragma region Top and bottom border
 	for(int x = 0; x < width; x++)
 	{
 		sf::Vector2f texPosTop = sf::Vector2f(1, 1);
@@ -159,10 +154,10 @@ void Room::load(std::string fileName, bool upOpen, bool downOpen, bool leftOpen,
 		vertBR.texCoords = sf::Vector2f(texPosBot.x + 1, texPosBot.y + 1) * (float)tileTexSize;
 		vertTR.texCoords = sf::Vector2f(texPosBot.x + 1, texPosBot.y) * (float)tileTexSize;
 
-		vertTL.position = sf::Vector2f((float)(x + 0), (float)height - 1) * (float)tileScreenSize;
-		vertBL.position = sf::Vector2f((float)(x + 0), (float)height) * (float)tileScreenSize;
-		vertBR.position = sf::Vector2f((float)(x + 1), (float)height) * (float)tileScreenSize;
-		vertTR.position = sf::Vector2f((float)(x + 1), (float)height - 1) * (float)tileScreenSize;
+		vertTL.position = sf::Vector2f((float)(x + 0), (float)(height - 1)) * (float)tileScreenSize;
+		vertBL.position = sf::Vector2f((float)(x + 0), (float)(height + 0)) * (float)tileScreenSize;
+		vertBR.position = sf::Vector2f((float)(x + 1), (float)(height + 0)) * (float)tileScreenSize;
+		vertTR.position = sf::Vector2f((float)(x + 1), (float)(height - 1)) * (float)tileScreenSize;
 
 		backgroundVertArr.append(vertTL);
 		backgroundVertArr.append(vertBL);
@@ -171,9 +166,9 @@ void Room::load(std::string fileName, bool upOpen, bool downOpen, bool leftOpen,
 
 		tileTypes[x][height - 1] = tileTypeBot;
 	}
-#pragma endregion
+	#pragma endregion
 
-#pragma region Left and right border
+	#pragma region Left and right border
 	for(int y = 1; y < height - 1; y++)
 	{
 		sf::Vector2f texPosLeft = sf::Vector2f(0, 2);
@@ -231,10 +226,10 @@ void Room::load(std::string fileName, bool upOpen, bool downOpen, bool leftOpen,
 		vertBR.texCoords = sf::Vector2f(texPosRight.x + 1, texPosRight.y + 1) * (float)tileTexSize;
 		vertTR.texCoords = sf::Vector2f(texPosRight.x + 1, texPosRight.y) * (float)tileTexSize;
 
-		vertTL.position = sf::Vector2f((float)(width - 1), (float)y) * (float)tileScreenSize;
+		vertTL.position = sf::Vector2f((float)(width - 1), (float)(y + 0)) * (float)tileScreenSize;
 		vertBL.position = sf::Vector2f((float)(width - 1), (float)(y + 1)) * (float)tileScreenSize;
-		vertBR.position = sf::Vector2f((float)width, (float)(y + 1)) * (float)tileScreenSize;
-		vertTR.position = sf::Vector2f((float)width, (float)y) * (float)tileScreenSize;
+		vertBR.position = sf::Vector2f((float)(width + 0), (float)(y + 1)) * (float)tileScreenSize;
+		vertTR.position = sf::Vector2f((float)(width + 0), (float)(y + 0)) * (float)tileScreenSize;
 
 		backgroundVertArr.append(vertTL);
 		backgroundVertArr.append(vertBL);
@@ -243,7 +238,7 @@ void Room::load(std::string fileName, bool upOpen, bool downOpen, bool leftOpen,
 
 		tileTypes[width - 1][y] = tileTypeRight;
 	}
-#pragma endregion
+	#pragma endregion
 
 	unsigned int count;
 	fileStream.read(reinterpret_cast<char*>(&count), sizeof(int));
@@ -258,13 +253,13 @@ void Room::load(std::string fileName, bool upOpen, bool downOpen, bool leftOpen,
 		fileStream.read(reinterpret_cast<char*>(&y), sizeof(int));
 		fileStream.read(reinterpret_cast<char*>(&type), sizeof(char));
 
-		sf::Vector2f position((float)x * Utilities::getInstance().getScale(), (float)y * Utilities::getInstance().getScale());
+		sf::Vector2f position = sf::Vector2f((float)x, (float)y) * (float)Utilities::getInstance().getScale();
 
 		switch(type)
 		{
 			case 0:
 			{
-				//entities.push_back(Assemblages::getInstance().createTurret(position));
+				entities.push_back(Assemblages::getInstance().createTurret(position));
 				break;
 			}
 		}

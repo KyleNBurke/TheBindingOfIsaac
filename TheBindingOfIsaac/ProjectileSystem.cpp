@@ -14,8 +14,8 @@ void ProjectileSystem::update(Entity& entity)
 
 	if(playerProjectile || enemyProjectile)
 	{
-		sf::FloatRect entityBounds = entity.sprite.getGlobalBounds();
 		int scale = Room::tileSize * Utilities::getInstance().getScale();
+		sf::FloatRect entityBounds = entity.getBounds();
 
 		if(entityBounds.left < 0.0f ||
 			entityBounds.top < 0.0f ||
@@ -42,7 +42,7 @@ void ProjectileSystem::update(Entity& entity)
 	{
 		for(std::vector<Entity>::iterator it = Floor::getCurrentRoom().entities.begin(); it != Floor::getCurrentRoom().entities.end(); ++it)
 		{
-			bool intersects = entity.sprite.getGlobalBounds().intersects(it->sprite.getGlobalBounds());
+			bool intersects = entity.getBounds().intersects(it->sprite.getGlobalBounds());
 			if(it->hasComponent(Component::ComponentType::Health) && intersects)
 			{
 				entity.shouldDelete = true;
@@ -55,7 +55,7 @@ void ProjectileSystem::update(Entity& entity)
 
 	if(enemyProjectile)
 	{
-		if(entity.sprite.getGlobalBounds().intersects(Floor::player.sprite.getGlobalBounds()))
+		if(entity.getBounds().intersects(Floor::player.sprite.getGlobalBounds()))
 		{
 			entity.shouldDelete = true;
 			applyDamage(Floor::player, 1);

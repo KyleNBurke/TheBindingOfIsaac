@@ -22,21 +22,19 @@ void PhysicsSystem::update(Entity& entity)
 		std::shared_ptr<VelocityCom> velocityCom = std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity));
 		bool hasPitCollision = entity.hasComponent(Component::ComponentType::PitCollision);
 		bool hasWallCollision = entity.hasComponent(Component::ComponentType::WallCollision);
-			
-		entity.position.x += Utilities::getInstance().round(velocityCom->velocity.x * deltaTime.asSeconds());
+		
+		entity.sprite.move(Utilities::getInstance().round(velocityCom->velocity.x * deltaTime.asSeconds()), 0.0f);
 
 		if(hasPitCollision || hasWallCollision) {
 			resolveCollisions(Direction::Horizontal, entity, hasPitCollision, hasWallCollision);
 		}
 
-		entity.position.y += Utilities::getInstance().round(velocityCom->velocity.y * deltaTime.asSeconds());
+		entity.sprite.move(0.0f, Utilities::getInstance().round(velocityCom->velocity.y * deltaTime.asSeconds()));
 
 		if(hasPitCollision || hasWallCollision)
 		{
 			resolveCollisions(Direction::Vertical, entity, hasPitCollision, hasWallCollision);
 		}
-
-		entity.sprite.setPosition(entity.position);
 	}
 
 	if(entity.hasComponent(Component::ComponentType::Bouncer))
@@ -105,7 +103,7 @@ void PhysicsSystem::resolveCollisions(Direction direction, Entity& entity, bool 
 
 					if(depth != 0.0f)
 					{
-						entity.position.x += depth;
+						entity.sprite.move(depth, 0.0f);
 						std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity))->velocity.x = 0.0f;
 						entityBounds = getEntityBounds(entity);
 					}
@@ -116,7 +114,7 @@ void PhysicsSystem::resolveCollisions(Direction direction, Entity& entity, bool 
 
 					if(depth != 0.0f)
 					{
-						entity.position.y += depth;
+						entity.sprite.move(0.0f, depth);
 						std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity))->velocity.y = 0.0f;
 						entityBounds = getEntityBounds(entity);
 					}
@@ -128,5 +126,6 @@ void PhysicsSystem::resolveCollisions(Direction direction, Entity& entity, bool 
 
 sf::FloatRect PhysicsSystem::getEntityBounds(const Entity& entity)
 {
-	return sf::FloatRect(entity.position.x, entity.position.y, entity.sprite.getGlobalBounds().width, entity.sprite.getGlobalBounds().height);
+	//return entity.sprite.getGlobalBounds();
+	return entity.getBounds();
 }

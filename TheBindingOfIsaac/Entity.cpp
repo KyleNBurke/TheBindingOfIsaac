@@ -1,7 +1,17 @@
 #include "stdafx.h"
 #include "Entity.hpp"
+#include "Utilities.hpp"
 
-Entity::Entity(sf::Sprite sprite) : sprite(sprite), shouldDelete(false) {}
+Entity::Entity(sf::Sprite sprite) : Entity(sprite, (sf::IntRect)sprite.getLocalBounds()) {}
+
+Entity::Entity(sf::Sprite sprite, sf::IntRect bounds) : sprite(sprite), bounds(bounds), shouldDelete(false) {}
+
+sf::FloatRect Entity::getBounds() const
+{
+	sf::Vector2f pos = sprite.getPosition();
+	float scale = (float)Utilities::getInstance().getScale();
+	return sf::FloatRect(pos.x + (float)bounds.left * scale, pos.y + (float)bounds.top * scale, (float)bounds.width * scale, (float)bounds.height * scale);
+}
 
 void Entity::addComponent(std::unique_ptr<Component> component)
 {
