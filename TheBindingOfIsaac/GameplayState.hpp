@@ -12,6 +12,7 @@
 #include "PhysicsSystem.hpp"
 #include "ShotSystem.hpp"
 #include "ProjectileSystem.hpp"
+#include "TransitionSystem.hpp"
 
 class GameplayState : public State
 {
@@ -29,5 +30,6 @@ private:
 	Floor floor;
 
 	std::vector<std::unique_ptr<System>> systems;
+	TransitionSystem transitionSystem;
 	RenderSystem renderSystem;
 };

@@ -5,6 +5,7 @@
 
 GameplayState::GameplayState(StatsState& statsState, sf::RenderWindow& window, const sf::Time& deltaTime) :
 	statsState(statsState),
+	transitionSystem(deltaTime),
 	renderSystem(window)
 {
 	floor.generate(std::rand());
@@ -39,28 +40,37 @@ void GameplayState::update(sf::Time deltaTime)
 			statsState.reset();
 	}
 
-	for(std::vector<std::unique_ptr<System>>::iterator it = systems.begin(); it != systems.end(); ++it)
-		(*it)->update(Floor::player);
+	if(!transitionSystem.transitioning)
+		for(std::vector<std::unique_ptr<System>>::iterator it = systems.begin(); it != systems.end(); ++it)
+			(*it)->update(Floor::player);
 
-	std::vector<Entity>::iterator entityIt = Floor::getCurrentRoom().entities.begin();
-	while(entityIt != Floor::getCurrentRoom().entities.end())
+	transitionSystem.update(Floor::player);
+
+	if(!transitionSystem.transitioning)
 	{
-		for(std::vector<std::unique_ptr<System>>::iterator systemIt = systems.begin(); systemIt != systems.end(); ++systemIt)
-			(*systemIt)->update(*entityIt);
+		std::vector<Entity>::iterator entityIt = Floor::getCurrentRoom().entities.begin();
+		while(entityIt != Floor::getCurrentRoom().entities.end())
+		{
+			for(std::vector<std::unique_ptr<System>>::iterator systemIt = systems.begin(); systemIt != systems.end(); ++systemIt)
+				(*systemIt)->update(*entityIt);
 
-		if (entityIt->shouldDelete)
-			entityIt = Floor::getCurrentRoom().entities.erase(entityIt);
-		else
-			++entityIt;
+			if(entityIt->shouldDelete)
+				entityIt = Floor::getCurrentRoom().entities.erase(entityIt);
+			else
+				++entityIt;
+		}
 	}
 }
 
 void GameplayState::draw(sf::RenderWindow& window)
 {
 	floor.draw(window);
-	hud.draw(window);
 
 	renderSystem.update(Floor::player);
 	for(std::vector<Entity>::iterator it = Floor::getCurrentRoom().entities.begin(); it != Floor::getCurrentRoom().entities.end(); ++it)
 		renderSystem.update(*it);
+
+	transitionSystem.draw(window);
+
+	hud.draw(window);
 }

@@ -137,6 +137,9 @@
     <ClInclude Include="Floor.hpp">
       <Filter>Source Files\Floor</Filter>
     </ClInclude>
+    <ClInclude Include="TransitionSystem.hpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -231,6 +234,9 @@
     </ClCompile>
     <ClCompile Include="Floor.cpp">
       <Filter>Source Files\Floor</Filter>
+    </ClCompile>
+    <ClCompile Include="TransitionSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
