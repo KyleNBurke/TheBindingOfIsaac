@@ -18,7 +18,6 @@ private:
 	enum Direction { Horizontal, Vertical };
 
 	void resolveCollisions(Direction direction, Entity& entity, bool hasPitCollision, bool hasWallCollision);
-	sf::FloatRect getEntityBounds(const Entity& entity);
 
 	const sf::Time& deltaTime;
 };

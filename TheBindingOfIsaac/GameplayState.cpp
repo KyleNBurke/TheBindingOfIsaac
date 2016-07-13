@@ -8,7 +8,9 @@ GameplayState::GameplayState(StatsState& statsState, sf::RenderWindow& window, c
 	transitionSystem(deltaTime),
 	renderSystem(window)
 {
-	floor.generate(std::rand());
+	std::srand((int)std::time(0));
+	floor.generate();
+	hud.constructFloor(floor.getFloor());
 
 	systems.push_back(std::unique_ptr<System>(new InputSystem()));
 	systems.push_back(std::unique_ptr<System>(new PhysicsSystem(deltaTime)));
@@ -30,7 +32,7 @@ void GameplayState::update(sf::Time deltaTime)
 	if(Input::getInstance().keyPressed(sf::Keyboard::Key::Space))
 	{
 		std::srand((int)std::time(0) * std::rand());
-		floor.generate(std::rand());
+		floor.generate();
 	}
 
 	if(Input::getInstance().keyPressed(sf::Keyboard::Key::F1)) {

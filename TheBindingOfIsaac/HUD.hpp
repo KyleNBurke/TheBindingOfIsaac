@@ -1,6 +1,7 @@
 #pragma once
 
 #include "stdafx.h"
+#include "Floor.hpp"
 
 class HUD
 {
@@ -9,13 +10,12 @@ public:
 
 	void draw(sf::RenderWindow& window);
 
-	void setMap(sf::VertexArray map);
+	void constructFloor(const std::array<std::array<std::shared_ptr<Room>, Floor::sizeY>, Floor::sizeX>& ar);
 
 private:
 	sf::Texture spriteSheet;
-	sf::VertexArray map;
+	sf::VertexArray floor;
 	std::vector<sf::Sprite> hearts;
-	const int initialHearts;
 	sf::Sprite bomb;
 	sf::Sprite coin;
 };

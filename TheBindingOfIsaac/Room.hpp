@@ -8,8 +8,8 @@
 class Room
 {
 public:
-	Room();
-	void load(std::string fileName, bool upOpen, bool downOpen, bool leftOpen, bool rightOpen);
+	Room(bool upOpen, bool downOpen, bool leftOpen, bool rightOpen);
+	void load(std::string fileName);
 	void draw(sf::RenderWindow& window);
 
 	enum TileType { floor, wall, pit };
@@ -23,9 +23,15 @@ public:
 	static sf::Texture& foregroundTex;
 	std::vector<Entity> entities;
 	std::vector<Entity> addEntityQueue;
+	bool complete;
 
 private:
 	sf::VertexArray backgroundVertArr;
 	sf::VertexArray foregroundVertArr;
 	std::array<std::array<TileType, height + 2>, width + 2> tileTypes;
+
+	bool upOpen;
+	bool downOpen;
+	bool leftOpen;
+	bool rightOpen;
 };

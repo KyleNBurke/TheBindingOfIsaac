@@ -23,13 +23,15 @@ void PhysicsSystem::update(Entity& entity)
 		bool hasPitCollision = entity.hasComponent(Component::ComponentType::PitCollision);
 		bool hasWallCollision = entity.hasComponent(Component::ComponentType::WallCollision);
 		
-		entity.sprite.move(Utilities::getInstance().round(velocityCom->velocity.x * deltaTime.asSeconds()), 0.0f);
+		entity.sprite.move(velocityCom->velocity.x * deltaTime.asSeconds(), 0.0f);
+		entity.sprite.setPosition(Utilities::getInstance().round(entity.sprite.getPosition().x), entity.sprite.getPosition().y);
 
 		if(hasPitCollision || hasWallCollision) {
 			resolveCollisions(Direction::Horizontal, entity, hasPitCollision, hasWallCollision);
 		}
 
-		entity.sprite.move(0.0f, Utilities::getInstance().round(velocityCom->velocity.y * deltaTime.asSeconds()));
+		entity.sprite.move(0.0f, velocityCom->velocity.y * deltaTime.asSeconds());
+		entity.sprite.setPosition(entity.sprite.getPosition().x, Utilities::getInstance().round(entity.sprite.getPosition().y));
 
 		if(hasPitCollision || hasWallCollision)
 		{
@@ -78,7 +80,7 @@ void PhysicsSystem::update(Entity& entity)
 
 void PhysicsSystem::resolveCollisions(Direction direction, Entity& entity, bool hasPitCollision, bool hasWallCollision)
 {
-	sf::FloatRect entityBounds = getEntityBounds(entity);
+	sf::FloatRect entityBounds = entity.getBounds();
 	int scale = Room::tileSize * Utilities::getInstance().getScale();
 
 	int left = (int)(std::floorf(entityBounds.left / scale));
@@ -105,7 +107,7 @@ void PhysicsSystem::resolveCollisions(Direction direction, Entity& entity, bool 
 					{
 						entity.sprite.move(depth, 0.0f);
 						std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity))->velocity.x = 0.0f;
-						entityBounds = getEntityBounds(entity);
+						entityBounds = entity.getBounds();
 					}
 				}
 				else
@@ -116,16 +118,10 @@ void PhysicsSystem::resolveCollisions(Direction direction, Entity& entity, bool 
 					{
 						entity.sprite.move(0.0f, depth);
 						std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity))->velocity.y = 0.0f;
-						entityBounds = getEntityBounds(entity);
+						entityBounds = entity.getBounds();
 					}
 				}
 			}
 		}
 	}
-}
-
-sf::FloatRect PhysicsSystem::getEntityBounds(const Entity& entity)
-{
-	//return entity.sprite.getGlobalBounds();
-	return entity.getBounds();
 }

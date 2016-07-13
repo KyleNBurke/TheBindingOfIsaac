@@ -9,13 +9,14 @@ const int Room::height;
 sf::Texture& Room::backgroundTex = sf::Texture();
 sf::Texture& Room::foregroundTex = sf::Texture();
 
-Room::Room()
+Room::Room(bool upOpen, bool downOpen, bool leftOpen, bool rightOpen) : 
+	upOpen(upOpen), downOpen(downOpen), leftOpen(leftOpen), rightOpen(rightOpen), complete(false)
 {
 	backgroundVertArr.setPrimitiveType(sf::PrimitiveType::Quads);
 	foregroundVertArr.setPrimitiveType(sf::PrimitiveType::Quads);
 }
 
-void Room::load(std::string fileName, bool upOpen, bool downOpen, bool leftOpen, bool rightOpen)
+void Room::load(std::string fileName)
 {
 	std::ifstream fileStream;
 	fileStream.open(fileName, std::ios::in | std::ios::binary);
@@ -267,9 +268,7 @@ void Room::load(std::string fileName, bool upOpen, bool downOpen, bool leftOpen,
 
 	fileStream.close();
 
-	//Read file for entities...
-	//entities.push_back(Assemblages::getInstance().createTurret(sf::Vector2f(800.0f, 500.0f)));
-	//entities.push_back(Assemblages::getInstance().createBouncer(sf::Vector2f(500.f, 200.0f), sf::Vector2f(std::sqrt(0.5f), std::sqrt(0.5f))));
+	complete = true;
 }
 
 Room::TileType Room::getTileType(int x, int y)
