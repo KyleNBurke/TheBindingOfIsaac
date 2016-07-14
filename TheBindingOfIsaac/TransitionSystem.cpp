@@ -3,7 +3,8 @@
 #include "Utilities.hpp"
 #include "GameManager.hpp"
 
-TransitionSystem::TransitionSystem(const sf::Time& deltaTime) : deltaTime(deltaTime), transitioning(false), time(0.0f), transitionTime(0.3f)
+TransitionSystem::TransitionSystem(const sf::Time& deltaTime, HUD& hud) :
+	deltaTime(deltaTime), transitioning(false), time(0.0f), transitionTime(0.3f), hud(hud)
 {
 	int scale = Utilities::getInstance().getScale() * Room::tileSize;
 	rectangleShape.setSize(sf::Vector2f((float)(Room::width * scale), (float)(Room::height * scale)));
@@ -55,7 +56,10 @@ void TransitionSystem::update(Entity& entity)
 			}
 
 			if(prevTime <= transitionTime / 2.0f && time >= transitionTime / 2.0f)
+			{
 				Floor::transitionRoom(direction);
+				hud.setCurrentRoom(Floor::playerPosX, Floor::playerPosY);
+			}
 
 			rectangleShape.setFillColor(color);
 		}

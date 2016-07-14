@@ -6,11 +6,10 @@
 class AccelDecelCom : public Component
 {
 public:
-	AccelDecelCom();
-	AccelDecelCom(float acceleration, float deceleration);
+	AccelDecelCom(float acceleration, float maxSpeed);
 
 	Component::ComponentType getType() const;
 
 	const float acceleration;
-	const float deceleration;
+	const float maxSpeed;
 };

@@ -132,16 +132,7 @@ void Floor::generate()
 		}
 	}
 
-
-
-	/*rooms[4][2] = std::shared_ptr<Room>(new Room(true, true, true, true)); //middle
-	rooms[4][1] = std::shared_ptr<Room>(new Room(false, true, false, false)); //up
-	rooms[4][3] = std::shared_ptr<Room>(new Room(true, false, false, false)); //down
-	rooms[3][2] = std::shared_ptr<Room>(new Room(false, false, false, true)); //Left
-	rooms[5][2] = std::shared_ptr<Room>(new Room(false, false, true, false)); //Right*/
-
-	//rooms[4][2] = std::shared_ptr<Room>(new Room(false, false, false, false));
-	rooms[4][2]->load("Rooms/MainRoom.bim");
+	rooms[4][2]->load("Rooms/EmptyRoom.bim");
 	currentRoom = std::shared_ptr<Room>(rooms[4][2]);
 	playerPosX = 4;
 	playerPosY = 2;

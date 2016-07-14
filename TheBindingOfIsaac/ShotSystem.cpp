@@ -7,17 +7,18 @@
 #include "Floor.hpp"
 #include "Input.hpp"
 
-ShotSystem::ShotSystem() {}
+ShotSystem::ShotSystem(const sf::Time& deltaTime) : deltaTime(deltaTime) {}
 
 void ShotSystem::update(Entity& entity)
 {
 	if(entity.hasComponent(Component::ComponentType::PlayerShot))
 	{
 		std::shared_ptr<PlayerShotCom> playerShotCom = std::dynamic_pointer_cast<PlayerShotCom>(entity.getComponent(Component::ComponentType::PlayerShot));
+		std::shared_ptr<VelocityCom> playerVelCom = std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity));
 
 		if(playerShotCom->fireResetClock.getElapsedTime().asSeconds() >= playerShotCom->fireResetTime)
 		{
-			sf::Vector2f direction;
+			sf::Vector2i direction;
 
 			if(Input::getInstance().keyHeld(sf::Keyboard::Key::I))
 				direction.y -= 1;
@@ -26,20 +27,25 @@ void ShotSystem::update(Entity& entity)
 				direction.y += 1;
 
 			if(Input::getInstance().keyHeld(sf::Keyboard::Key::J))
+			{
 				direction.x -= 1;
+				direction.y = 0;
+			}
 
 			if(Input::getInstance().keyHeld(sf::Keyboard::Key::L))
-				direction.x += 1;
-
-			float length = std::sqrt(std::abs(direction.x) + std::abs(direction.y));
-			if(length != 0)
 			{
-				direction /= length;
+				direction.x += 1;
+				direction.y = 0;
+			}
 
-				Floor::getCurrentRoom().addEntityQueue.push_back(Assemblages::getInstance().createPlayerProjectile(entity.sprite.getPosition(), sf::Vector2f(500.0f * direction.x, 500.0f * direction.y)));
+			if(direction.x != 0 || direction.y != 0)
+			{
+				sf::Vector2f velocity = 700.0f * (sf::Vector2f)direction +playerVelCom->velocity * 0.3f;
+				Floor::getCurrentRoom().addEntityQueue.push_back(Assemblages::getInstance().createPlayerProjectile(entity.sprite.getPosition(), velocity));
 
 				playerShotCom->fireResetClock.restart();
 			}
+				
 		}
 	}
 
@@ -47,7 +53,9 @@ void ShotSystem::update(Entity& entity)
 	{
 		std::shared_ptr<TurretShotCom> turret = std::dynamic_pointer_cast<TurretShotCom>(entity.getComponent(Component::ComponentType::TurretShot));
 
-		if(turret->timer.getElapsedTime().asSeconds() >= turret->shotTime)
+		turret->elapsedTime += deltaTime.asSeconds();
+
+		if(turret->elapsedTime >= turret->shotTime)
 		{
 			sf::FloatRect bounds = entity.sprite.getGlobalBounds();
 			float scale = (float)Utilities::getInstance().getScale();
@@ -82,7 +90,7 @@ void ShotSystem::update(Entity& entity)
 			Floor::getCurrentRoom().addEntityQueue.push_back(p3);
 			Floor::getCurrentRoom().addEntityQueue.push_back(p4);
 
-			turret->timer.restart();
+			turret->elapsedTime = 0.0f;
 			turret->flip = !turret->flip;
 		}
 	}

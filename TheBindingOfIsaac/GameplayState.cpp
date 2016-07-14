@@ -5,16 +5,17 @@
 
 GameplayState::GameplayState(StatsState& statsState, sf::RenderWindow& window, const sf::Time& deltaTime) :
 	statsState(statsState),
-	transitionSystem(deltaTime),
+	transitionSystem(deltaTime, hud),
 	renderSystem(window)
 {
 	std::srand((int)std::time(0));
 	floor.generate();
 	hud.constructFloor(floor.getFloor());
+	hud.setCurrentRoom(4, 2);
 
 	systems.push_back(std::unique_ptr<System>(new InputSystem()));
 	systems.push_back(std::unique_ptr<System>(new PhysicsSystem(deltaTime)));
-	systems.push_back(std::unique_ptr<System>(new ShotSystem()));
+	systems.push_back(std::unique_ptr<System>(new ShotSystem(deltaTime)));
 	systems.push_back(std::unique_ptr<System>(new ProjectileSystem(deltaTime)));
 }
 

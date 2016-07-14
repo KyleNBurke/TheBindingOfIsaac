@@ -10,10 +10,7 @@ void PhysicsSystem::update(Entity& entity)
 		std::shared_ptr<VelocityCom> velocityCom = std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity));
 		std::shared_ptr<AccelDecelCom> accelDecelCom = std::dynamic_pointer_cast<AccelDecelCom>(entity.getComponent(Component::ComponentType::AccelDecel));
 
-		velocityCom->velocity.x += velocityCom->direction.x * accelDecelCom->acceleration;
-		velocityCom->velocity.y += velocityCom->direction.y * accelDecelCom->acceleration;
-
-		velocityCom->velocity *= accelDecelCom->deceleration;
+		velocityCom->velocity += ((velocityCom->direction * accelDecelCom->maxSpeed) - velocityCom->velocity) * accelDecelCom->acceleration;
 	}
 
 	if(entity.hasComponent(Component::ComponentType::Velocity))

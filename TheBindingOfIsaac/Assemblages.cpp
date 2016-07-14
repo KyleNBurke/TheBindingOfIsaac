@@ -24,7 +24,7 @@ Entity Assemblages::createPlayer(sf::Vector2f position)
 
 	player.addComponent(std::unique_ptr<Component>(new PlayerControlledCom()));
 	player.addComponent(std::unique_ptr<Component>(new VelocityCom()));
-	player.addComponent(std::unique_ptr<Component>(new AccelDecelCom(70.0f, 0.85f)));
+	player.addComponent(std::unique_ptr<Component>(new AccelDecelCom(0.1f, 500.0f)));
 	player.addComponent(std::unique_ptr<Component>(new PitCollisionCom()));
 	player.addComponent(std::unique_ptr<Component>(new WallCollisionCom()));
 	player.addComponent(std::unique_ptr<Component>(new HealthCom(10)));

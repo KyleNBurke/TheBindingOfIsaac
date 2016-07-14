@@ -3,11 +3,12 @@
 #include "stdafx.h"
 #include "System.hpp"
 #include "Floor.hpp"
+#include "HUD.hpp"
 
 class TransitionSystem : public System
 {
 public:
-	TransitionSystem(const sf::Time& deltaTime);
+	TransitionSystem(const sf::Time& deltaTime, HUD& hud);
 
 	void update(Entity& entity);
 	void draw(sf::RenderWindow& window);
@@ -20,4 +21,5 @@ private:
 	float time;
 	const float transitionTime;
 	Floor::Direction direction;
+	HUD& hud;
 };

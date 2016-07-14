@@ -10,7 +10,7 @@ public:
 
 	Component::ComponentType getType() const;
 
-	sf::Clock timer;
+	float elapsedTime;
 	const static float shotTime;
 	const static float projectileSpeed;
 	bool flip;

@@ -2,18 +2,20 @@
 #include "HUD.hpp"
 #include "Utilities.hpp"
 
-HUD::HUD() : bomb(spriteSheet, sf::IntRect(7, 0, 4, 6)), coin(spriteSheet, sf::IntRect(11, 0, 6, 6))
+HUD::HUD() : playerMark(spriteSheet, sf::IntRect(18, 0, 5, 3)), bomb(spriteSheet, sf::IntRect(7, 0, 6, 8)), coin(spriteSheet, sf::IntRect(13, 0, 4, 4))
 {
 	spriteSheet.loadFromFile("Resources/HUD.png");
 	floor.setPrimitiveType(sf::Quads);
 
 	float scale = (float)Utilities::getInstance().getScale();
 
+	playerMark.setScale(scale, scale);
+
 	bomb.setScale(scale, scale);
-	bomb.setPosition(66 * scale, 107 * scale);
+	bomb.setPosition(64 * scale, 107 * scale);
 
 	coin.setScale(scale, scale);
-	coin.setPosition(65 * scale, 117 * scale);
+	coin.setPosition(65 * scale, 118 * scale);
 
 	for(int i = 0; i < 15; i++)
 	{
@@ -69,10 +71,18 @@ void HUD::draw(sf::RenderWindow& window)
 	window.setView(window.getDefaultView());
 
 	window.draw(floor, &spriteSheet);
+	window.draw(playerMark);
 
 	window.draw(bomb);
 	window.draw(coin);
 
 	for(std::vector<sf::Sprite>::iterator it = hearts.begin(); it != hearts.end(); ++it)
 		window.draw(*it);
+}
+
+void HUD::setCurrentRoom(int x, int y)
+{
+	float scale = (float)Utilities::getInstance().getScale();
+
+	playerMark.setPosition(scale + x * scale * 6, 105 * scale + y * scale * 4);
 }
