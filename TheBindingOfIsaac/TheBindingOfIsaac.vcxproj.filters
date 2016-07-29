@@ -36,11 +36,11 @@
     <Filter Include="Source Files\Components\Shot">
       <UniqueIdentifier>{662f4381-bb8d-4316-a769-2c03d32a29b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Components\Projectile">
-      <UniqueIdentifier>{7d29f30b-e807-42cf-b508-868d458a9c68}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Floor">
       <UniqueIdentifier>{2c648827-da81-45a3-82ad-d10b0bd74b59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Animation">
+      <UniqueIdentifier>{fd5a65be-50c7-40f1-b3f0-6ac568235818}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -122,12 +122,6 @@
     <ClInclude Include="ShotSystem.hpp">
       <Filter>Source Files\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerProjectileCom.hpp">
-      <Filter>Source Files\Components\Projectile</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyProjectileCom.hpp">
-      <Filter>Source Files\Components\Projectile</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerShotCom.hpp">
       <Filter>Source Files\Components\Shot</Filter>
     </ClInclude>
@@ -139,6 +133,27 @@
     </ClInclude>
     <ClInclude Include="TransitionSystem.hpp">
       <Filter>Source Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="LifetimeCom.hpp">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationCom.hpp">
+      <Filter>Source Files\Components\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationState.hpp">
+      <Filter>Source Files\Components\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationStateStatic.hpp">
+      <Filter>Source Files\Components\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationStateDynamic.hpp">
+      <Filter>Source Files\Components\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationSystem.hpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectileCom.hpp">
+      <Filter>Source Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -220,12 +235,6 @@
     <ClCompile Include="ShotSystem.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerProjectileCom.cpp">
-      <Filter>Source Files\Components\Projectile</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyProjectileCom.cpp">
-      <Filter>Source Files\Components\Projectile</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerShotCom.cpp">
       <Filter>Source Files\Components\Shot</Filter>
     </ClCompile>
@@ -237,6 +246,27 @@
     </ClCompile>
     <ClCompile Include="TransitionSystem.cpp">
       <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="LifetimeCom.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationCom.cpp">
+      <Filter>Source Files\Components\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationState.cpp">
+      <Filter>Source Files\Components\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationStateStatic.cpp">
+      <Filter>Source Files\Components\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationStateDynamic.cpp">
+      <Filter>Source Files\Components\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectileCom.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

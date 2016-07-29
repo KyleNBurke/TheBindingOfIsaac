@@ -87,10 +87,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccelDecelCom.hpp" />
+    <ClInclude Include="AnimationCom.hpp" />
+    <ClInclude Include="AnimationState.hpp" />
+    <ClInclude Include="AnimationStateDynamic.hpp" />
+    <ClInclude Include="AnimationStateStatic.hpp" />
+    <ClInclude Include="AnimationSystem.hpp" />
     <ClInclude Include="Assemblages.hpp" />
     <ClInclude Include="BouncerCom.hpp" />
     <ClInclude Include="Component.hpp" />
-    <ClInclude Include="EnemyProjectileCom.hpp" />
+    <ClInclude Include="LifetimeCom.hpp" />
+    <ClInclude Include="ProjectileCom.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="GameManager.hpp" />
     <ClInclude Include="GameplayState.hpp" />
@@ -103,7 +109,6 @@
     <ClInclude Include="PhysicsSystem.hpp" />
     <ClInclude Include="PitCollisionCom.hpp" />
     <ClInclude Include="PlayerControlledCom.hpp" />
-    <ClInclude Include="PlayerProjectileCom.hpp" />
     <ClInclude Include="PlayerShotCom.hpp" />
     <ClInclude Include="ProjectileSystem.hpp" />
     <ClInclude Include="RenderSystem.hpp" />
@@ -121,10 +126,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AccelDecelCom.cpp" />
+    <ClCompile Include="AnimationCom.cpp" />
+    <ClCompile Include="AnimationState.cpp" />
+    <ClCompile Include="AnimationStateDynamic.cpp" />
+    <ClCompile Include="AnimationStateStatic.cpp" />
+    <ClCompile Include="AnimationSystem.cpp" />
     <ClCompile Include="Assemblages.cpp" />
     <ClCompile Include="BouncerCom.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="EnemyProjectileCom.cpp" />
+    <ClCompile Include="LifetimeCom.cpp" />
+    <ClCompile Include="ProjectileCom.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameplayState.cpp" />
@@ -137,7 +148,6 @@
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="PitCollisionCom.cpp" />
     <ClCompile Include="PlayerControlledCom.cpp" />
-    <ClCompile Include="PlayerProjectileCom.cpp" />
     <ClCompile Include="PlayerShotCom.cpp" />
     <ClCompile Include="ProjectileSystem.cpp" />
     <ClCompile Include="RenderSystem.cpp" />

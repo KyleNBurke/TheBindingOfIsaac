@@ -11,13 +11,14 @@ public:
 		AccelDecel,
 		PitCollision,
 		WallCollision,
-		PlayerProjectile,
-		EnemyProjectile,
+		Projectile,
 		Damage,
 		Health,
 		TurretShot,
 		PlayerShot,
-		Bouncer
+		Bouncer,
+		Lifetime,
+		Animation
 	};
 
 	Component();

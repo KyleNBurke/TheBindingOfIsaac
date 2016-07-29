@@ -13,6 +13,7 @@
 #include "ShotSystem.hpp"
 #include "ProjectileSystem.hpp"
 #include "TransitionSystem.hpp"
+#include "AnimationSystem.hpp"
 
 class GameplayState : public State
 {

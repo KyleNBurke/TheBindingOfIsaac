@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "InputSystem.hpp"
-#include "Assemblages.hpp"
-#include "Room.hpp"
+#include "VelocityCom.hpp"
 
 InputSystem::InputSystem() {}
 

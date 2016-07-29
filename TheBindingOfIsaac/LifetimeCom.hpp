@@ -3,12 +3,13 @@
 #include "stdafx.h"
 #include "Component.hpp"
 
-class PlayerProjectileCom : public Component
+class LifetimeCom : public Component
 {
 public:
-	PlayerProjectileCom();
+	LifetimeCom(float lifetime);
 
 	Component::ComponentType getType() const;
 
-	int damage;
+	float lifetime;
+	float elapsedTime;
 };
