@@ -29,6 +29,7 @@ public:
 	Entity createTurret(sf::Vector2f position);
 	Entity createBouncer(sf::Vector2f position, sf::Vector2f direction);
 	Entity createParticle(sf::Vector2f position, sf::IntRect textureRect, sf::Vector2f velocity, float lifetime);
+	Entity createPac(sf::Vector2f position, Direction initialDirection);
 
 private:
 	Assemblages();

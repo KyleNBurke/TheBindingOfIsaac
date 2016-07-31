@@ -78,7 +78,7 @@ Entity Assemblages::createRegularProjectile(sf::Vector2f position, sf::Vector2f 
 
 Entity Assemblages::createTurret(sf::Vector2f position)
 {
-	Entity turret(sf::Sprite(enemySpriteSheet, sf::IntRect(0, 0, 6, 6)));
+	Entity turret(sf::Sprite(enemySpriteSheet, sf::IntRect(0, 54, 6, 6)));
 	turret.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
 	turret.sprite.setPosition(position);
 	turret.addComponent(std::unique_ptr<Component>(new HealthCom(3)));
@@ -109,4 +109,12 @@ Entity Assemblages::createParticle(sf::Vector2f position, sf::IntRect textureRec
 	particle.addComponent(std::unique_ptr<Component>(new LifetimeCom(lifetime)));
 
 	return particle;
+}
+
+Entity Assemblages::createPac(sf::Vector2f position, Direction initialDirection)
+{
+	Entity pac(sf::Sprite(enemySpriteSheet), sf::IntRect(1, 1, 5, 5));
+	pac.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
+	pac.sprite.setPosition(position);
+	pac.addComponent(std::unique_ptr<Component>(new VelocityCom()));
 }

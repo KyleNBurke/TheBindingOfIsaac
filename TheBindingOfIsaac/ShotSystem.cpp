@@ -6,6 +6,7 @@
 #include "Assemblages.hpp"
 #include "Floor.hpp"
 #include "Input.hpp"
+#include <math.h>
 
 ShotSystem::ShotSystem(const sf::Time& deltaTime) : deltaTime(deltaTime) {}
 
@@ -40,7 +41,20 @@ void ShotSystem::update(Entity& entity)
 
 			if(direction.x != 0 || direction.y != 0)
 			{
-				sf::Vector2f velocity = 700.0f * (sf::Vector2f)direction +playerVelCom->velocity * 0.3f;
+				sf::Vector2f velocity = 700.0f * (sf::Vector2f)direction + playerVelCom->velocity * 0.6f;
+
+				float angle = std::atan(-velocity.y / velocity.x);
+
+				if(velocity.x < 0)
+					angle += 3.14159f;
+				
+				float randomRadAmount = 0.15f;
+				angle += (float)std::rand() / (float)RAND_MAX * randomRadAmount - randomRadAmount / 2;
+
+				float length = std::sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
+				velocity.x = std::cos(angle) * length;
+				velocity.y = -std::sin(angle) * length;
+
 				Floor::getCurrentRoom().addEntityQueue.push_back(Assemblages::getInstance().createPlayerProjectile(entity.sprite.getPosition(), velocity));
 
 				playerShotCom->fireResetClock.restart();

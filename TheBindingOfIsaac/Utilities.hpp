@@ -25,3 +25,10 @@ private:
 	const int scale;
 	sf::Font font;
 };
+
+enum Direction {
+	Up,
+	Down,
+	Left,
+	Right
+};
