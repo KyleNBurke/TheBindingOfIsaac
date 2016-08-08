@@ -7,7 +7,7 @@ int Floor::playerPosX;
 int Floor::playerPosY;
 std::array<std::array<std::shared_ptr<Room>, Floor::sizeY>, Floor::sizeX> Floor::rooms;
 std::shared_ptr<Room> Floor::currentRoom;
-Entity Floor::player(Assemblages::getInstance().createPlayer(sf::Vector2f(200.0f, 200.0f)));
+Entity Floor::player(Assemblages::getInstance().createPlayer(sf::Vector2f(72*2, 72*2)));
 
 Floor::Floor()
 {
@@ -127,7 +127,8 @@ void Floor::generate()
 				if(x != sizeX - 1 && ar[x + 1][y])
 					r = true;
 
-				rooms[x][y] = std::shared_ptr<Room>(new Room(u, d, l, r));
+				//rooms[x][y] = std::shared_ptr<Room>(new Room(u, d, l, r));
+				rooms[x][y] = std::shared_ptr<Room>(new Room(false, false, false, false));
 			}
 		}
 	}

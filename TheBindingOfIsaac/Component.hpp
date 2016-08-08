@@ -12,13 +12,13 @@ public:
 		PitCollision,
 		WallCollision,
 		Projectile,
-		Damage,
 		Health,
 		TurretShot,
 		PlayerShot,
 		Bouncer,
 		Lifetime,
-		Animation
+		Animation,
+		PacMove
 	};
 
 	Component();

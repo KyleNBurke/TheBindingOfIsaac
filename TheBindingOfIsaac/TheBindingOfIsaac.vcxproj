@@ -96,6 +96,8 @@
     <ClInclude Include="BouncerCom.hpp" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="LifetimeCom.hpp" />
+    <ClInclude Include="PacMoveCom.hpp" />
+    <ClInclude Include="MovementSystem.hpp" />
     <ClInclude Include="ProjectileCom.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="GameManager.hpp" />
@@ -135,6 +137,8 @@
     <ClCompile Include="BouncerCom.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="LifetimeCom.cpp" />
+    <ClCompile Include="PacMoveCom.cpp" />
+    <ClCompile Include="MovementSystem.cpp" />
     <ClCompile Include="ProjectileCom.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameManager.cpp" />

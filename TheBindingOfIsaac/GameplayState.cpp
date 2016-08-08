@@ -15,6 +15,7 @@ GameplayState::GameplayState(StatsState& statsState, sf::RenderWindow& window, c
 
 	systems.push_back(std::unique_ptr<System>(new InputSystem()));
 	systems.push_back(std::unique_ptr<System>(new PhysicsSystem(deltaTime)));
+	systems.push_back(std::unique_ptr<System>(new MovementSystem(deltaTime)));
 	systems.push_back(std::unique_ptr<System>(new ShotSystem(deltaTime)));
 	systems.push_back(std::unique_ptr<System>(new ProjectileSystem(deltaTime)));
 	systems.push_back(std::unique_ptr<System>(new AnimationSystem(deltaTime)));

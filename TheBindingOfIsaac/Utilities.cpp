@@ -25,7 +25,7 @@ float Utilities::clamp(float value, float min, float max) const
 	return value < min ? min : (value > max ? max : value);
 }
 
-float Utilities::getHorIntersectionDepth(sf::IntRect rectA, sf::IntRect rectB) const
+float Utilities::getHorIntersectionDepth(sf::FloatRect rectA, sf::FloatRect rectB) const
 {
 	float halfA = rectA.width / 2.0f;
 	float halfB = rectB.width / 2.0f;
@@ -42,7 +42,7 @@ float Utilities::getHorIntersectionDepth(sf::IntRect rectA, sf::IntRect rectB) c
 		return distance > 0 ? minDistance - distance : -minDistance - distance;
 }
 
-float Utilities::getVertIntersectionDepth(sf::IntRect rectA, sf::IntRect rectB) const
+float Utilities::getVertIntersectionDepth(sf::FloatRect rectA, sf::FloatRect rectB) const
 {
 	float halfA = rectA.height / 2.0f;
 	float halfB = rectB.height / 2.0f;

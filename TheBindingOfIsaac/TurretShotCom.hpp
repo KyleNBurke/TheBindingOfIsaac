@@ -8,7 +8,7 @@ class TurretShotCom : public Component
 public:
 	TurretShotCom();
 
-	Component::ComponentType getType() const;
+	ComponentType getType() const;
 
 	float elapsedTime;
 	const static float shotTime;

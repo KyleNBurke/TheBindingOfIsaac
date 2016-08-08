@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "InputSystem.hpp"
 #include "VelocityCom.hpp"
+#include "Utilities.hpp"
 
 InputSystem::InputSystem() {}
 
@@ -15,10 +16,16 @@ void InputSystem::update(Entity& entity)
 		velocityCom->direction.y = 0;
 
 		if(Input::getInstance().keyHeld(sf::Keyboard::Key::W))
+		{
 			velocityCom->direction.y -= 1;
+			entity.sprite.setRotation(180.0f);
+		}
 
 		if(Input::getInstance().keyHeld(sf::Keyboard::Key::S))
+		{
 			velocityCom->direction.y += 1;
+			entity.sprite.setRotation(0.0f);
+		}
 
 		if(Input::getInstance().keyHeld(sf::Keyboard::Key::A))
 			velocityCom->direction.x -= 1;

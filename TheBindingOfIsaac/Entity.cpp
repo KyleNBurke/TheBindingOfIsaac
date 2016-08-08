@@ -8,9 +8,10 @@ Entity::Entity(sf::Sprite sprite, sf::IntRect bounds) : sprite(sprite), bounds(b
 
 sf::FloatRect Entity::getBounds() const
 {
-	sf::Vector2f pos = sprite.getPosition();
-	float scale = (float)Utilities::getInstance().getScale();
-	return sf::FloatRect(pos.x + (float)bounds.left * scale, pos.y + (float)bounds.top * scale, (float)bounds.width * scale, (float)bounds.height * scale);
+	//sf::FloatRect gloBounds = sprite.getGlobalBounds();
+	//float scale = (float)Utilities::getInstance().getScale();
+	//return sf::FloatRect(gloBounds.left + (float)bounds.left * scale, gloBounds.top + (float)bounds.top * scale, (float)bounds.width * scale, (float)bounds.height * scale);
+	return sprite.getTransform().transformRect((sf::FloatRect)bounds);
 }
 
 void Entity::addComponent(std::unique_ptr<Component> component)

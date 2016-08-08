@@ -22,10 +22,16 @@ void ShotSystem::update(Entity& entity)
 			sf::Vector2i direction;
 
 			if(Input::getInstance().keyHeld(sf::Keyboard::Key::I))
+			{
 				direction.y -= 1;
+				entity.sprite.setRotation(180.0f);
+			}
 
 			if(Input::getInstance().keyHeld(sf::Keyboard::Key::K))
+			{
 				direction.y += 1;
+				entity.sprite.setRotation(0.0f);
+			}
 
 			if(Input::getInstance().keyHeld(sf::Keyboard::Key::J))
 			{

@@ -269,6 +269,10 @@ void Room::load(std::string fileName)
 	fileStream.close();
 
 	complete = true;
+
+
+	//temp
+	entities.push_back(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 200.0f), Right));
 }
 
 Room::TileType Room::getTileType(int x, int y)

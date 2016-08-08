@@ -21,6 +21,7 @@ Entity Assemblages::createPlayer(sf::Vector2f position)
 {
 	Entity player(sf::Sprite(playerSpriteSheet, sf::IntRect(0, 0, 7, 6)), sf::IntRect(1, 1, 5, 4));
 	player.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
+	player.sprite.setOrigin(player.sprite.getLocalBounds().width / 2, player.sprite.getLocalBounds().height / 2);
 	player.sprite.setPosition(position);
 
 	player.addComponent(std::unique_ptr<Component>(new PlayerControlledCom()));
@@ -36,9 +37,11 @@ Entity Assemblages::createPlayer(sf::Vector2f position)
 
 Entity Assemblages::createPlayerProjectile(sf::Vector2f position, sf::Vector2f velocity)
 {
-	Entity projectile(sf::Sprite(projectilesSpriteSheet), sf::IntRect(1, 1, 2, 2));
+	Entity projectile(sf::Sprite(projectilesSpriteSheet, sf::IntRect(0, 0, 4, 4)), sf::IntRect(1, 1, 2, 2));
 	projectile.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
-	projectile.sprite.setPosition(sf::Vector2f(position.x + 1.5f * (float)Utilities::getInstance().getScale(), position.y + 1.5f * (float)Utilities::getInstance().getScale()));
+	projectile.sprite.setOrigin(projectile.sprite.getLocalBounds().width / 2, projectile.sprite.getLocalBounds().height / 2);
+	projectile.sprite.setPosition(position);
+
 	projectile.addComponent(std::unique_ptr<Component>(new VelocityCom(velocity)));
 	projectile.addComponent(std::unique_ptr<Component>(new ProjectileCom(ProjectileCom::ProjectileType::Player)));
 	projectile.addComponent(std::unique_ptr<Component>(new LifetimeCom(0.5f)));
@@ -113,8 +116,40 @@ Entity Assemblages::createParticle(sf::Vector2f position, sf::IntRect textureRec
 
 Entity Assemblages::createPac(sf::Vector2f position, Direction initialDirection)
 {
-	Entity pac(sf::Sprite(enemySpriteSheet), sf::IntRect(1, 1, 5, 5));
+	Entity pac(sf::Sprite(enemySpriteSheet, sf::IntRect(0, 0, 6, 7)), sf::IntRect(1, 1, 4, 5));
 	pac.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
+	pac.sprite.setOrigin(2.5f, pac.sprite.getLocalBounds().height / 2);
 	pac.sprite.setPosition(position);
-	pac.addComponent(std::unique_ptr<Component>(new VelocityCom()));
+
+	sf::Vector2f vel;
+	switch(initialDirection)
+	{
+		case Up:
+			vel.y = -PacMoveCom::passiveSpeed;
+			break;
+		case Down:
+			vel.y = PacMoveCom::passiveSpeed;
+			break;
+		case Left:
+			vel.x = -PacMoveCom::passiveSpeed;
+			break;
+		case Right:
+			vel.x = PacMoveCom::passiveSpeed;
+			break;
+	}
+
+	pac.addComponent(std::unique_ptr<Component>(new VelocityCom(vel)));
+	pac.addComponent(std::unique_ptr<Component>(new WallCollisionCom()));
+	pac.addComponent(std::unique_ptr<Component>(new PacMoveCom(initialDirection)));
+
+	std::unique_ptr<AnimationStateStatic> passiveState(new AnimationStateStatic(sf::IntRect(0, 0, 6, 7)));
+	std::unique_ptr<AnimationStateDynamic> aggressiveState(new AnimationStateDynamic(sf::IntRect(0, 0, 6, 7), 0, 0, 2, 0.1f));
+
+	std::unique_ptr<AnimationCom> animationCom(new AnimationCom());
+	animationCom->states.push_back(std::move(passiveState));
+	animationCom->states.push_back(std::move(aggressiveState));
+
+	pac.addComponent(std::move(animationCom));
+
+	return pac;
 }

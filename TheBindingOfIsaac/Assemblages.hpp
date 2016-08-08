@@ -15,6 +15,7 @@
 #include "AnimationCom.hpp"
 #include "AnimationStateStatic.hpp"
 #include "AnimationStateDynamic.hpp"
+#include "PacMoveCom.hpp"
 
 class Assemblages
 {

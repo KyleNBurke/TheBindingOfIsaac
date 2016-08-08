@@ -14,6 +14,7 @@
 #include "ProjectileSystem.hpp"
 #include "TransitionSystem.hpp"
 #include "AnimationSystem.hpp"
+#include "MovementSystem.hpp"
 
 class GameplayState : public State
 {

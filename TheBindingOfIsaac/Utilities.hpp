@@ -11,8 +11,8 @@ public:
 
 	float round(float value) const;
 	float clamp(float value, float min, float max) const;
-	float getHorIntersectionDepth(sf::IntRect rectA, sf::IntRect rectB) const;
-	float getVertIntersectionDepth(sf::IntRect rectA, sf::IntRect rectB) const;
+	float getHorIntersectionDepth(sf::FloatRect rectA, sf::FloatRect rectB) const;
+	float getVertIntersectionDepth(sf::FloatRect rectA, sf::FloatRect rectB) const;
 
 	int getScale() const;
 	sf::Font& getFont();

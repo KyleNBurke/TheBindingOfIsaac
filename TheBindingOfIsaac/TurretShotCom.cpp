@@ -8,5 +8,5 @@ TurretShotCom::TurretShotCom() : elapsedTime(0.0f), flip(true) {}
 
 Component::ComponentType TurretShotCom::getType() const
 {
-	return Component::ComponentType::TurretShot;
+	return ComponentType::TurretShot;
 }
