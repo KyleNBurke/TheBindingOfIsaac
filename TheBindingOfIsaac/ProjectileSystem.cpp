@@ -2,7 +2,8 @@
 #include "ProjectileSystem.hpp"
 #include "Floor.hpp"
 #include "HealthCom.hpp"
-#include "Assemblages.hpp"
+#include "AnimationStateDynamic.hpp"
+//#include "Assemblages.hpp"
 
 ProjectileSystem::ProjectileSystem(const sf::Time& deltaTime) : deltaTime(deltaTime) {}
 

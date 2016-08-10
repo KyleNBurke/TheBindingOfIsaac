@@ -30,7 +30,8 @@ void PhysicsSystem::update(Entity& entity)
 		sf::Vector2f position = entity.sprite.getPosition();
 		entity.sprite.setPosition(Utilities::getInstance().round(position.x), position.y);
 
-		if(std::floor(entity.getBounds().left) != entity.getBounds().left)
+		float leftToHalfInt = floor((entity.getBounds().left * 2.0f) + 0.5f) / 2.0f;
+		if(std::floor(leftToHalfInt) != leftToHalfInt)
 			entity.sprite.setPosition(Utilities::getInstance().round(position.x + 0.5f) - 0.5f, position.y);
 
 		if(hasPitCollision || hasWallCollision)
@@ -41,7 +42,8 @@ void PhysicsSystem::update(Entity& entity)
 		position = entity.sprite.getPosition();
 		entity.sprite.setPosition(position.x, Utilities::getInstance().round(position.y));
 
-		if(std::floor(entity.getBounds().top) != entity.getBounds().top)
+		float topToHalfInt = floor((entity.getBounds().top * 2.0f) + 0.5f) / 2.0f;
+		if(std::floor(topToHalfInt) != topToHalfInt)
 			entity.sprite.setPosition(position.x, Utilities::getInstance().round(position.y + 0.5f) - 0.5f);
 
 		if(hasPitCollision || hasWallCollision)

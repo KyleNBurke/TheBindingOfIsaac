@@ -2,6 +2,13 @@
 #include "GameplayState.hpp"
 #include "Input.hpp"
 #include "GameManager.hpp"
+#include "Assemblages.hpp"
+#include "InputSystem.hpp"
+#include "PhysicsSystem.hpp"
+#include "ShotSystem.hpp"
+#include "ProjectileSystem.hpp"
+#include "AnimationSystem.hpp"
+#include "MovementSystem.hpp"
 
 GameplayState::GameplayState(StatsState& statsState, sf::RenderWindow& window, const sf::Time& deltaTime) :
 	statsState(statsState),
@@ -15,10 +22,10 @@ GameplayState::GameplayState(StatsState& statsState, sf::RenderWindow& window, c
 
 	systems.push_back(std::unique_ptr<System>(new InputSystem()));
 	systems.push_back(std::unique_ptr<System>(new PhysicsSystem(deltaTime)));
-	systems.push_back(std::unique_ptr<System>(new MovementSystem(deltaTime)));
-	systems.push_back(std::unique_ptr<System>(new ShotSystem(deltaTime)));
-	systems.push_back(std::unique_ptr<System>(new ProjectileSystem(deltaTime)));
-	systems.push_back(std::unique_ptr<System>(new AnimationSystem(deltaTime)));
+	//systems.push_back(std::unique_ptr<System>(new MovementSystem(deltaTime)));
+	//systems.push_back(std::unique_ptr<System>(new ShotSystem(deltaTime)));
+	//systems.push_back(std::unique_ptr<System>(new ProjectileSystem(deltaTime)));
+	//systems.push_back(std::unique_ptr<System>(new AnimationSystem(deltaTime)));
 }
 
 void GameplayState::initialize()

@@ -5,16 +5,9 @@
 #include "StatsState.hpp"
 #include "Floor.hpp"
 #include "HUD.hpp"
-
-#include "Assemblages.hpp"
 #include "RenderSystem.hpp"
-#include "InputSystem.hpp"
-#include "PhysicsSystem.hpp"
-#include "ShotSystem.hpp"
-#include "ProjectileSystem.hpp"
 #include "TransitionSystem.hpp"
-#include "AnimationSystem.hpp"
-#include "MovementSystem.hpp"
+
 
 class GameplayState : public State
 {

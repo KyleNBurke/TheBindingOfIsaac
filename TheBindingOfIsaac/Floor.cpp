@@ -1,10 +1,7 @@
 #include "stdafx.h"
 #include "Floor.hpp"
-#include "Utilities.hpp"
 #include "Assemblages.hpp"
 
-int Floor::playerPosX;
-int Floor::playerPosY;
 std::array<std::array<std::shared_ptr<Room>, Floor::sizeY>, Floor::sizeX> Floor::rooms;
 std::shared_ptr<Room> Floor::currentRoom;
 Entity Floor::player(Assemblages::getInstance().createPlayer(sf::Vector2f(72*2, 72*2)));
@@ -127,16 +124,14 @@ void Floor::generate()
 				if(x != sizeX - 1 && ar[x + 1][y])
 					r = true;
 
-				//rooms[x][y] = std::shared_ptr<Room>(new Room(u, d, l, r));
-				rooms[x][y] = std::shared_ptr<Room>(new Room(false, false, false, false));
+				rooms[x][y] = std::shared_ptr<Room>(new Room(u, d, l, r));
+				//rooms[x][y] = std::shared_ptr<Room>(new Room(false, false, false, false));
 			}
 		}
 	}
 
 	rooms[4][2]->load("Rooms/EmptyRoom.bim");
 	currentRoom = std::shared_ptr<Room>(rooms[4][2]);
-	playerPosX = 4;
-	playerPosY = 2;
 }
 
 void Floor::clear(std::array<std::array<bool, sizeY>, sizeX>& ar)
@@ -158,7 +153,7 @@ void Floor::clear(std::array<std::array<bool, sizeY>, sizeX>& ar)
 }
 
 
-std::vector<Floor::Direction> Floor::getAvialableDirections(std::array<std::array<bool, sizeY>, sizeX>& ar, int x, int y)
+std::vector<Direction> Floor::getAvialableDirections(std::array<std::array<bool, sizeY>, sizeX>& ar, int x, int y)
 {
 	std::vector<Direction> directions;
 	int xCheck = x;
@@ -238,34 +233,10 @@ Room& Floor::getCurrentRoom()
 	return *currentRoom;
 }
 
-void Floor::transitionRoom(Direction direction)
+void Floor::setCurrentRoom(int x, int y)
 {
-	int scale = Utilities::getInstance().getScale() * Room::tileSize;
+	if(!rooms[x][y]->complete)
+		rooms[x][y]->load("Rooms/" + std::to_string(rand() % maxRooms + 1) + ".bim");
 
-	switch(direction)
-	{
-	case Up:
-		playerPosY--;
-		player.sprite.setPosition((float)(Room::width * scale) / 2 - player.sprite.getGlobalBounds().width / 2, (float)(Room::height - 1) * scale);
-		break;
-	case Down:
-		playerPosY++;
-		player.sprite.setPosition((float)(Room::width * scale) / 2 - player.sprite.getGlobalBounds().width / 2, scale - player.sprite.getGlobalBounds().height);
-		break;
-	case Left:
-		playerPosX--;
-		player.sprite.setPosition((float)(Room::width - 1) * scale, (float)(Room::height * scale) / 2 - player.sprite.getGlobalBounds().height / 2);
-		break;
-	case Right:
-		playerPosX++;
-		player.sprite.setPosition(scale - player.sprite.getGlobalBounds().width, (float)(Room::height * scale) / 2 - player.sprite.getGlobalBounds().height / 2);
-		break;
-	}
-
-	if(!rooms[playerPosX][playerPosY]->complete)
-	{
-		rooms[playerPosX][playerPosY]->load("Rooms/" + std::to_string(rand() % maxRooms + 1) + ".bim");
-	}
-
-	currentRoom = std::shared_ptr<Room>(rooms[playerPosX][playerPosY]);
+	currentRoom = std::shared_ptr<Room>(rooms[x][y]);
 }

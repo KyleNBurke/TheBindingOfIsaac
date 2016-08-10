@@ -2,7 +2,6 @@
 
 #include "stdafx.h"
 #include "System.hpp"
-#include "Floor.hpp"
 #include "HUD.hpp"
 
 class TransitionSystem : public System
@@ -20,6 +19,9 @@ private:
 	const sf::Time& deltaTime;
 	float time;
 	const float transitionTime;
-	Floor::Direction direction;
+	bool updated;
+	sf::Vector2f position;
+	int playerPosX;
+	int playerPosY;
 	HUD& hud;
 };

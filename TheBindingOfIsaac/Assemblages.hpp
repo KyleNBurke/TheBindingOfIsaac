@@ -1,21 +1,6 @@
 #include "stdafx.h"
 #include "Utilities.hpp"
 #include "Entity.hpp"
-#include "PlayerControlledCom.hpp"
-#include "VelocityCom.hpp"
-#include "AccelDecelCom.hpp"
-#include "PitCollisionCom.hpp"
-#include "WallCollisionCom.hpp"
-#include "ProjectileCom.hpp"
-#include "HealthCom.hpp"
-#include "TurretShotCom.hpp"
-#include "PlayerShotCom.hpp"
-#include "BouncerCom.hpp"
-#include "LifetimeCom.hpp"
-#include "AnimationCom.hpp"
-#include "AnimationStateStatic.hpp"
-#include "AnimationStateDynamic.hpp"
-#include "PacMoveCom.hpp"
 
 class Assemblages
 {

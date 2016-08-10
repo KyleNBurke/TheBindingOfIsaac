@@ -7,6 +7,7 @@
 #include "Floor.hpp"
 #include "Input.hpp"
 #include <math.h>
+#include "VelocityCom.hpp"
 
 ShotSystem::ShotSystem(const sf::Time& deltaTime) : deltaTime(deltaTime) {}
 
