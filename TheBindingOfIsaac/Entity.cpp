@@ -2,9 +2,11 @@
 #include "Entity.hpp"
 #include "Utilities.hpp"
 
-Entity::Entity(sf::Sprite sprite) : Entity(sprite, (sf::IntRect)sprite.getLocalBounds()) {}
+Entity::Entity() : Entity(sf::Sprite(), 0) {}
 
-Entity::Entity(sf::Sprite sprite, sf::IntRect bounds) : sprite(sprite), bounds(bounds), shouldDelete(false) {}
+Entity::Entity(sf::Sprite sprite, int drawPriority) : Entity(sprite, (sf::IntRect)sprite.getLocalBounds(), drawPriority) {}
+
+Entity::Entity(sf::Sprite sprite, sf::IntRect bounds, int drawPriority) : sprite(sprite), bounds(bounds), drawPriority(drawPriority), shouldDelete(false) {}
 
 sf::FloatRect Entity::getBounds() const
 {

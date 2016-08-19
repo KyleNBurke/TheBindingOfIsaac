@@ -143,10 +143,10 @@ void Room::load(std::string fileName)
 		vertBR.position = sf::Vector2f((float)(x + 1), 1) * (float)tileScreenSize;
 		vertTR.position = sf::Vector2f((float)(x + 1), 0) * (float)tileScreenSize;
 
-		backgroundVertArr.append(vertTL);
-		backgroundVertArr.append(vertBL);
-		backgroundVertArr.append(vertBR);
-		backgroundVertArr.append(vertTR);
+		foregroundVertArr.append(vertTL);
+		foregroundVertArr.append(vertBL);
+		foregroundVertArr.append(vertBR);
+		foregroundVertArr.append(vertTR);
 
 		tileTypes[x][0] = tileTypeTop;
 
@@ -160,10 +160,10 @@ void Room::load(std::string fileName)
 		vertBR.position = sf::Vector2f((float)(x + 1), (float)(height + 0)) * (float)tileScreenSize;
 		vertTR.position = sf::Vector2f((float)(x + 1), (float)(height - 1)) * (float)tileScreenSize;
 
-		backgroundVertArr.append(vertTL);
-		backgroundVertArr.append(vertBL);
-		backgroundVertArr.append(vertBR);
-		backgroundVertArr.append(vertTR);
+		foregroundVertArr.append(vertTL);
+		foregroundVertArr.append(vertBL);
+		foregroundVertArr.append(vertBR);
+		foregroundVertArr.append(vertTR);
 
 		tileTypes[x][height - 1] = tileTypeBot;
 	}
@@ -215,10 +215,10 @@ void Room::load(std::string fileName)
 		vertBR.position = sf::Vector2f(1, (float)(y + 1)) * (float)tileScreenSize;
 		vertTR.position = sf::Vector2f(1, (float)(y + 0)) * (float)tileScreenSize;
 
-		backgroundVertArr.append(vertTL);
-		backgroundVertArr.append(vertBL);
-		backgroundVertArr.append(vertBR);
-		backgroundVertArr.append(vertTR);
+		foregroundVertArr.append(vertTL);
+		foregroundVertArr.append(vertBL);
+		foregroundVertArr.append(vertBR);
+		foregroundVertArr.append(vertTR);
 
 		tileTypes[0][y] = tileTypeLeft;
 
@@ -232,10 +232,10 @@ void Room::load(std::string fileName)
 		vertBR.position = sf::Vector2f((float)(width + 0), (float)(y + 1)) * (float)tileScreenSize;
 		vertTR.position = sf::Vector2f((float)(width + 0), (float)(y + 0)) * (float)tileScreenSize;
 
-		backgroundVertArr.append(vertTL);
-		backgroundVertArr.append(vertBL);
-		backgroundVertArr.append(vertBR);
-		backgroundVertArr.append(vertTR);
+		foregroundVertArr.append(vertTL);
+		foregroundVertArr.append(vertBL);
+		foregroundVertArr.append(vertBR);
+		foregroundVertArr.append(vertTR);
 
 		tileTypes[width - 1][y] = tileTypeRight;
 	}
@@ -272,16 +272,13 @@ void Room::load(std::string fileName)
 
 
 	//temp
-	//entities.push_back(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 200.0f), Right));
+	entities.push_back(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 200.0f), Right));
+	entities.push_back(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 400.0f), Right));
+	entities.push_back(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 600.0f), Right));
+	entities.push_back(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 800.0f), Right));
 }
 
 Room::TileType Room::getTileType(int x, int y)
 {
 	return tileTypes[x][y];
-}
-
-void Room::draw(sf::RenderWindow& window)
-{
-	window.draw(backgroundVertArr, &backgroundTex);
-	window.draw(foregroundVertArr, &foregroundTex);
 }

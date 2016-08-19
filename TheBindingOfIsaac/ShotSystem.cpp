@@ -55,7 +55,7 @@ void ShotSystem::update(Entity& entity)
 				if(velocity.x < 0)
 					angle += 3.14159f;
 				
-				float randomRadAmount = 0.15f;
+				float randomRadAmount = 0.1f;
 				angle += (float)std::rand() / (float)RAND_MAX * randomRadAmount - randomRadAmount / 2;
 
 				float length = std::sqrt(velocity.x * velocity.x + velocity.y * velocity.y);

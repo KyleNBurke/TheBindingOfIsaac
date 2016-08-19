@@ -167,6 +167,12 @@
     <ClInclude Include="PacMoveCom.hpp">
       <Filter>Source Files\Components\Movement</Filter>
     </ClInclude>
+    <ClInclude Include="FlashSystem.hpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="LifetimeSystem.hpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -285,6 +291,12 @@
     </ClCompile>
     <ClCompile Include="PacMoveCom.cpp">
       <Filter>Source Files\Components\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="FlashSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="LifetimeSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

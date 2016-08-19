@@ -10,7 +10,6 @@ class Room
 public:
 	Room(bool upOpen, bool downOpen, bool leftOpen, bool rightOpen);
 	void load(std::string fileName);
-	void draw(sf::RenderWindow& window);
 
 	enum TileType { floor, wall, pit };
 
@@ -21,13 +20,13 @@ public:
 	static const int height = 13;
 	static sf::Texture& backgroundTex;
 	static sf::Texture& foregroundTex;
+	sf::VertexArray backgroundVertArr;
+	sf::VertexArray foregroundVertArr;
 	std::vector<Entity> entities;
 	std::vector<Entity> addEntityQueue;
 	bool complete;
 
 private:
-	sf::VertexArray backgroundVertArr;
-	sf::VertexArray foregroundVertArr;
 	std::array<std::array<TileType, height + 2>, width + 2> tileTypes;
 
 	bool upOpen;

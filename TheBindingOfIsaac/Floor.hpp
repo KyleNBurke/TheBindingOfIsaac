@@ -11,7 +11,6 @@ public:
 	Floor();
 
 	void generate();
-	void draw(sf::RenderWindow& window);
 	static Room& getCurrentRoom();
 	static void setCurrentRoom(int x, int y);
 

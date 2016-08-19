@@ -6,8 +6,9 @@
 class Entity
 {
 public:
-	Entity(sf::Sprite sprite);
-	Entity(sf::Sprite sprite, sf::IntRect bounds);
+	Entity();
+	Entity(sf::Sprite sprite, int drawPriority);
+	Entity(sf::Sprite sprite, sf::IntRect bounds, int drawPriority);
 
 	sf::FloatRect getBounds() const;
 	void addComponent(std::unique_ptr<Component> component);
@@ -17,6 +18,7 @@ public:
 
 	sf::Sprite sprite;
 	bool shouldDelete;
+	int drawPriority;
 
 private:
 	sf::IntRect bounds;

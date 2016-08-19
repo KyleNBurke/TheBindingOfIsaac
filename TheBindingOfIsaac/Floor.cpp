@@ -124,8 +124,8 @@ void Floor::generate()
 				if(x != sizeX - 1 && ar[x + 1][y])
 					r = true;
 
-				rooms[x][y] = std::shared_ptr<Room>(new Room(u, d, l, r));
-				//rooms[x][y] = std::shared_ptr<Room>(new Room(false, false, false, false));
+				//rooms[x][y] = std::shared_ptr<Room>(new Room(u, d, l, r));
+				rooms[x][y] = std::shared_ptr<Room>(new Room(false, false, false, false));
 			}
 		}
 	}
@@ -221,11 +221,6 @@ std::vector<Direction> Floor::getAvialableDirections(std::array<std::array<bool,
 const std::array<std::array<std::shared_ptr<Room>, Floor::sizeY>, Floor::sizeX>& Floor::getFloor() const
 {
 	return rooms;
-}
-
-void Floor::draw(sf::RenderWindow& window)
-{
-	currentRoom->draw(window);
 }
 
 Room& Floor::getCurrentRoom()

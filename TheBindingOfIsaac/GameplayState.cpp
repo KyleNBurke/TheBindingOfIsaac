@@ -9,6 +9,8 @@
 #include "ProjectileSystem.hpp"
 #include "AnimationSystem.hpp"
 #include "MovementSystem.hpp"
+#include "FlashSystem.hpp"
+#include "LifetimeSystem.hpp"
 
 GameplayState::GameplayState(StatsState& statsState, sf::RenderWindow& window, const sf::Time& deltaTime) :
 	statsState(statsState),
@@ -22,10 +24,12 @@ GameplayState::GameplayState(StatsState& statsState, sf::RenderWindow& window, c
 
 	systems.push_back(std::unique_ptr<System>(new InputSystem()));
 	systems.push_back(std::unique_ptr<System>(new PhysicsSystem(deltaTime)));
-	//systems.push_back(std::unique_ptr<System>(new MovementSystem(deltaTime)));
-	//systems.push_back(std::unique_ptr<System>(new ShotSystem(deltaTime)));
-	//systems.push_back(std::unique_ptr<System>(new ProjectileSystem(deltaTime)));
-	//systems.push_back(std::unique_ptr<System>(new AnimationSystem(deltaTime)));
+	systems.push_back(std::unique_ptr<System>(new MovementSystem(deltaTime)));
+	systems.push_back(std::unique_ptr<System>(new ShotSystem(deltaTime)));
+	systems.push_back(std::unique_ptr<System>(new ProjectileSystem(deltaTime)));
+	systems.push_back(std::unique_ptr<System>(new FlashSystem(deltaTime)));
+	systems.push_back(std::unique_ptr<System>(new LifetimeSystem(deltaTime)));
+	systems.push_back(std::unique_ptr<System>(new AnimationSystem(deltaTime)));
 }
 
 void GameplayState::initialize()
@@ -35,15 +39,27 @@ void GameplayState::initialize()
 
 void GameplayState::update(sf::Time deltaTime)
 {
-	for(std::vector<Entity>::iterator& it = Floor::getCurrentRoom().addEntityQueue.begin(); it != Floor::getCurrentRoom().addEntityQueue.end(); ++it)
-		Floor::getCurrentRoom().entities.push_back(*it);
-	Floor::getCurrentRoom().addEntityQueue.clear();
+	std::vector<Entity>& queue = Floor::getCurrentRoom().addEntityQueue;
+	std::vector<Entity>& entities = Floor::getCurrentRoom().entities;
 
-	if(Input::getInstance().keyPressed(sf::Keyboard::Key::Space))
+	for(std::vector<Entity>::iterator& itToAdd = queue.begin(); itToAdd != queue.end(); ++itToAdd)
 	{
-		std::srand((int)std::time(0) * std::rand());
-		floor.generate();
+		bool added = false;
+
+		for(std::vector<Entity>::iterator& it = entities.begin(); it != entities.end(); ++it)
+		{
+			if(itToAdd->drawPriority < it->drawPriority)
+			{
+				entities.insert(it, *itToAdd);
+				added = true;
+				break;
+			}
+		}
+
+		if(!added)
+			entities.push_back(*itToAdd);
 	}
+	queue.clear();
 
 	if(Input::getInstance().keyPressed(sf::Keyboard::Key::F1)) {
 		statsState.setActive(!statsState.getActive());
@@ -76,11 +92,16 @@ void GameplayState::update(sf::Time deltaTime)
 
 void GameplayState::draw(sf::RenderWindow& window)
 {
-	floor.draw(window);
+	Room& room = Floor::getCurrentRoom();
+
+	window.draw(room.backgroundVertArr, &room.backgroundTex);
+
+	for(std::vector<Entity>::iterator it = room.entities.begin(); it != room.entities.end(); ++it)
+		renderSystem.update(*it);
 
 	renderSystem.update(Floor::player);
-	for(std::vector<Entity>::iterator it = Floor::getCurrentRoom().entities.begin(); it != Floor::getCurrentRoom().entities.end(); ++it)
-		renderSystem.update(*it);
+
+	window.draw(room.foregroundVertArr, &room.foregroundTex);
 
 	transitionSystem.draw(window);
 

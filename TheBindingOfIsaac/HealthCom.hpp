@@ -11,4 +11,7 @@ public:
 	Component::ComponentType getType() const;
 
 	int health;
+	bool flashing;
+	static const float maxFlashTime;
+	float currFlashTime;
 };

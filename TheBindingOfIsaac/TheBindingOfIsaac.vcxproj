@@ -95,7 +95,9 @@
     <ClInclude Include="Assemblages.hpp" />
     <ClInclude Include="BouncerCom.hpp" />
     <ClInclude Include="Component.hpp" />
+    <ClInclude Include="FlashSystem.hpp" />
     <ClInclude Include="LifetimeCom.hpp" />
+    <ClInclude Include="LifetimeSystem.hpp" />
     <ClInclude Include="PacMoveCom.hpp" />
     <ClInclude Include="MovementSystem.hpp" />
     <ClInclude Include="ProjectileCom.hpp" />
@@ -136,7 +138,9 @@
     <ClCompile Include="Assemblages.cpp" />
     <ClCompile Include="BouncerCom.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="FlashSystem.cpp" />
     <ClCompile Include="LifetimeCom.cpp" />
+    <ClCompile Include="LifetimeSystem.cpp" />
     <ClCompile Include="PacMoveCom.cpp" />
     <ClCompile Include="MovementSystem.cpp" />
     <ClCompile Include="ProjectileCom.cpp" />

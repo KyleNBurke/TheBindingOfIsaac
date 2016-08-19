@@ -14,14 +14,8 @@ public:
 	void update(Entity& entity);
 
 private:
-	bool detectTileCollisions(Entity& entity);
-	bool detectEntityCollisions(Entity& entity, std::shared_ptr<ProjectileCom> projCom);
-	void applyDamage(Entity& entity, int damage);
-	void removeProjectile(Entity& entity,
-		std::shared_ptr<ProjectileCom> projCom,
-		std::shared_ptr<AnimationCom> animCom,
-		std::shared_ptr<VelocityCom> velCom,
-		std::shared_ptr<LifetimeCom> lifetimeCom);
+	bool resolveTileCollisions(Entity& entity);
+	bool resolveEnemyCollisions(Entity& projectile, std::shared_ptr<ProjectileCom> projCom);
 
 	const sf::Time& deltaTime;
 };
