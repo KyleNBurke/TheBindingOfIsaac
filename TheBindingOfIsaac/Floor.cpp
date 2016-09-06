@@ -124,8 +124,8 @@ void Floor::generate()
 				if(x != sizeX - 1 && ar[x + 1][y])
 					r = true;
 
-				//rooms[x][y] = std::shared_ptr<Room>(new Room(u, d, l, r));
-				rooms[x][y] = std::shared_ptr<Room>(new Room(false, false, false, false));
+				rooms[x][y] = std::shared_ptr<Room>(new Room(u, d, l, r));
+				//rooms[x][y] = std::shared_ptr<Room>(new Room(false, false, false, false));
 			}
 		}
 	}
@@ -223,6 +223,11 @@ const std::array<std::array<std::shared_ptr<Room>, Floor::sizeY>, Floor::sizeX>&
 	return rooms;
 }
 
+const Room& Floor::getRoom(int x, int y)
+{
+	return *rooms[x][y];
+}
+
 Room& Floor::getCurrentRoom()
 {
 	return *currentRoom;
@@ -231,7 +236,8 @@ Room& Floor::getCurrentRoom()
 void Floor::setCurrentRoom(int x, int y)
 {
 	if(!rooms[x][y]->complete)
-		rooms[x][y]->load("Rooms/" + std::to_string(rand() % maxRooms + 1) + ".bim");
+		rooms[x][y]->load("Rooms/EmptyRoom.bim");
+		//rooms[x][y]->load("Rooms/" + std::to_string(rand() % maxRooms + 1) + ".bim");
 
 	currentRoom = std::shared_ptr<Room>(rooms[x][y]);
 }

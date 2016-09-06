@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "PhysicsSystem.hpp"
 #include "PacMoveCom.hpp"
+#include "HealthCom.hpp"
 
 PhysicsSystem::PhysicsSystem(const sf::Time& deltaTime) : deltaTime(deltaTime) {}
 
@@ -48,6 +49,26 @@ void PhysicsSystem::update(Entity& entity)
 
 		if(hasPitCollision || hasWallCollision)
 			resolveCollisions(Direction::Vertical, entity, hasPitCollision, hasWallCollision);
+	}
+
+	if(&entity != &Floor::player && entity.hasComponent(Component::ComponentType::Health))
+	{
+		std::shared_ptr<HealthCom> healthCom = std::dynamic_pointer_cast<HealthCom>(Floor::player.getComponent(Component::ComponentType::Health));
+		if(!healthCom->flashing && entity.getBounds().intersects(Floor::player.getBounds()))
+		{
+			std::shared_ptr<VelocityCom> velocityComEntity = std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity));
+			std::shared_ptr<VelocityCom> velocityComPlayer = std::dynamic_pointer_cast<VelocityCom>(Floor::player.getComponent(Component::ComponentType::Velocity));
+
+			float hDepth = Utilities::getInstance().getHorIntersectionDepth(entity.getBounds(), Floor::player.getBounds());
+			float vDepth = Utilities::getInstance().getVertIntersectionDepth(entity.getBounds(), Floor::player.getBounds());
+
+			if(abs(hDepth) < abs(vDepth))
+				velocityComPlayer->velocity.x = velocityComEntity->velocity.x;
+			else
+				velocityComPlayer->velocity.y = velocityComEntity->velocity.y;
+
+			healthCom->flashing = true;
+		}
 	}
 }
 

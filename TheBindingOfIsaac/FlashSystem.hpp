@@ -12,4 +12,7 @@ public:
 
 private:
 	const sf::Time& deltaTime;
+	bool flip;
+	const int maxPlayerFlashes;
+	int currPlayerFlashes;
 };

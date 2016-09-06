@@ -10,7 +10,7 @@ sf::Texture& Room::backgroundTex = sf::Texture();
 sf::Texture& Room::foregroundTex = sf::Texture();
 
 Room::Room(bool upOpen, bool downOpen, bool leftOpen, bool rightOpen) : 
-	upOpen(upOpen), downOpen(downOpen), leftOpen(leftOpen), rightOpen(rightOpen), complete(false)
+	upOpen(upOpen), downOpen(downOpen), leftOpen(leftOpen), rightOpen(rightOpen), complete(false), enemies(0)
 {
 	backgroundVertArr.setPrimitiveType(sf::PrimitiveType::Quads);
 	foregroundVertArr.setPrimitiveType(sf::PrimitiveType::Quads);
@@ -108,16 +108,10 @@ void Room::load(std::string fileName)
 		else if(x == 8)
 		{
 			if(upOpen)
-			{
 				texPosTop = sf::Vector2f(0, 0);
-				tileTypeTop = TileType::floor;
-			}
 
 			if(downOpen)
-			{
 				texPosBot = sf::Vector2f(0, 0);
-				tileTypeBot = TileType::floor;
-			}
 		}
 		else if(x == 9)
 		{
@@ -143,10 +137,20 @@ void Room::load(std::string fileName)
 		vertBR.position = sf::Vector2f((float)(x + 1), 1) * (float)tileScreenSize;
 		vertTR.position = sf::Vector2f((float)(x + 1), 0) * (float)tileScreenSize;
 
-		foregroundVertArr.append(vertTL);
-		foregroundVertArr.append(vertBL);
-		foregroundVertArr.append(vertBR);
-		foregroundVertArr.append(vertTR);
+		if(x == 8 && upOpen)
+		{
+			backgroundVertArr.append(vertTL);
+			backgroundVertArr.append(vertBL);
+			backgroundVertArr.append(vertBR);
+			backgroundVertArr.append(vertTR);
+		}
+		else
+		{
+			foregroundVertArr.append(vertTL);
+			foregroundVertArr.append(vertBL);
+			foregroundVertArr.append(vertBR);
+			foregroundVertArr.append(vertTR);
+		}
 
 		tileTypes[x][0] = tileTypeTop;
 
@@ -160,10 +164,20 @@ void Room::load(std::string fileName)
 		vertBR.position = sf::Vector2f((float)(x + 1), (float)(height + 0)) * (float)tileScreenSize;
 		vertTR.position = sf::Vector2f((float)(x + 1), (float)(height - 1)) * (float)tileScreenSize;
 
-		foregroundVertArr.append(vertTL);
-		foregroundVertArr.append(vertBL);
-		foregroundVertArr.append(vertBR);
-		foregroundVertArr.append(vertTR);
+		if(x == 8 && downOpen)
+		{
+			backgroundVertArr.append(vertTL);
+			backgroundVertArr.append(vertBL);
+			backgroundVertArr.append(vertBR);
+			backgroundVertArr.append(vertTR);
+		}
+		else
+		{
+			foregroundVertArr.append(vertTL);
+			foregroundVertArr.append(vertBL);
+			foregroundVertArr.append(vertBR);
+			foregroundVertArr.append(vertTR);
+		}
 
 		tileTypes[x][height - 1] = tileTypeBot;
 	}
@@ -187,15 +201,9 @@ void Room::load(std::string fileName)
 		else if(y == 6)
 		{
 			if(leftOpen)
-			{
 				texPosLeft = sf::Vector2f(0, 0);
-				tileTypeLeft = TileType::floor;
-			}
 			if(rightOpen)
-			{
 				texPosRight = sf::Vector2f(0, 0);
-				tileTypeRight = TileType::floor;
-			}
 		}
 		else if(y == 7)
 		{
@@ -215,10 +223,20 @@ void Room::load(std::string fileName)
 		vertBR.position = sf::Vector2f(1, (float)(y + 1)) * (float)tileScreenSize;
 		vertTR.position = sf::Vector2f(1, (float)(y + 0)) * (float)tileScreenSize;
 
-		foregroundVertArr.append(vertTL);
-		foregroundVertArr.append(vertBL);
-		foregroundVertArr.append(vertBR);
-		foregroundVertArr.append(vertTR);
+		if(y == 6 && leftOpen)
+		{
+			backgroundVertArr.append(vertTL);
+			backgroundVertArr.append(vertBL);
+			backgroundVertArr.append(vertBR);
+			backgroundVertArr.append(vertTR);
+		}
+		else
+		{
+			foregroundVertArr.append(vertTL);
+			foregroundVertArr.append(vertBL);
+			foregroundVertArr.append(vertBR);
+			foregroundVertArr.append(vertTR);
+		}
 
 		tileTypes[0][y] = tileTypeLeft;
 
@@ -232,10 +250,20 @@ void Room::load(std::string fileName)
 		vertBR.position = sf::Vector2f((float)(width + 0), (float)(y + 1)) * (float)tileScreenSize;
 		vertTR.position = sf::Vector2f((float)(width + 0), (float)(y + 0)) * (float)tileScreenSize;
 
-		foregroundVertArr.append(vertTL);
-		foregroundVertArr.append(vertBL);
-		foregroundVertArr.append(vertBR);
-		foregroundVertArr.append(vertTR);
+		if(y == 6 && rightOpen)
+		{
+			backgroundVertArr.append(vertTL);
+			backgroundVertArr.append(vertBL);
+			backgroundVertArr.append(vertBR);
+			backgroundVertArr.append(vertTR);
+		}
+		else
+		{
+			foregroundVertArr.append(vertTL);
+			foregroundVertArr.append(vertBL);
+			foregroundVertArr.append(vertBR);
+			foregroundVertArr.append(vertTR);
+		}
 
 		tileTypes[width - 1][y] = tileTypeRight;
 	}
@@ -268,17 +296,104 @@ void Room::load(std::string fileName)
 
 	fileStream.close();
 
-	complete = true;
+	float scale = (float)Utilities::getInstance().getScale();
+	if(upOpen)
+	{
+		upBlock = sf::Sprite(foregroundTex, sf::IntRect(0, 0, tileSize, tileSize));
+		upBlock.setPosition(8.0f * tileScreenSize, 0.0f);
+		upBlock.setScale(scale, scale);
+	}
+	if(downOpen)
+	{
+		downBlock = sf::Sprite(foregroundTex, sf::IntRect(0, 0, tileSize, tileSize));
+		downBlock.setPosition(8.0f * tileScreenSize, (height - 1) * tileScreenSize);
+		downBlock.setScale(scale, scale);
+	}
+	if(leftOpen)
+	{
+		leftBlock = sf::Sprite(foregroundTex, sf::IntRect(0, 0, tileSize, tileSize));
+		leftBlock.setPosition(0.0f, 6.0f * tileScreenSize);
+		leftBlock.setScale(scale, scale);
+	}
+	if(rightOpen)
+	{
+		rightBlock = sf::Sprite(foregroundTex, sf::IntRect(0, 0, tileSize, tileSize));
+		rightBlock.setPosition((width - 1) * tileScreenSize, 6.0f * tileScreenSize);
+		rightBlock.setScale(scale, scale);
+	}
 
 
 	//temp
-	entities.push_back(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 200.0f), Right));
-	entities.push_back(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 400.0f), Right));
-	entities.push_back(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 600.0f), Right));
-	entities.push_back(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 800.0f), Right));
+	//addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 200.0f), Right));
+	//addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 400.0f), Right));
+	//addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 600.0f), Right));
+	addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 800.0f), Right));
 }
 
 Room::TileType Room::getTileType(int x, int y)
 {
 	return tileTypes[x][y];
+}
+
+void Room::addEntity(Entity entity)
+{
+	if(entity.hasComponent(Component::ComponentType::Health))
+		enemies++;
+
+	addEntityQueue.push_back(entity);
+}
+
+std::vector<Entity>::iterator Room::removeEntity(std::vector<Entity>::iterator& entityIt)
+{
+	if(entityIt->hasComponent(Component::ComponentType::Health))
+	{
+		enemies--;
+		if(enemies == 0)
+		{
+			if(upOpen)
+				tileTypes[8][0] = TileType::floor;
+			if(downOpen)
+				tileTypes[8][height - 1] = TileType::floor;
+			if(leftOpen)
+				tileTypes[0][6] = TileType::floor;
+			if(rightOpen)
+				tileTypes[width - 1][6] = TileType::floor;
+
+			complete = true;
+		}
+	}
+
+	return entities.erase(entityIt);
+}
+
+std::vector<Entity>& Room::getEntities()
+{
+	return entities;
+}
+
+std::vector<Entity>& Room::getAddEntityQueue()
+{
+	return addEntityQueue;
+}
+
+void Room::drawForeground(sf::RenderWindow& window)
+{
+	window.draw(foregroundVertArr, &foregroundTex);
+	
+	if(!complete)
+	{
+		if(upOpen)
+			window.draw(upBlock);
+		if(downOpen)
+			window.draw(downBlock);
+		if(leftOpen)
+			window.draw(leftBlock);
+		if(rightOpen)
+			window.draw(rightBlock);
+	}
+}
+
+void Room::drawBackground(sf::RenderWindow& window)
+{
+	window.draw(backgroundVertArr, &backgroundTex);
 }

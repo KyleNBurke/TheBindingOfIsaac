@@ -39,8 +39,8 @@ void GameplayState::initialize()
 
 void GameplayState::update(sf::Time deltaTime)
 {
-	std::vector<Entity>& queue = Floor::getCurrentRoom().addEntityQueue;
-	std::vector<Entity>& entities = Floor::getCurrentRoom().entities;
+	std::vector<Entity>& queue = Floor::getCurrentRoom().getAddEntityQueue();
+	std::vector<Entity>& entities = Floor::getCurrentRoom().getEntities();
 
 	for(std::vector<Entity>::iterator& itToAdd = queue.begin(); itToAdd != queue.end(); ++itToAdd)
 	{
@@ -76,14 +76,14 @@ void GameplayState::update(sf::Time deltaTime)
 
 	if(!transitionSystem.transitioning)
 	{
-		std::vector<Entity>::iterator entityIt = Floor::getCurrentRoom().entities.begin();
-		while(entityIt != Floor::getCurrentRoom().entities.end())
+		std::vector<Entity>::iterator entityIt = entities.begin();
+		while(entityIt != entities.end())
 		{
 			for(std::vector<std::unique_ptr<System>>::iterator systemIt = systems.begin(); systemIt != systems.end(); ++systemIt)
 				(*systemIt)->update(*entityIt);
 
 			if(entityIt->shouldDelete)
-				entityIt = Floor::getCurrentRoom().entities.erase(entityIt);
+				entityIt = Floor::getCurrentRoom().removeEntity(entityIt);
 			else
 				++entityIt;
 		}
@@ -94,14 +94,14 @@ void GameplayState::draw(sf::RenderWindow& window)
 {
 	Room& room = Floor::getCurrentRoom();
 
-	window.draw(room.backgroundVertArr, &room.backgroundTex);
+	room.drawBackground(window);
 
-	for(std::vector<Entity>::iterator it = room.entities.begin(); it != room.entities.end(); ++it)
+	for(std::vector<Entity>::iterator it = room.getEntities().begin(); it != room.getEntities().end(); ++it)
 		renderSystem.update(*it);
 
 	renderSystem.update(Floor::player);
 
-	window.draw(room.foregroundVertArr, &room.foregroundTex);
+	room.drawForeground(window);
 
 	transitionSystem.draw(window);
 

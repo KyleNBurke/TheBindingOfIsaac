@@ -13,33 +13,6 @@ void ProjectileSystem::update(Entity& entity)
 	{
 		std::shared_ptr<ProjectileCom> projCom = std::dynamic_pointer_cast<ProjectileCom>(entity.getComponent(Component::ComponentType::Projectile));
 
-		/*lifetimeCom->elapsedTime += deltaTime.asSeconds();
-
-		if(projCom->alive)
-		{
-			if(lifetimeCom->elapsedTime >= lifetimeCom->lifetime)
-			{
-				removeProjectile(entity, projCom, animCom, velCom, lifetimeCom);
-				return;
-			}
-
-			if(detectTileCollisions(entity))
-			{
-				removeProjectile(entity, projCom, animCom, velCom, lifetimeCom);
-				return;
-			}
-
-			if(detectEntityCollisions(entity, projCom))
-			{
-				entity.shouldDelete = true;
-			}
-		}
-		else
-		{
-			if(lifetimeCom->elapsedTime >= state->frameCount * state->frameTime)
-				entity.shouldDelete = true;
-		}*/
-
 		if(resolveTileCollisions(entity))
 			return;
 
@@ -59,7 +32,7 @@ bool ProjectileSystem::resolveTileCollisions(Entity& entity)
 		entityBounds.top + entityBounds.height > Room::height * scale)
 	{
 		entity.shouldDelete = true;
-		Floor::getCurrentRoom().addEntityQueue.push_back(Assemblages::getInstance().createProjectileDeath(entity.sprite.getPosition()));
+		Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createProjectileDeath(entity.sprite.getPosition()));
 		return true;
 	}
 	
@@ -76,7 +49,7 @@ bool ProjectileSystem::resolveTileCollisions(Entity& entity)
 			if(Floor::getCurrentRoom().getTileType(x, y) == Room::TileType::wall)
 			{
 				entity.shouldDelete = true;
-				Floor::getCurrentRoom().addEntityQueue.push_back(Assemblages::getInstance().createProjectileDeath(entity.sprite.getPosition()));
+				Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createProjectileDeath(entity.sprite.getPosition()));
 				return true;
 			}
 		}
@@ -89,9 +62,9 @@ bool ProjectileSystem::resolveEnemyCollisions(Entity& projectile, std::shared_pt
 {
 	if(projCom->projectileType == ProjectileCom::ProjectileType::Player)
 	{
-		for(std::vector<Entity>::iterator it = Floor::getCurrentRoom().entities.begin(); it != Floor::getCurrentRoom().entities.end(); ++it)
+		for(std::vector<Entity>::iterator it = Floor::getCurrentRoom().getEntities().begin(); it != Floor::getCurrentRoom().getEntities().end(); ++it)
 		{
-			bool intersects = projectile.getBounds().intersects(it->sprite.getGlobalBounds());
+			bool intersects = projectile.getBounds().intersects(it->getBounds());
 			if(it->hasComponent(Component::ComponentType::Health) && intersects)
 			{
 				projectile.shouldDelete = true;
@@ -99,13 +72,13 @@ bool ProjectileSystem::resolveEnemyCollisions(Entity& projectile, std::shared_pt
 				std::shared_ptr<HealthCom> healthCom = std::dynamic_pointer_cast<HealthCom>(it->getComponent(Component::ComponentType::Health));
 				healthCom->health -= 1;
 
-				Floor::getCurrentRoom().addEntityQueue.push_back(Assemblages::getInstance().createEnemyDamageStain(it->sprite.getPosition()));
+				Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createEnemyDamageStain(it->sprite.getPosition()));
 
 				if(healthCom->health <= 0)
 				{
 					it->shouldDelete = true;
-					Floor::getCurrentRoom().addEntityQueue.push_back(Assemblages::getInstance().createEnemyDeath(it->sprite.getPosition()));
-					Floor::getCurrentRoom().addEntityQueue.push_back(Assemblages::getInstance().createEnemyDeathStain(it->sprite.getPosition()));
+					Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createEnemyDeath(it->sprite.getPosition()));
+					Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createEnemyDeathStain(it->sprite.getPosition()));
 				}
 
 				healthCom->flashing = true;
@@ -114,10 +87,15 @@ bool ProjectileSystem::resolveEnemyCollisions(Entity& projectile, std::shared_pt
 			}
 		}
 	}
-	/*else
+	else
 	{
-		//The projecile is an Enemy one
-	}*/
+		if(projectile.getBounds().intersects(Floor::player.getBounds()))
+		{
+			projectile.shouldDelete = true;
+			std::dynamic_pointer_cast<HealthCom>(Floor::player.getComponent(Component::ComponentType::Health))->flashing = true;
+		}
+
+	}
 
 	return false;
 }

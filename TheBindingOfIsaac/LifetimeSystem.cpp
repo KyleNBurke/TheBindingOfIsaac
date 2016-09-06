@@ -19,7 +19,7 @@ void LifetimeSystem::update(Entity& entity)
 			entity.shouldDelete = true;
 
 			if(entity.hasComponent(Component::ComponentType::Projectile))
-				Floor::getCurrentRoom().addEntityQueue.push_back(Assemblages::getInstance().createProjectileDeath(entity.sprite.getPosition()));
+				Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createProjectileDeath(entity.sprite.getPosition()));
 
 		}
 	}

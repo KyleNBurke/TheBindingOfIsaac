@@ -55,8 +55,21 @@ Entity Assemblages::createPlayer(sf::Vector2f position)
 	player.addComponent(std::unique_ptr<Component>(new PitCollisionCom()));
 	player.addComponent(std::unique_ptr<Component>(new WallCollisionCom()));
 	player.addComponent(std::unique_ptr<Component>(new PlayerShotCom()));
+	player.addComponent(std::unique_ptr<Component>(new HealthCom(5)));
 
 	return player;
+}
+
+Entity Assemblages::createPlayerDamageStain(sf::Vector2f position)
+{
+	int x = std::rand() % 3;
+
+	Entity stain(sf::Sprite(playerSpriteSheet, sf::IntRect(4 * x, 7, 4, 4)), 0);
+	stain.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
+	stain.sprite.setOrigin(stain.sprite.getLocalBounds().width / 2, stain.sprite.getLocalBounds().height / 2);
+	stain.sprite.setPosition(position);
+
+	return stain;
 }
 
 Entity Assemblages::createPlayerProjectile(sf::Vector2f position, sf::Vector2f velocity)

@@ -62,7 +62,7 @@ void ShotSystem::update(Entity& entity)
 				velocity.x = std::cos(angle) * length;
 				velocity.y = -std::sin(angle) * length;
 
-				Floor::getCurrentRoom().addEntityQueue.push_back(Assemblages::getInstance().createPlayerProjectile(entity.sprite.getPosition(), velocity));
+				Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createPlayerProjectile(entity.sprite.getPosition(), velocity));
 
 				playerShotCom->fireResetClock.restart();
 			}
@@ -106,10 +106,10 @@ void ShotSystem::update(Entity& entity)
 			Entity p3 = Assemblages::getInstance().createRegularProjectile(pos, turret->projectileSpeed * dir3);
 			Entity p4 = Assemblages::getInstance().createRegularProjectile(pos, turret->projectileSpeed * dir4);
 
-			Floor::getCurrentRoom().addEntityQueue.push_back(p1);
-			Floor::getCurrentRoom().addEntityQueue.push_back(p2);
-			Floor::getCurrentRoom().addEntityQueue.push_back(p3);
-			Floor::getCurrentRoom().addEntityQueue.push_back(p4);
+			//Floor::getCurrentRoom().addEntityQueue.push_back(p1);
+			//Floor::getCurrentRoom().addEntityQueue.push_back(p2);
+			//Floor::getCurrentRoom().addEntityQueue.push_back(p3);
+			//Floor::getCurrentRoom().addEntityQueue.push_back(p4);
 
 			turret->elapsedTime = 0.0f;
 			turret->flip = !turret->flip;

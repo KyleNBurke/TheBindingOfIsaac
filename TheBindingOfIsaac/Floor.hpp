@@ -11,6 +11,7 @@ public:
 	Floor();
 
 	void generate();
+	static const Room& getRoom(int x, int y);
 	static Room& getCurrentRoom();
 	static void setCurrentRoom(int x, int y);
 

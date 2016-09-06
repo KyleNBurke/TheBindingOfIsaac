@@ -10,6 +10,7 @@ public:
 	void initialize();
 
 	Entity createPlayer(sf::Vector2f position);
+	Entity createPlayerDamageStain(sf::Vector2f position);
 	Entity createPlayerProjectile(sf::Vector2f position, sf::Vector2f velocity);
 	Entity createRegularProjectile(sf::Vector2f position, sf::Vector2f direction);
 	Entity createTurret(sf::Vector2f position);

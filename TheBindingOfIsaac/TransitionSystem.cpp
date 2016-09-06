@@ -22,33 +22,58 @@ void TransitionSystem::update(Entity& entity)
 			std::shared_ptr<VelocityCom> velCom = std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity));
 			sf::FloatRect bounds = entity.sprite.getGlobalBounds();
 			int scale = Utilities::getInstance().getScale() * Room::tileSize;
+			sf::Sprite& playerSprite = Floor::player.sprite;
 
 			if(bounds.top < 0.0f)
 			{
 				transitioning = true;
 				playerPosY--;
-				position = sf::Vector2f(Floor::player.sprite.getPosition().x, Room::height * scale - (float)scale / 2.0f);
+
+				position.x = Room::width * scale / 2.0f;
+				if(Floor::getRoom(playerPosX, playerPosY).complete)
+					position.y = Room::height * scale - playerSprite.getGlobalBounds().height / 2.0f;
+				else
+					position.y = (Room::height - 1) * scale - playerSprite.getGlobalBounds().height / 2.0f;
+
 				velCom->velocity = sf::Vector2f();
 			}
 			else if(bounds.top + bounds.height > Room::height * scale)
 			{
 				transitioning = true;
 				playerPosY++;
-				position = sf::Vector2f(Floor::player.sprite.getPosition().x, (float)scale / 2.0f);
+
+				position.x = Room::width * scale / 2.0f;
+				if(Floor::getRoom(playerPosX, playerPosY).complete)
+					position.y = playerSprite.getGlobalBounds().height / 2.0f;
+				else
+					position.y = scale + playerSprite.getGlobalBounds().height / 2.0f;
+
 				velCom->velocity = sf::Vector2f();
 			}
 			else if(bounds.left < 0.0f)
 			{
 				transitioning = true;
 				playerPosX--;
-				position = sf::Vector2f(Room::width * scale - (float)scale / 2.0f, Floor::player.sprite.getPosition().y);
+
+				position.y = Room::height * scale / 2.0f;
+				if(Floor::getRoom(playerPosX, playerPosY).complete)
+					position.x = Room::width * scale - playerSprite.getGlobalBounds().width / 2.0f;
+				else
+					position.x = (Room::width - 1) * scale - playerSprite.getGlobalBounds().width / 2.0f;
+
 				velCom->velocity = sf::Vector2f();
 			}
 			else if(bounds.left + bounds.width > Room::width * scale)
 			{
 				transitioning = true;
 				playerPosX++;
-				position = sf::Vector2f((float)scale / 2.0f, Floor::player.sprite.getPosition().y);
+
+				position.y = Room::height * scale / 2.0f;
+				if(Floor::getRoom(playerPosX, playerPosY).complete)
+					position.x = playerSprite.getGlobalBounds().width / 2.0f;
+				else
+					position.x = scale + playerSprite.getGlobalBounds().width / 2.0f;
+
 				velCom->velocity = sf::Vector2f();
 			}
 		}
