@@ -68,6 +68,7 @@ void PhysicsSystem::update(Entity& entity)
 				velocityComPlayer->velocity.y = velocityComEntity->velocity.y;
 
 			healthCom->flashing = true;
+			healthCom->health -= 1;
 		}
 	}
 }

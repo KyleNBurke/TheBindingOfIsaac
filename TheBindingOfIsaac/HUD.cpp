@@ -1,8 +1,13 @@
 #include "stdafx.h"
 #include "HUD.hpp"
 #include "Utilities.hpp"
+#include "HealthCom.hpp"
 
-HUD::HUD() : playerMark(spriteSheet, sf::IntRect(18, 0, 5, 3)), bomb(spriteSheet, sf::IntRect(7, 0, 6, 8)), coin(spriteSheet, sf::IntRect(13, 0, 4, 4))
+HUD::HUD() :
+	playerMark(spriteSheet, sf::IntRect(18, 0, 5, 3)),
+	bomb(spriteSheet, sf::IntRect(7, 0, 6, 8)),
+	coin(spriteSheet, sf::IntRect(13, 0, 4, 4)),
+	maxPlayerHealth(15)
 {
 	spriteSheet.loadFromFile("Resources/HUD.png");
 	floor.setPrimitiveType(sf::Quads);
@@ -11,25 +16,15 @@ HUD::HUD() : playerMark(spriteSheet, sf::IntRect(18, 0, 5, 3)), bomb(spriteSheet
 
 	playerMark.setScale(scale, scale);
 
+	int health = std::dynamic_pointer_cast<HealthCom>(Floor::player.getComponent(Component::ComponentType::Health))->health;
+	prevPlayerHealth = health;
+	updatePlayerHealth(health);
+
 	bomb.setScale(scale, scale);
 	bomb.setPosition(64 * scale, 107 * scale);
 
 	coin.setScale(scale, scale);
 	coin.setPosition(65 * scale, 118 * scale);
-
-	for(int i = 0; i < 15; i++)
-	{
-		sf::Sprite heart = sf::Sprite(spriteSheet, sf::IntRect(0, 0, 7, 6));
-		heart.setScale(scale, scale);
-		heart.setPosition(88 * scale + 8 * (i % 6) * scale, 105 * scale);
-
-		if(i > 11)
-			heart.move(0, 14 * scale);
-		else if(i > 5)
-			heart.move(0, 7 * scale);
-
-		hearts.push_back(heart);
-	}
 }
 
 void HUD::constructFloor(const std::array<std::array<std::shared_ptr<Room>, Floor::sizeY>, Floor::sizeX>& ar)
@@ -66,6 +61,17 @@ void HUD::constructFloor(const std::array<std::array<std::shared_ptr<Room>, Floo
 	}
 }
 
+void HUD::update()
+{
+	std::shared_ptr<HealthCom> healthCom = std::dynamic_pointer_cast<HealthCom>(Floor::player.getComponent(Component::ComponentType::Health));
+	int currPlayerHealth = healthCom->health;
+
+	if(currPlayerHealth != prevPlayerHealth)
+		updatePlayerHealth(currPlayerHealth);
+
+	prevPlayerHealth = currPlayerHealth;
+}
+
 void HUD::draw(sf::RenderWindow& window)
 {
 	window.setView(window.getDefaultView());
@@ -85,4 +91,28 @@ void HUD::setCurrentRoom(int x, int y)
 	float scale = (float)Utilities::getInstance().getScale();
 
 	playerMark.setPosition(scale + x * scale * 6, 105 * scale + y * scale * 4);
+}
+
+void HUD::updatePlayerHealth(int health)
+{
+	if(health > maxPlayerHealth)
+		health = maxPlayerHealth;
+
+	float scale = (float)Utilities::getInstance().getScale();
+
+	hearts.clear();
+
+	for(int i = 0; i < health; i++)
+	{
+		sf::Sprite heart = sf::Sprite(spriteSheet, sf::IntRect(0, 0, 7, 6));
+		heart.setScale(scale, scale);
+		heart.setPosition(88 * scale + 8 * (i % 6) * scale, 105 * scale);
+
+		if(i > 11)
+			heart.move(0, 14 * scale);
+		else if(i > 5)
+			heart.move(0, 7 * scale);
+
+		hearts.push_back(heart);
+	}
 }

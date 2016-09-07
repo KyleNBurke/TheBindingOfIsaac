@@ -87,6 +87,8 @@ void GameplayState::update(sf::Time deltaTime)
 			else
 				++entityIt;
 		}
+
+		hud.update();
 	}
 }
 

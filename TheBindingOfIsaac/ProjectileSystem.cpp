@@ -92,7 +92,10 @@ bool ProjectileSystem::resolveEnemyCollisions(Entity& projectile, std::shared_pt
 		if(projectile.getBounds().intersects(Floor::player.getBounds()))
 		{
 			projectile.shouldDelete = true;
-			std::dynamic_pointer_cast<HealthCom>(Floor::player.getComponent(Component::ComponentType::Health))->flashing = true;
+
+			std::shared_ptr<HealthCom> healthCom = std::dynamic_pointer_cast<HealthCom>(Floor::player.getComponent(Component::ComponentType::Health));
+			healthCom->health -= 1;
+			healthCom->flashing = true;
 		}
 
 	}

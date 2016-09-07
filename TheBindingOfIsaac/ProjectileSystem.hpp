@@ -2,9 +2,6 @@
 
 #include "System.hpp"
 #include "ProjectileCom.hpp"
-#include "AnimationCom.hpp"
-#include "VelocityCom.hpp"
-#include "LifetimeCom.hpp"
 
 class ProjectileSystem : public System
 {

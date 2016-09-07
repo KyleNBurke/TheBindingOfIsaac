@@ -6,6 +6,7 @@
 #include "AccelDecelCom.hpp"
 #include "Utilities.hpp"
 #include "Floor.hpp"
+#include "HUD.hpp"
 
 class PhysicsSystem : public System
 {
