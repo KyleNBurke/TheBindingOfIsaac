@@ -9,4 +9,6 @@ public:
 	BouncerCom();
 
 	Component::ComponentType getType() const;
+
+	const float projectileSpeed;
 };

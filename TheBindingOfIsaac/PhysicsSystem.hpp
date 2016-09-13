@@ -19,6 +19,9 @@ private:
 	enum Direction { Horizontal, Vertical };
 
 	void resolveCollisions(Direction direction, Entity& entity, bool hasPitCollision, bool hasWallCollision);
+	void regularResolution(Entity& entity, Direction direction, float depthX, float depthY);
+	void pacMoveResolution(Entity& entity, Direction direction, float depthX, float depthY);
+	void bouncerResolution(Entity& entity, Direction direction, float depthX, float depthY);
 
 	const sf::Time& deltaTime;
 };

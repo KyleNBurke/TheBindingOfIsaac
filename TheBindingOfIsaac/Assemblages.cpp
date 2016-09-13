@@ -88,7 +88,7 @@ Entity Assemblages::createPlayerProjectile(sf::Vector2f position, sf::Vector2f v
 
 Entity Assemblages::createRegularProjectile(sf::Vector2f position, sf::Vector2f velocity)
 {
-	Entity projectile(sf::Sprite(projectilesSpriteSheet), sf::IntRect(1, 1, 2, 2), 1);
+	Entity projectile(sf::Sprite(projectilesSpriteSheet, sf::IntRect(0, 4, 4, 4)), sf::IntRect(1, 1, 2, 2), 1);
 	projectile.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
 	projectile.sprite.setPosition(position);
 
@@ -112,10 +112,13 @@ Entity Assemblages::createTurret(sf::Vector2f position)
 
 Entity Assemblages::createBouncer(sf::Vector2f position, sf::Vector2f direction)
 {
-	Entity bouncer(sf::Sprite(enemySpriteSheet, sf::IntRect(6, 0, 10, 10)), 1);
+	Entity bouncer(sf::Sprite(enemySpriteSheet, sf::IntRect(0, 7, 8, 8)), sf::IntRect(1, 1, 6, 6), 1);
 	bouncer.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
+	bouncer.sprite.setOrigin(bouncer.sprite.getLocalBounds().width / 2, bouncer.sprite.getLocalBounds().height / 2);
 	bouncer.sprite.setPosition(position);
-	bouncer.addComponent(std::unique_ptr<Component>(new VelocityCom(direction * 50.0f)));
+
+	bouncer.addComponent(std::unique_ptr<Component>(new VelocityCom(direction * 200.0f)));
+	bouncer.addComponent(std::unique_ptr<Component>(new WallCollisionCom()));
 	bouncer.addComponent(std::unique_ptr<Component>(new BouncerCom()));
 	bouncer.addComponent(std::unique_ptr<Component>(new HealthCom(3)));
 
@@ -159,6 +162,7 @@ Entity Assemblages::createPac(sf::Vector2f position, Direction initialDirection)
 
 	pac.addComponent(std::unique_ptr<Component>(new VelocityCom(vel)));
 	pac.addComponent(std::unique_ptr<Component>(new WallCollisionCom()));
+	pac.addComponent(std::unique_ptr<Component>(new PitCollisionCom()));
 	pac.addComponent(std::unique_ptr<Component>(new PacMoveCom(initialDirection)));
 	pac.addComponent(std::unique_ptr<Component>(new HealthCom(5)));
 

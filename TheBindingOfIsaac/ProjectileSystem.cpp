@@ -4,6 +4,7 @@
 #include "HealthCom.hpp"
 #include "AnimationStateDynamic.hpp"
 #include "Assemblages.hpp"
+#include "BouncerCom.hpp"
 
 ProjectileSystem::ProjectileSystem(const sf::Time& deltaTime) : deltaTime(deltaTime) {}
 
@@ -79,6 +80,17 @@ bool ProjectileSystem::resolveEnemyCollisions(Entity& projectile, std::shared_pt
 					it->shouldDelete = true;
 					Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createEnemyDeath(it->sprite.getPosition()));
 					Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createEnemyDeathStain(it->sprite.getPosition()));
+
+					if(it->hasComponent(Component::ComponentType::Bouncer))
+					{
+						float speed = std::dynamic_pointer_cast<BouncerCom>(it->getComponent(Component::ComponentType::Bouncer))->projectileSpeed;
+
+						Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createRegularProjectile(it->sprite.getPosition(), sf::Vector2f(-1, -1) / (float)sqrt(2) * speed));
+						Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createRegularProjectile(it->sprite.getPosition(), sf::Vector2f(1, -1) / (float)sqrt(2) * speed));
+						Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createRegularProjectile(it->sprite.getPosition(), sf::Vector2f(1, 1) / (float)sqrt(2) * speed));
+						Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createRegularProjectile(it->sprite.getPosition(), sf::Vector2f(-1, 1) / (float)sqrt(2) * speed));
+					}
+
 				}
 
 				healthCom->flashing = true;

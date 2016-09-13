@@ -328,6 +328,8 @@ void Room::load(std::string fileName)
 	//addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 400.0f), Right));
 	//addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 600.0f), Right));
 	addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 800.0f), Right));
+
+	addEntity(Assemblages::getInstance().createBouncer(sf::Vector2f(300.0f, 300.0f), sf::Vector2f(1, -1) / (float)sqrt(2)));
 }
 
 Room::TileType Room::getTileType(int x, int y)

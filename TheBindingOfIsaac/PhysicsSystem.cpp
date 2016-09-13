@@ -72,7 +72,7 @@ void PhysicsSystem::update(Entity& entity)
 		}
 	}
 }
-
+/*
 void PhysicsSystem::resolveCollisions(Direction direction, Entity& entity, bool hasPitCollision, bool hasWallCollision)
 {
 	sf::FloatRect entityBounds = entity.getBounds();
@@ -124,5 +124,85 @@ void PhysicsSystem::resolveCollisions(Direction direction, Entity& entity, bool 
 				}
 			}
 		}
+	}
+}
+*/
+
+void PhysicsSystem::resolveCollisions(Direction direction, Entity& entity, bool hasPitCollision, bool hasWallCollision)
+{
+	sf::FloatRect entityBounds = entity.getBounds();
+	int scale = Room::tileSize * Utilities::getInstance().getScale();
+
+	int left = (int)(std::floorf(entityBounds.left / scale));
+	int right = (int)(std::ceilf((entityBounds.left + entityBounds.width) / scale)) - 1;
+	int top = (int)(std::floorf(entityBounds.top / scale));
+	int bottom = (int)(std::ceilf((entityBounds.top + entityBounds.height) / scale)) - 1;
+
+	for(int x = left; x <= right; x++)
+	{
+		for(int y = top; y <= bottom; y++)
+		{
+			Room::TileType tileType = Floor::getCurrentRoom().getTileType(x, y);
+
+			if((hasPitCollision && tileType == Room::TileType::pit) || (hasWallCollision && tileType == Room::TileType::wall))
+			{
+				sf::FloatRect tile((float)x * scale, (float)y * scale, (float)scale, (float)scale);
+				float depthX = Utilities::getInstance().getHorIntersectionDepth(entityBounds, tile);
+				float depthY = Utilities::getInstance().getVertIntersectionDepth(entityBounds, tile);
+
+				if(entity.hasComponent(Component::ComponentType::PacMove))
+					pacMoveResolution(entity, direction, depthX, depthY);
+				else if(entity.hasComponent(Component::ComponentType::Bouncer))
+					bouncerResolution(entity, direction, depthX, depthY);
+				else
+					regularResolution(entity, direction, depthX, depthY);
+
+				entityBounds = entity.getBounds();
+			}
+		}
+	}
+}
+
+void PhysicsSystem::regularResolution(Entity& entity, Direction direction, float depthX, float depthY)
+{
+	if(direction == Horizontal && depthX != 0.0f)
+	{
+		entity.sprite.move(depthX, 0.0f);
+		std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity))->velocity.x = 0.0f;
+	}
+	else if(direction == Vertical && depthY != 0.0f)
+	{
+		entity.sprite.move(0.0f, depthY);
+		std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity))->velocity.y = 0.0f;
+	}
+}
+
+void PhysicsSystem::pacMoveResolution(Entity& entity, Direction direction, float depthX, float depthY)
+{
+	if(direction == Horizontal && depthX != 0.0f)
+	{
+		entity.sprite.move(depthX, 0.0f);
+		std::dynamic_pointer_cast<PacMoveCom>(entity.getComponent(Component::ComponentType::PacMove))->collided = true;
+	}
+	else if(direction == Vertical && depthY != 0.0f)
+	{
+		entity.sprite.move(0.0f, depthY);
+		std::dynamic_pointer_cast<PacMoveCom>(entity.getComponent(Component::ComponentType::PacMove))->collided = true;
+	}
+}
+
+void PhysicsSystem::bouncerResolution(Entity& entity, Direction direction, float depthX, float depthY)
+{
+	if(direction == Horizontal && depthX != 0.0f)
+	{
+		entity.sprite.move(depthX, 0.0f);
+		std::shared_ptr<VelocityCom> velocityCom = std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity));
+		velocityCom->velocity.x = -velocityCom->velocity.x;
+	}
+	else if(direction == Vertical && depthY != 0.0f)
+	{
+		entity.sprite.move(0.0f, depthY);
+		std::shared_ptr<VelocityCom> velocityCom = std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity));
+		velocityCom->velocity.y = -velocityCom->velocity.y;
 	}
 }

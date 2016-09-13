@@ -236,8 +236,8 @@ Room& Floor::getCurrentRoom()
 void Floor::setCurrentRoom(int x, int y)
 {
 	if(!rooms[x][y]->complete)
-		rooms[x][y]->load("Rooms/EmptyRoom.bim");
-		//rooms[x][y]->load("Rooms/" + std::to_string(rand() % maxRooms + 1) + ".bim");
+		//rooms[x][y]->load("Rooms/EmptyRoom.bim");
+		rooms[x][y]->load("Rooms/" + std::to_string(rand() % maxRooms + 1) + ".bim");
 
 	currentRoom = std::shared_ptr<Room>(rooms[x][y]);
 }
