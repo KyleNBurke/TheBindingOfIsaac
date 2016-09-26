@@ -155,9 +155,6 @@
     <ClInclude Include="TurretShotCom.hpp">
       <Filter>Source Files\Components\Shot</Filter>
     </ClInclude>
-    <ClInclude Include="AccelDecelCom.hpp">
-      <Filter>Source Files\Components\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="VelocityCom.hpp">
       <Filter>Source Files\Components\Physics</Filter>
     </ClInclude>
@@ -172,6 +169,15 @@
     </ClInclude>
     <ClInclude Include="LifetimeSystem.hpp">
       <Filter>Source Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="JimmyShotCom.hpp">
+      <Filter>Source Files\Components\Shot</Filter>
+    </ClInclude>
+    <ClInclude Include="JimmyMoveCom.hpp">
+      <Filter>Source Files\Components\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="AccelerationCom.hpp">
+      <Filter>Source Files\Components\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -280,9 +286,6 @@
     <ClCompile Include="TurretShotCom.cpp">
       <Filter>Source Files\Components\Shot</Filter>
     </ClCompile>
-    <ClCompile Include="AccelDecelCom.cpp">
-      <Filter>Source Files\Components\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="VelocityCom.cpp">
       <Filter>Source Files\Components\Physics</Filter>
     </ClCompile>
@@ -297,6 +300,15 @@
     </ClCompile>
     <ClCompile Include="LifetimeSystem.cpp">
       <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="JimmyShotCom.cpp">
+      <Filter>Source Files\Components\Shot</Filter>
+    </ClCompile>
+    <ClCompile Include="JimmyMoveCom.cpp">
+      <Filter>Source Files\Components\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="AccelerationCom.cpp">
+      <Filter>Source Files\Components\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,7 @@
 #include "Input.hpp"
 #include <math.h>
 #include "VelocityCom.hpp"
+#include "JimmyShotCom.hpp"
 
 ShotSystem::ShotSystem(const sf::Time& deltaTime) : deltaTime(deltaTime) {}
 
@@ -69,8 +70,7 @@ void ShotSystem::update(Entity& entity)
 				
 		}
 	}
-
-	if(entity.hasComponent(Component::ComponentType::TurretShot))
+	else if(entity.hasComponent(Component::ComponentType::TurretShot))
 	{
 		std::shared_ptr<TurretShotCom> turret = std::dynamic_pointer_cast<TurretShotCom>(entity.getComponent(Component::ComponentType::TurretShot));
 
@@ -106,13 +106,26 @@ void ShotSystem::update(Entity& entity)
 			Entity p3 = Assemblages::getInstance().createRegularProjectile(pos, turret->projectileSpeed * dir3);
 			Entity p4 = Assemblages::getInstance().createRegularProjectile(pos, turret->projectileSpeed * dir4);
 
-			//Floor::getCurrentRoom().addEntityQueue.push_back(p1);
-			//Floor::getCurrentRoom().addEntityQueue.push_back(p2);
-			//Floor::getCurrentRoom().addEntityQueue.push_back(p3);
-			//Floor::getCurrentRoom().addEntityQueue.push_back(p4);
-
 			turret->elapsedTime = 0.0f;
 			turret->flip = !turret->flip;
+		}
+	}
+	else if(entity.hasComponent(Component::ComponentType::JimmyShot))
+	{
+		std::shared_ptr<JimmyShotCom> shotCom = std::dynamic_pointer_cast<JimmyShotCom>(entity.getComponent(Component::ComponentType::JimmyShot));
+
+		shotCom->currentShotTime += deltaTime.asSeconds();
+
+		if(shotCom->currentShotTime >= shotCom->maxShotTime)
+		{
+			shotCom->currentShotTime = 0.0f;
+
+			sf::Vector2f direction = Floor::player.position - entity.position;
+			float l = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+			if(l != 0.0f)
+				direction /= l;
+
+			Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createRegularProjectile(entity.position, direction * shotCom->projectileSpeed));
 		}
 	}
 }

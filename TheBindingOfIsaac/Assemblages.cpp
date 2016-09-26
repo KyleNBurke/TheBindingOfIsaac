@@ -2,7 +2,7 @@
 #include "Assemblages.hpp"
 #include "PlayerControlledCom.hpp"
 #include "VelocityCom.hpp"
-#include "AccelDecelCom.hpp"
+#include "AccelerationCom.hpp"
 #include "PitCollisionCom.hpp"
 #include "WallCollisionCom.hpp"
 #include "ProjectileCom.hpp"
@@ -15,6 +15,8 @@
 #include "AnimationStateStatic.hpp"
 #include "AnimationStateDynamic.hpp"
 #include "PacMoveCom.hpp"
+#include "JimmyMoveCom.hpp"
+#include "JimmyShotCom.hpp"
 
 Assemblages::Assemblages() {}
 
@@ -44,14 +46,11 @@ room floor
 
 Entity Assemblages::createPlayer(sf::Vector2f position)
 {
-	Entity player(sf::Sprite(playerSpriteSheet, sf::IntRect(0, 0, 7, 6)), sf::IntRect(1, 1, 5, 4), 1);
-	player.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
-	player.sprite.setOrigin(player.sprite.getLocalBounds().width / 2, player.sprite.getLocalBounds().height / 2);
-	player.sprite.setPosition(position);
+	Entity player(sf::Sprite(playerSpriteSheet, sf::IntRect(0, 0, 7, 6)), position, sf::IntRect(1, 1, 5, 4), 1);
 
-	player.addComponent(std::unique_ptr<Component>(new PlayerControlledCom()));
+	player.addComponent(std::unique_ptr<Component>(new PlayerControlledCom(500.0f, 0.1f)));
 	player.addComponent(std::unique_ptr<Component>(new VelocityCom()));
-	player.addComponent(std::unique_ptr<Component>(new AccelDecelCom(0.1f, 500.0f)));
+	player.addComponent(std::unique_ptr<Component>(new AccelerationCom()));
 	player.addComponent(std::unique_ptr<Component>(new PitCollisionCom()));
 	player.addComponent(std::unique_ptr<Component>(new WallCollisionCom()));
 	player.addComponent(std::unique_ptr<Component>(new PlayerShotCom()));
@@ -64,20 +63,14 @@ Entity Assemblages::createPlayerDamageStain(sf::Vector2f position)
 {
 	int x = std::rand() % 3;
 
-	Entity stain(sf::Sprite(playerSpriteSheet, sf::IntRect(4 * x, 7, 4, 4)), 0);
-	stain.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
-	stain.sprite.setOrigin(stain.sprite.getLocalBounds().width / 2, stain.sprite.getLocalBounds().height / 2);
-	stain.sprite.setPosition(position);
+	Entity stain(sf::Sprite(playerSpriteSheet, sf::IntRect(4 * x, 7, 4, 4)), position, 0);
 
 	return stain;
 }
 
 Entity Assemblages::createPlayerProjectile(sf::Vector2f position, sf::Vector2f velocity)
 {
-	Entity projectile(sf::Sprite(projectilesSpriteSheet, sf::IntRect(0, 0, 4, 4)), sf::IntRect(1, 1, 2, 2), 1);
-	projectile.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
-	projectile.sprite.setOrigin(projectile.sprite.getLocalBounds().width / 2, projectile.sprite.getLocalBounds().height / 2);
-	projectile.sprite.setPosition(position);
+	Entity projectile(sf::Sprite(projectilesSpriteSheet, sf::IntRect(0, 0, 4, 4)), position, sf::IntRect(1, 1, 2, 2), 1);
 
 	projectile.addComponent(std::unique_ptr<Component>(new VelocityCom(velocity)));
 	projectile.addComponent(std::unique_ptr<Component>(new ProjectileCom(ProjectileCom::ProjectileType::Player)));
@@ -88,9 +81,7 @@ Entity Assemblages::createPlayerProjectile(sf::Vector2f position, sf::Vector2f v
 
 Entity Assemblages::createRegularProjectile(sf::Vector2f position, sf::Vector2f velocity)
 {
-	Entity projectile(sf::Sprite(projectilesSpriteSheet, sf::IntRect(0, 4, 4, 4)), sf::IntRect(1, 1, 2, 2), 1);
-	projectile.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
-	projectile.sprite.setPosition(position);
+	Entity projectile(sf::Sprite(projectilesSpriteSheet, sf::IntRect(0, 4, 4, 4)), position, sf::IntRect(1, 1, 2, 2), 1);
 
 	projectile.addComponent(std::unique_ptr<Component>(new VelocityCom(velocity)));
 	projectile.addComponent(std::unique_ptr<Component>(new ProjectileCom(ProjectileCom::ProjectileType::Enemy)));
@@ -101,9 +92,8 @@ Entity Assemblages::createRegularProjectile(sf::Vector2f position, sf::Vector2f 
 
 Entity Assemblages::createTurret(sf::Vector2f position)
 {
-	Entity turret(sf::Sprite(enemySpriteSheet, sf::IntRect(0, 54, 6, 6)), 1);
-	turret.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
-	turret.sprite.setPosition(position);
+	Entity turret(sf::Sprite(enemySpriteSheet, sf::IntRect(0, 54, 6, 6)), position, 1);
+
 	turret.addComponent(std::unique_ptr<Component>(new HealthCom(3)));
 	turret.addComponent(std::unique_ptr<Component>(new TurretShotCom()));
 
@@ -112,10 +102,7 @@ Entity Assemblages::createTurret(sf::Vector2f position)
 
 Entity Assemblages::createBouncer(sf::Vector2f position, sf::Vector2f direction)
 {
-	Entity bouncer(sf::Sprite(enemySpriteSheet, sf::IntRect(0, 7, 8, 8)), sf::IntRect(1, 1, 6, 6), 1);
-	bouncer.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
-	bouncer.sprite.setOrigin(bouncer.sprite.getLocalBounds().width / 2, bouncer.sprite.getLocalBounds().height / 2);
-	bouncer.sprite.setPosition(position);
+	Entity bouncer(sf::Sprite(enemySpriteSheet, sf::IntRect(0, 7, 8, 8)), position, sf::IntRect(1, 1, 6, 6), 1);
 
 	bouncer.addComponent(std::unique_ptr<Component>(new VelocityCom(direction * 200.0f)));
 	bouncer.addComponent(std::unique_ptr<Component>(new WallCollisionCom()));
@@ -127,9 +114,8 @@ Entity Assemblages::createBouncer(sf::Vector2f position, sf::Vector2f direction)
 
 Entity Assemblages::createParticle(sf::Vector2f position, sf::IntRect textureRect, sf::Vector2f velocity, float lifetime)
 {
-	Entity particle(sf::Sprite(particleSpriteSheet, textureRect), 1);
-	particle.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
-	particle.sprite.setPosition(position);
+	Entity particle(sf::Sprite(particleSpriteSheet, textureRect), position, 1);
+
 	particle.addComponent(std::unique_ptr<Component>(new VelocityCom(velocity)));
 	particle.addComponent(std::unique_ptr<Component>(new LifetimeCom(lifetime)));
 
@@ -138,10 +124,7 @@ Entity Assemblages::createParticle(sf::Vector2f position, sf::IntRect textureRec
 
 Entity Assemblages::createPac(sf::Vector2f position, Direction initialDirection)
 {
-	Entity pac(sf::Sprite(enemySpriteSheet, sf::IntRect(0, 0, 6, 7)), sf::IntRect(1, 1, 4, 5), 2);
-	pac.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
-	pac.sprite.setOrigin(2.5f, pac.sprite.getLocalBounds().height / 2);
-	pac.sprite.setPosition(position);
+	Entity pac(sf::Sprite(enemySpriteSheet, sf::IntRect(0, 0, 6, 7)), position, sf::IntRect(1, 1, 5, 5), 2);
 
 	sf::Vector2f vel;
 	switch(initialDirection)
@@ -178,12 +161,23 @@ Entity Assemblages::createPac(sf::Vector2f position, Direction initialDirection)
 	return pac;
 }
 
+Entity Assemblages::createJimmy(sf::Vector2f position)
+{
+	Entity jimmy(sf::Sprite(enemySpriteSheet, sf::IntRect(8, 7, 7, 7)), position, sf::IntRect(1, 1, 5, 5), 1);
+
+	jimmy.addComponent(std::unique_ptr<Component>(new HealthCom(5)));
+	jimmy.addComponent(std::unique_ptr<Component>(new VelocityCom()));
+	jimmy.addComponent(std::unique_ptr<Component>(new AccelerationCom()));
+	jimmy.addComponent(std::unique_ptr<Component>(new JimmyMoveCom(sf::Vector2f(position.x, position.y + 10.0f))));
+	jimmy.addComponent(std::unique_ptr<Component>(new JimmyShotCom()));
+	jimmy.addComponent(std::unique_ptr<Component>(new WallCollisionCom()));
+
+	return jimmy;
+}
+
 Entity Assemblages::createEnemyDeath(sf::Vector2f position)
 {
-	Entity death(sf::Sprite(enemySpriteSheet, sf::IntRect(0, 0, 11, 11)), 0);
-	death.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
-	death.sprite.setOrigin(death.sprite.getLocalBounds().width / 2, death.sprite.getLocalBounds().height / 2);
-	death.sprite.setPosition(position);
+	Entity death(sf::Sprite(enemySpriteSheet, sf::IntRect(0, 0, 11, 11)), position, 0);
 
 	const int frames = 8;
 	const float frameTime = 0.08f;
@@ -202,10 +196,7 @@ Entity Assemblages::createEnemyDeathStain(sf::Vector2f position)
 {
 	int x = std::rand() % 2;
 
-	Entity stain(sf::Sprite(enemySpriteSheet, sf::IntRect(9 * x, 34, 9, 9)), 0);
-	stain.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
-	stain.sprite.setOrigin(stain.sprite.getLocalBounds().width / 2, stain.sprite.getLocalBounds().height / 2);
-	stain.sprite.setPosition(position);
+	Entity stain(sf::Sprite(enemySpriteSheet, sf::IntRect(9 * x, 34, 9, 9)), position,  0);
 
 	return stain;
 }
@@ -214,20 +205,14 @@ Entity Assemblages::createEnemyDamageStain(sf::Vector2f position)
 {
 	int x = std::rand() % 3;
 
-	Entity stain(sf::Sprite(enemySpriteSheet, sf::IntRect(4 * x, 45, 4, 4)), 0);
-	stain.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
-	stain.sprite.setOrigin(stain.sprite.getLocalBounds().width / 2, stain.sprite.getLocalBounds().height / 2);
-	stain.sprite.setPosition(position);
+	Entity stain(sf::Sprite(enemySpriteSheet, sf::IntRect(4 * x, 45, 4, 4)), position, 0);
 
 	return stain;
 }
 
 Entity Assemblages::createProjectileDeath(sf::Vector2f position)
 {
-	Entity death(sf::Sprite(projectilesSpriteSheet, sf::IntRect(0, 0, 8, 8)), 0);
-	death.sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
-	death.sprite.setOrigin(death.sprite.getLocalBounds().width / 2, death.sprite.getLocalBounds().height / 2);
-	death.sprite.setPosition(position);
+	Entity death(sf::Sprite(projectilesSpriteSheet, sf::IntRect(0, 0, 8, 8)), position, 0);
 
 	const int frames = 4;
 	const float frameTime = 0.1f;

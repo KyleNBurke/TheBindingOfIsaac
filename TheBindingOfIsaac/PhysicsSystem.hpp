@@ -3,7 +3,7 @@
 #include "stdafx.h"
 #include "System.hpp"
 #include "VelocityCom.hpp"
-#include "AccelDecelCom.hpp"
+#include "AccelerationCom.hpp"
 #include "Utilities.hpp"
 #include "Floor.hpp"
 #include "HUD.hpp"

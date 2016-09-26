@@ -2,11 +2,21 @@
 #include "Entity.hpp"
 #include "Utilities.hpp"
 
-Entity::Entity() : Entity(sf::Sprite(), 0) {}
+Entity::Entity() : Entity(sf::Sprite(), sf::Vector2f(), 0) {}
 
-Entity::Entity(sf::Sprite sprite, int drawPriority) : Entity(sprite, (sf::IntRect)sprite.getLocalBounds(), drawPriority) {}
+Entity::Entity(sf::Sprite sprite, sf::Vector2f position, int drawPriority) : Entity(sprite, position, (sf::IntRect)sprite.getLocalBounds(), drawPriority) {}
 
-Entity::Entity(sf::Sprite sprite, sf::IntRect bounds, int drawPriority) : sprite(sprite), bounds(bounds), drawPriority(drawPriority), shouldDelete(false) {}
+Entity::Entity(sf::Sprite sprite, sf::Vector2f position, sf::IntRect bounds, int drawPriority) :
+	sprite(sprite),
+	position(position),
+	bounds(bounds),
+	drawPriority(drawPriority),
+	shouldDelete(false)
+{
+	this->sprite.setScale((float)Utilities::getInstance().getScale(), (float)Utilities::getInstance().getScale());
+	this->sprite.setOrigin(this->sprite.getLocalBounds().width / 2, this->sprite.getLocalBounds().height / 2);
+	this->sprite.setPosition(position);
+}
 
 sf::FloatRect Entity::getBounds() const
 {

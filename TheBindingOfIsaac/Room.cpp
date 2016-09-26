@@ -300,25 +300,25 @@ void Room::load(std::string fileName)
 	if(upOpen)
 	{
 		upBlock = sf::Sprite(foregroundTex, sf::IntRect(0, 0, tileSize, tileSize));
-		upBlock.setPosition(8.0f * tileScreenSize, 0.0f);
+		upBlock.setPosition(8.0f * (float)tileScreenSize, 0.0f);
 		upBlock.setScale(scale, scale);
 	}
 	if(downOpen)
 	{
 		downBlock = sf::Sprite(foregroundTex, sf::IntRect(0, 0, tileSize, tileSize));
-		downBlock.setPosition(8.0f * tileScreenSize, (height - 1) * tileScreenSize);
+		downBlock.setPosition(8.0f * (float)tileScreenSize, (height - 1) * (float)tileScreenSize);
 		downBlock.setScale(scale, scale);
 	}
 	if(leftOpen)
 	{
 		leftBlock = sf::Sprite(foregroundTex, sf::IntRect(0, 0, tileSize, tileSize));
-		leftBlock.setPosition(0.0f, 6.0f * tileScreenSize);
+		leftBlock.setPosition(0.0f, 6.0f * (float)tileScreenSize);
 		leftBlock.setScale(scale, scale);
 	}
 	if(rightOpen)
 	{
 		rightBlock = sf::Sprite(foregroundTex, sf::IntRect(0, 0, tileSize, tileSize));
-		rightBlock.setPosition((width - 1) * tileScreenSize, 6.0f * tileScreenSize);
+		rightBlock.setPosition((width - 1) * (float)tileScreenSize, 6.0f * (float)tileScreenSize);
 		rightBlock.setScale(scale, scale);
 	}
 
@@ -327,9 +327,10 @@ void Room::load(std::string fileName)
 	//addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 200.0f), Right));
 	//addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 400.0f), Right));
 	//addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 600.0f), Right));
-	addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 800.0f), Right));
+	//addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 800.0f), Right));
 
-	addEntity(Assemblages::getInstance().createBouncer(sf::Vector2f(300.0f, 300.0f), sf::Vector2f(1, -1) / (float)sqrt(2)));
+	//addEntity(Assemblages::getInstance().createBouncer(sf::Vector2f(300.0f, 300.0f), sf::Vector2f(1, -1) / (float)sqrt(2)));
+	addEntity(Assemblages::getInstance().createJimmy(sf::Vector2f(500.0f, 500.0f)));
 }
 
 Room::TileType Room::getTileType(int x, int y)

@@ -91,7 +91,8 @@ void TransitionSystem::update(Entity& entity)
 				
 				if(!updated)
 				{
-					Floor::player.sprite.setPosition(position);
+					//Floor::player.sprite.setPosition(position);
+					Floor::player.position = position;
 					Floor::setCurrentRoom(playerPosX, playerPosY);
 					hud.setCurrentRoom(playerPosX, playerPosY);
 					updated = true;

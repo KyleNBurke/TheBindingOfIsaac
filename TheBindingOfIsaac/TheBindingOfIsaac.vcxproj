@@ -86,7 +86,7 @@
     <Text Include="OldCode.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AccelDecelCom.hpp" />
+    <ClInclude Include="AccelerationCom.hpp" />
     <ClInclude Include="AnimationCom.hpp" />
     <ClInclude Include="AnimationState.hpp" />
     <ClInclude Include="AnimationStateDynamic.hpp" />
@@ -96,6 +96,8 @@
     <ClInclude Include="BouncerCom.hpp" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="FlashSystem.hpp" />
+    <ClInclude Include="JimmyMoveCom.hpp" />
+    <ClInclude Include="JimmyShotCom.hpp" />
     <ClInclude Include="LifetimeCom.hpp" />
     <ClInclude Include="LifetimeSystem.hpp" />
     <ClInclude Include="PacMoveCom.hpp" />
@@ -129,7 +131,7 @@
     <ClInclude Include="WallCollisionCom.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AccelDecelCom.cpp" />
+    <ClCompile Include="AccelerationCom.cpp" />
     <ClCompile Include="AnimationCom.cpp" />
     <ClCompile Include="AnimationState.cpp" />
     <ClCompile Include="AnimationStateDynamic.cpp" />
@@ -139,6 +141,8 @@
     <ClCompile Include="BouncerCom.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="FlashSystem.cpp" />
+    <ClCompile Include="JimmyMoveCom.cpp" />
+    <ClCompile Include="JimmyShotCom.cpp" />
     <ClCompile Include="LifetimeCom.cpp" />
     <ClCompile Include="LifetimeSystem.cpp" />
     <ClCompile Include="PacMoveCom.cpp" />

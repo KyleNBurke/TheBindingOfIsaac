@@ -17,6 +17,7 @@ public:
 	Entity createBouncer(sf::Vector2f position, sf::Vector2f direction);
 	Entity createParticle(sf::Vector2f position, sf::IntRect textureRect, sf::Vector2f velocity, float lifetime);
 	Entity createPac(sf::Vector2f position, Direction initialDirection);
+	Entity createJimmy(sf::Vector2f position);
 	Entity createEnemyDeath(sf::Vector2f position);
 	Entity createEnemyDeathStain(sf::Vector2f position);
 	Entity createEnemyDamageStain(sf::Vector2f position);

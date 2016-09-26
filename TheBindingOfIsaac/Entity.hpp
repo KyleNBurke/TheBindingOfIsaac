@@ -7,8 +7,8 @@ class Entity
 {
 public:
 	Entity();
-	Entity(sf::Sprite sprite, int drawPriority);
-	Entity(sf::Sprite sprite, sf::IntRect bounds, int drawPriority);
+	Entity(sf::Sprite sprite, sf::Vector2f position, int drawPriority);
+	Entity(sf::Sprite sprite, sf::Vector2f position, sf::IntRect bounds, int drawPriority);
 
 	sf::FloatRect getBounds() const;
 	void addComponent(std::unique_ptr<Component> component);
@@ -17,6 +17,7 @@ public:
 	std::shared_ptr<Component> getComponent(Component::ComponentType type);
 
 	sf::Sprite sprite;
+	sf::Vector2f position;
 	bool shouldDelete;
 	int drawPriority;
 

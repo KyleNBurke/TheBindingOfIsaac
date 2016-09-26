@@ -4,6 +4,11 @@
 #include "Floor.hpp"
 #include "VelocityCom.hpp"
 #include "AnimationCom.hpp"
+#include "JimmyMoveCom.hpp"
+#include "AccelerationCom.hpp"
+
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 MovementSystem::MovementSystem(const sf::Time& deltaTime) : deltaTime(deltaTime) {}
 
@@ -47,6 +52,26 @@ void MovementSystem::update(Entity& entity)
 				}
 				break;
 		}
+	}
+	else if(entity.hasComponent(Component::ComponentType::JimmyMove))
+	{
+		std::shared_ptr<JimmyMoveCom> moveCom = std::dynamic_pointer_cast<JimmyMoveCom>(entity.getComponent(Component::ComponentType::JimmyMove));
+		std::shared_ptr<VelocityCom> velCom = std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity));
+		std::shared_ptr<AccelerationCom> accelCom = std::dynamic_pointer_cast<AccelerationCom>(entity.getComponent(Component::ComponentType::AccelDecel));
+
+		sf::Vector2f direction = moveCom->centerPosition - entity.position;
+
+		float directionRad = std::atan(direction.y / direction.x);
+		if(direction.x < 0.0f)
+			directionRad += (float)M_PI;
+
+		float randomRadAmount = 2.0f;
+		directionRad += (float)std::rand() / (float)RAND_MAX * randomRadAmount - randomRadAmount / 2;
+
+		float newDirX = std::cos(directionRad);
+		float newDirY = std::sin(directionRad);
+
+		accelCom->acceleration = sf::Vector2f(newDirX, newDirY) * moveCom->accelerationSpeed;
 	}
 }
 

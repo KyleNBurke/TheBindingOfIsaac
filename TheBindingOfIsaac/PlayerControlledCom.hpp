@@ -6,7 +6,10 @@
 class PlayerControlledCom : public Component
 {
 public:
-	PlayerControlledCom();
+	PlayerControlledCom(float maxSpeed, float acceleration);
 
 	Component::ComponentType getType() const;
+
+	const float maxSpeed;
+	const float acceleration;
 };

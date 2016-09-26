@@ -3,10 +3,7 @@
 
 VelocityCom::VelocityCom() {}
 
-VelocityCom::VelocityCom(sf::Vector2f velocity) : velocity(velocity)
-{
-	VelocityCom();
-}
+VelocityCom::VelocityCom(sf::Vector2f velocity) : velocity(velocity) {}
 
 Component::ComponentType VelocityCom::getType() const
 {

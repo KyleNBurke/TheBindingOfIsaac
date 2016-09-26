@@ -15,10 +15,12 @@ public:
 		Health,
 		TurretShot,
 		PlayerShot,
+		JimmyShot,
 		Bouncer,
 		Lifetime,
 		Animation,
-		PacMove
+		PacMove,
+		JimmyMove
 	};
 
 	Component();
