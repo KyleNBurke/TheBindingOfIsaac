@@ -12,11 +12,14 @@ void PhysicsSystem::update(Entity& entity)
 		std::shared_ptr<VelocityCom> velocityCom = std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity));
 		std::shared_ptr<AccelerationCom> accelCom = std::dynamic_pointer_cast<AccelerationCom>(entity.getComponent(Component::ComponentType::AccelDecel));
 
+		if(entity.hasComponent(Component::ComponentType::Item))
+			int i = 4;
+
 		velocityCom->velocity += accelCom->acceleration;
 
-		if(std::abs(velocityCom->velocity.x) < 0.05)
+		if(std::abs(velocityCom->velocity.x) < 0.05f)
 			velocityCom->velocity.x = 0.0f;
-		if(std::abs(velocityCom->velocity.y) < 0.05)
+		if(std::abs(velocityCom->velocity.y) < 0.05f)
 			velocityCom->velocity.y = 0.0f;
 	}
 

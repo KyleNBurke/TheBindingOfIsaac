@@ -20,7 +20,8 @@ public:
 		Lifetime,
 		Animation,
 		PacMove,
-		JimmyMove
+		JimmyMove,
+		Item
 	};
 
 	Component();

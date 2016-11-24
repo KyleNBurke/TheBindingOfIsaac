@@ -19,6 +19,8 @@ public:
 	void update(sf::Time deltaTime);
 	void draw(sf::RenderWindow& window);
 
+	static void givePlayerCoins(int amount);
+
 private:
 	StatsState& statsState;
 	HUD hud;
@@ -27,4 +29,6 @@ private:
 	std::vector<std::unique_ptr<System>> systems;
 	TransitionSystem transitionSystem;
 	RenderSystem renderSystem;
+
+	static int playerCoins;
 };

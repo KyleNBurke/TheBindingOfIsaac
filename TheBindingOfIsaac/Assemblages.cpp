@@ -7,7 +7,6 @@
 #include "WallCollisionCom.hpp"
 #include "ProjectileCom.hpp"
 #include "HealthCom.hpp"
-#include "TurretShotCom.hpp"
 #include "PlayerShotCom.hpp"
 #include "BouncerCom.hpp"
 #include "LifetimeCom.hpp"
@@ -17,6 +16,7 @@
 #include "PacMoveCom.hpp"
 #include "JimmyMoveCom.hpp"
 #include "JimmyShotCom.hpp"
+#include "ItemCom.hpp"
 
 Assemblages::Assemblages() {}
 
@@ -32,6 +32,7 @@ void Assemblages::initialize()
 	projectilesSpriteSheet.loadFromFile("Resources/Projectiles.png");
 	enemySpriteSheet.loadFromFile("Resources/Enemies.png");
 	particleSpriteSheet.loadFromFile("Resources/Particles.png");
+	itemsSpriteSheet.loadFromFile("Resources/Items.png");
 }
 
 #pragma region Draw Priorities
@@ -88,16 +89,6 @@ Entity Assemblages::createRegularProjectile(sf::Vector2f position, sf::Vector2f 
 	projectile.addComponent(std::unique_ptr<Component>(new LifetimeCom(1.0f)));
 
 	return projectile;
-}
-
-Entity Assemblages::createTurret(sf::Vector2f position)
-{
-	Entity turret(sf::Sprite(enemySpriteSheet, sf::IntRect(0, 54, 6, 6)), position, 1);
-
-	turret.addComponent(std::unique_ptr<Component>(new HealthCom(3)));
-	turret.addComponent(std::unique_ptr<Component>(new TurretShotCom()));
-
-	return turret;
 }
 
 Entity Assemblages::createBouncer(sf::Vector2f position, sf::Vector2f direction)
@@ -220,6 +211,23 @@ Entity Assemblages::createProjectileDeath(sf::Vector2f position)
 	death.addComponent(std::unique_ptr<Component>(new LifetimeCom((float)frames * frameTime)));
 
 	std::unique_ptr<AnimationStateDynamic> deathState(new AnimationStateDynamic(sf::IntRect(8, 0, 8, 8), frames, frameTime));
+	std::unique_ptr<AnimationCom> animationCom(new AnimationCom());
+	animationCom->states.push_back(std::move(deathState));
+	death.addComponent(std::move(animationCom));
+
+	return death;
+}
+
+Entity Assemblages::createBlockDestruction(sf::Vector2f position)
+{
+	Entity death(sf::Sprite(playerSpriteSheet, sf::IntRect(0, 0, 10, 10)), position, 0);
+
+	const int frames = 5;
+	const float frameTime = 0.1f;
+
+	death.addComponent(std::unique_ptr<Component>(new LifetimeCom((float)frames * frameTime)));
+
+	std::unique_ptr<AnimationStateDynamic> deathState(new AnimationStateDynamic(sf::IntRect(0, 12, 10, 10), frames, frameTime));
 	std::unique_ptr<AnimationCom> animationCom(new AnimationCom());
 	animationCom->states.push_back(std::move(deathState));
 	death.addComponent(std::move(animationCom));

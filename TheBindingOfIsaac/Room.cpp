@@ -286,9 +286,15 @@ void Room::load(std::string fileName)
 
 		switch(type)
 		{
+			/*
+			0 - Bouncer
+			1 - Jimmy
+			2 - Pac
+			*/
+
 			case 0:
 			{
-				entities.push_back(Assemblages::getInstance().createTurret(position));
+				//addEntity(Assemblages::getInstance().createBouncer(position));
 				break;
 			}
 		}
@@ -327,10 +333,18 @@ void Room::load(std::string fileName)
 	//addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 200.0f), Right));
 	//addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 400.0f), Right));
 	//addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 600.0f), Right));
-	//addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 800.0f), Right));
+	addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 800.0f), Right));
 
-	//addEntity(Assemblages::getInstance().createBouncer(sf::Vector2f(300.0f, 300.0f), sf::Vector2f(1, -1) / (float)sqrt(2)));
-	addEntity(Assemblages::getInstance().createJimmy(sf::Vector2f(500.0f, 500.0f)));
+	addEntity(Assemblages::getInstance().createBouncer(sf::Vector2f(300.0f, 300.0f), sf::Vector2f(1, -1) / (float)sqrt(2)));
+	//addEntity(Assemblages::getInstance().createJimmy(sf::Vector2f(500.0f, 300.0f)));
+	//addEntity(Assemblages::getInstance().createJimmy(sf::Vector2f(500.0f, 350.0f)));
+	//addEntity(Assemblages::getInstance().createJimmy(sf::Vector2f(500.0f, 400.0f)));
+	//addEntity(Assemblages::getInstance().createJimmy(sf::Vector2f(500.0f, 450.0f)));
+	//addEntity(Assemblages::getInstance().createJimmy(sf::Vector2f(500.0f, 500.0f)));
+	//addEntity(Assemblages::getInstance().createJimmy(sf::Vector2f(500.0f, 550.0f)));
+	//addEntity(Assemblages::getInstance().createJimmy(sf::Vector2f(500.0f, 600.0f)));
+	//addEntity(Assemblages::getInstance().createJimmy(sf::Vector2f(500.0f, 650.0f)));
+	addEntity(Assemblages::getInstance().createJimmy(sf::Vector2f(500.0f, 700.0f)));
 }
 
 Room::TileType Room::getTileType(int x, int y)
@@ -353,14 +367,28 @@ std::vector<Entity>::iterator Room::removeEntity(std::vector<Entity>::iterator& 
 		enemies--;
 		if(enemies == 0)
 		{
+			float scale = Utilities::getInstance().getScale() * (float)tileSize;
+
 			if(upOpen)
+			{
 				tileTypes[8][0] = TileType::floor;
+				addEntity(Assemblages::getInstance().createBlockDestruction(sf::Vector2f(width * scale / 2.0f, scale / 2.0f)));
+			}
 			if(downOpen)
+			{
 				tileTypes[8][height - 1] = TileType::floor;
+				addEntity(Assemblages::getInstance().createBlockDestruction(sf::Vector2f(width * scale / 2.0f, height * scale - scale / 2.0f)));
+			}
 			if(leftOpen)
+			{
 				tileTypes[0][6] = TileType::floor;
+				addEntity(Assemblages::getInstance().createBlockDestruction(sf::Vector2f(scale / 2.0f, height * scale / 2.0f)));
+			}
 			if(rightOpen)
+			{
 				tileTypes[width - 1][6] = TileType::floor;
+				addEntity(Assemblages::getInstance().createBlockDestruction(sf::Vector2f(width * scale - scale / 2.0f, height * scale / 2.0f)));
+			}
 
 			complete = true;
 		}

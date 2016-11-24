@@ -13,7 +13,6 @@ public:
 	Entity createPlayerDamageStain(sf::Vector2f position);
 	Entity createPlayerProjectile(sf::Vector2f position, sf::Vector2f velocity);
 	Entity createRegularProjectile(sf::Vector2f position, sf::Vector2f direction);
-	Entity createTurret(sf::Vector2f position);
 	Entity createBouncer(sf::Vector2f position, sf::Vector2f direction);
 	Entity createParticle(sf::Vector2f position, sf::IntRect textureRect, sf::Vector2f velocity, float lifetime);
 	Entity createPac(sf::Vector2f position, Direction initialDirection);
@@ -22,6 +21,7 @@ public:
 	Entity createEnemyDeathStain(sf::Vector2f position);
 	Entity createEnemyDamageStain(sf::Vector2f position);
 	Entity createProjectileDeath(sf::Vector2f position);
+	Entity createBlockDestruction(sf::Vector2f position);
 
 private:
 	Assemblages();
@@ -32,4 +32,5 @@ private:
 	sf::Texture projectilesSpriteSheet;
 	sf::Texture enemySpriteSheet;
 	sf::Texture particleSpriteSheet;
+	sf::Texture itemsSpriteSheet;
 };

@@ -3,6 +3,8 @@
 #include "Utilities.hpp"
 #include "HealthCom.hpp"
 
+sf::Text HUD::coinAmount;
+
 HUD::HUD() :
 	playerMark(spriteSheet, sf::IntRect(18, 0, 5, 3)),
 	bomb(spriteSheet, sf::IntRect(7, 0, 6, 8)),
@@ -20,11 +22,18 @@ HUD::HUD() :
 	prevPlayerHealth = health;
 	updatePlayerHealth(health);
 
+	font.loadFromFile("Resources/pixelFont.ttf");
+
 	bomb.setScale(scale, scale);
 	bomb.setPosition(64 * scale, 107 * scale);
 
 	coin.setScale(scale, scale);
 	coin.setPosition(65 * scale, 118 * scale);
+
+	coinAmount.setFont(font);
+	coinAmount.setString("00");
+	coinAmount.setCharacterSize((int)scale * Room::tileSize);
+	coinAmount.setPosition(73 * scale, 114 * scale);
 }
 
 void HUD::constructFloor(const std::array<std::array<std::shared_ptr<Room>, Floor::sizeY>, Floor::sizeX>& ar)
@@ -81,6 +90,7 @@ void HUD::draw(sf::RenderWindow& window)
 
 	window.draw(bomb);
 	window.draw(coin);
+	window.draw(coinAmount);
 
 	for(std::vector<sf::Sprite>::iterator it = hearts.begin(); it != hearts.end(); ++it)
 		window.draw(*it);
@@ -115,4 +125,9 @@ void HUD::updatePlayerHealth(int health)
 
 		hearts.push_back(heart);
 	}
+}
+
+void HUD::updatePlayerCoins(int coins)
+{
+	coinAmount.setString(std::to_string(coins));
 }

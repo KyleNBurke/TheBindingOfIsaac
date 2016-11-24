@@ -11,6 +11,7 @@ public:
 	Component::ComponentType getType() const;
 
 	float currentShotTime;
-	const float maxShotTime;
+	const float randShotTimeAmount;
+	float maxShotTime;
 	const float projectileSpeed;
 };

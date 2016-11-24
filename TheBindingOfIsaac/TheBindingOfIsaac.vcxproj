@@ -96,6 +96,8 @@
     <ClInclude Include="BouncerCom.hpp" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="FlashSystem.hpp" />
+    <ClInclude Include="ItemCom.hpp" />
+    <ClInclude Include="ItemSystem.hpp" />
     <ClInclude Include="JimmyMoveCom.hpp" />
     <ClInclude Include="JimmyShotCom.hpp" />
     <ClInclude Include="LifetimeCom.hpp" />
@@ -125,7 +127,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="System.hpp" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="TurretShotCom.hpp" />
     <ClInclude Include="Utilities.hpp" />
     <ClInclude Include="VelocityCom.hpp" />
     <ClInclude Include="WallCollisionCom.hpp" />
@@ -141,6 +142,8 @@
     <ClCompile Include="BouncerCom.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="FlashSystem.cpp" />
+    <ClCompile Include="ItemCom.cpp" />
+    <ClCompile Include="ItemSystem.cpp" />
     <ClCompile Include="JimmyMoveCom.cpp" />
     <ClCompile Include="JimmyShotCom.cpp" />
     <ClCompile Include="LifetimeCom.cpp" />
@@ -173,7 +176,6 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="System.cpp" />
-    <ClCompile Include="TurretShotCom.cpp" />
     <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="VelocityCom.cpp" />
     <ClCompile Include="WallCollisionCom.cpp" />

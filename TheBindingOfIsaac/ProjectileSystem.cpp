@@ -5,6 +5,8 @@
 #include "AnimationStateDynamic.hpp"
 #include "Assemblages.hpp"
 #include "BouncerCom.hpp"
+#include "VelocityCom.hpp"
+#include "GameplayState.hpp"
 
 ProjectileSystem::ProjectileSystem(const sf::Time& deltaTime) : deltaTime(deltaTime) {}
 
@@ -79,7 +81,12 @@ bool ProjectileSystem::resolveEnemyCollisions(Entity& projectile, std::shared_pt
 				{
 					it->shouldDelete = true;
 					Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createEnemyDeath(it->sprite.getPosition()));
-					Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createEnemyDeathStain(it->sprite.getPosition()));
+					//Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createEnemyDeathStain(it->sprite.getPosition()));
+					sf::Vector2f velocity;
+					if(it->hasComponent(Component::ComponentType::Velocity))
+					{
+						velocity = std::dynamic_pointer_cast<VelocityCom>(it->getComponent(Component::ComponentType::Velocity))->velocity;
+					}
 
 					if(it->hasComponent(Component::ComponentType::Bouncer))
 					{
@@ -91,6 +98,7 @@ bool ProjectileSystem::resolveEnemyCollisions(Entity& projectile, std::shared_pt
 						Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createRegularProjectile(it->sprite.getPosition(), sf::Vector2f(-1, 1) / (float)sqrt(2) * speed));
 					}
 
+					GameplayState::givePlayerCoins(1);
 				}
 
 				healthCom->flashing = true;

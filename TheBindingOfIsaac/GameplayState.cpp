@@ -11,6 +11,9 @@
 #include "MovementSystem.hpp"
 #include "FlashSystem.hpp"
 #include "LifetimeSystem.hpp"
+#include "ItemSystem.hpp"
+
+int GameplayState::playerCoins = 0;
 
 GameplayState::GameplayState(StatsState& statsState, sf::RenderWindow& window, const sf::Time& deltaTime) :
 	statsState(statsState),
@@ -30,6 +33,7 @@ GameplayState::GameplayState(StatsState& statsState, sf::RenderWindow& window, c
 	systems.push_back(std::unique_ptr<System>(new FlashSystem(deltaTime)));
 	systems.push_back(std::unique_ptr<System>(new LifetimeSystem(deltaTime)));
 	systems.push_back(std::unique_ptr<System>(new AnimationSystem(deltaTime)));
+	systems.push_back(std::unique_ptr<System>(new ItemSystem(deltaTime)));
 }
 
 void GameplayState::initialize()
@@ -108,4 +112,10 @@ void GameplayState::draw(sf::RenderWindow& window)
 	transitionSystem.draw(window);
 
 	hud.draw(window);
+}
+
+void GameplayState::givePlayerCoins(int amount)
+{
+	playerCoins++;
+	HUD::updatePlayerCoins(playerCoins);
 }
