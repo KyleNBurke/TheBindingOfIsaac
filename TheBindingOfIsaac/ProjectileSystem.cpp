@@ -16,6 +16,9 @@ void ProjectileSystem::update(Entity& entity)
 	{
 		std::shared_ptr<ProjectileCom> projCom = std::dynamic_pointer_cast<ProjectileCom>(entity.getComponent(Component::ComponentType::Projectile));
 
+		if(projCom->projectileVariation == ProjectileCom::ProjectileVariation::Bomb)
+			return;
+
 		if(resolveTileCollisions(entity))
 			return;
 
@@ -79,14 +82,9 @@ bool ProjectileSystem::resolveEnemyCollisions(Entity& projectile, std::shared_pt
 
 				if(healthCom->health <= 0)
 				{
-					it->shouldDelete = true;
+					/*it->shouldDelete = true;
 					Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createEnemyDeath(it->sprite.getPosition()));
 					//Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createEnemyDeathStain(it->sprite.getPosition()));
-					sf::Vector2f velocity;
-					if(it->hasComponent(Component::ComponentType::Velocity))
-					{
-						velocity = std::dynamic_pointer_cast<VelocityCom>(it->getComponent(Component::ComponentType::Velocity))->velocity;
-					}
 
 					if(it->hasComponent(Component::ComponentType::Bouncer))
 					{
@@ -98,7 +96,9 @@ bool ProjectileSystem::resolveEnemyCollisions(Entity& projectile, std::shared_pt
 						Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createRegularProjectile(it->sprite.getPosition(), sf::Vector2f(-1, 1) / (float)sqrt(2) * speed));
 					}
 
-					GameplayState::givePlayerCoins(1);
+					GameplayState::givePlayerCoins(1);*/
+
+					Floor::getCurrentRoom().killEnemy(*it);
 				}
 
 				healthCom->flashing = true;

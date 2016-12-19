@@ -13,6 +13,7 @@
 #include "LifetimeSystem.hpp"
 #include "ItemSystem.hpp"
 
+int GameplayState::playerBombs = 0;
 int GameplayState::playerCoins = 0;
 
 GameplayState::GameplayState(StatsState& statsState, sf::RenderWindow& window, const sf::Time& deltaTime) :
@@ -34,6 +35,8 @@ GameplayState::GameplayState(StatsState& statsState, sf::RenderWindow& window, c
 	systems.push_back(std::unique_ptr<System>(new LifetimeSystem(deltaTime)));
 	systems.push_back(std::unique_ptr<System>(new AnimationSystem(deltaTime)));
 	systems.push_back(std::unique_ptr<System>(new ItemSystem(deltaTime)));
+
+	updatePlayerBombs(10);
 }
 
 void GameplayState::initialize()
@@ -114,8 +117,19 @@ void GameplayState::draw(sf::RenderWindow& window)
 	hud.draw(window);
 }
 
-void GameplayState::givePlayerCoins(int amount)
+void GameplayState::updatePlayerBombs(int amount)
 {
-	playerCoins++;
+	playerBombs += amount;
+	HUD::updatePlayerBombs(playerBombs);
+}
+
+int GameplayState::getPlayerBombs()
+{
+	return playerBombs;
+}
+
+void GameplayState::updatePlayerCoins(int amount)
+{
+	playerCoins += amount;
 	HUD::updatePlayerCoins(playerCoins);
 }

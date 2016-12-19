@@ -3,6 +3,7 @@
 #include "HealthCom.hpp"
 #include "Floor.hpp"
 #include "Assemblages.hpp"
+#include "ProjectileCom.hpp"
 
 FlashSystem::FlashSystem(const sf::Time& deltaTime) : deltaTime(deltaTime), maxPlayerFlashes(10), currPlayerFlashes(0) {}
 

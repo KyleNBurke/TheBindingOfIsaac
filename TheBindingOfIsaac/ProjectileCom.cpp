@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "ProjectileCom.hpp"
 
-ProjectileCom::ProjectileCom(ProjectileType projectileType) :
-	projectileType(projectileType), alive(true) {}
+ProjectileCom::ProjectileCom(ProjectileType projectileType, ProjectileVariation variation) :
+	projectileType(projectileType), projectileVariation(variation), alive(true) {}
 
 Component::ComponentType ProjectileCom::getType() const
 {

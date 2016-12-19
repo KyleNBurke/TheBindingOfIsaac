@@ -12,6 +12,7 @@ public:
 	Entity createPlayer(sf::Vector2f position);
 	Entity createPlayerDamageStain(sf::Vector2f position);
 	Entity createPlayerProjectile(sf::Vector2f position, sf::Vector2f velocity);
+	Entity createPlayerBomb(sf::Vector2f position);
 	Entity createRegularProjectile(sf::Vector2f position, sf::Vector2f direction);
 	Entity createBouncer(sf::Vector2f position, sf::Vector2f direction);
 	Entity createParticle(sf::Vector2f position, sf::IntRect textureRect, sf::Vector2f velocity, float lifetime);
@@ -22,6 +23,7 @@ public:
 	Entity createEnemyDamageStain(sf::Vector2f position);
 	Entity createProjectileDeath(sf::Vector2f position);
 	Entity createBlockDestruction(sf::Vector2f position);
+	Entity createExplosion(sf::Vector2f position);
 
 private:
 	Assemblages();

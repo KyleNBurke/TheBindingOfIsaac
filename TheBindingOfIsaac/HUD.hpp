@@ -15,6 +15,7 @@ public:
 	void setCurrentRoom(int x, int y);
 
 	static void updatePlayerCoins(int coins);
+	static void updatePlayerBombs(int bombs);
 
 private:
 	void updatePlayerHealth(int health);
@@ -27,6 +28,7 @@ private:
 	sf::Sprite bomb;
 	sf::Sprite coin;
 	static sf::Text coinAmount;
+	static sf::Text bombAmount;
 
 	const int maxPlayerHealth;
 	int prevPlayerHealth;

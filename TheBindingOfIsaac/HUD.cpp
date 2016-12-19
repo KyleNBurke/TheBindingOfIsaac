@@ -4,6 +4,7 @@
 #include "HealthCom.hpp"
 
 sf::Text HUD::coinAmount;
+sf::Text HUD::bombAmount;
 
 HUD::HUD() :
 	playerMark(spriteSheet, sf::IntRect(18, 0, 5, 3)),
@@ -26,6 +27,11 @@ HUD::HUD() :
 
 	bomb.setScale(scale, scale);
 	bomb.setPosition(64 * scale, 107 * scale);
+
+	bombAmount.setFont(font);
+	bombAmount.setString("00");
+	bombAmount.setCharacterSize((int)scale * Room::tileSize);
+	bombAmount.setPosition(73 * scale, 106 * scale);
 
 	coin.setScale(scale, scale);
 	coin.setPosition(65 * scale, 118 * scale);
@@ -89,6 +95,7 @@ void HUD::draw(sf::RenderWindow& window)
 	window.draw(playerMark);
 
 	window.draw(bomb);
+	window.draw(bombAmount);
 	window.draw(coin);
 	window.draw(coinAmount);
 
@@ -130,4 +137,9 @@ void HUD::updatePlayerHealth(int health)
 void HUD::updatePlayerCoins(int coins)
 {
 	coinAmount.setString(std::to_string(coins));
+}
+
+void HUD::updatePlayerBombs(int bombs)
+{
+	bombAmount.setString(std::to_string(bombs));
 }

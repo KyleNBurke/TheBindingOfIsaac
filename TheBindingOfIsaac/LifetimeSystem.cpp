@@ -3,6 +3,7 @@
 #include "LifetimeCom.hpp"
 #include "Floor.hpp"
 #include "Assemblages.hpp"
+#include "ProjectileCom.hpp"
 
 LifetimeSystem::LifetimeSystem(const sf::Time& deltaTime) : deltaTime(deltaTime) {}
 
@@ -19,8 +20,22 @@ void LifetimeSystem::update(Entity& entity)
 			entity.shouldDelete = true;
 
 			if(entity.hasComponent(Component::ComponentType::Projectile))
+			{
 				Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createProjectileDeath(entity.sprite.getPosition()));
 
+				if(std::dynamic_pointer_cast<ProjectileCom>(entity.getComponent(Component::ComponentType::Projectile))->projectileVariation == ProjectileCom::ProjectileVariation::Bomb)
+				{
+					Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createExplosion(entity.sprite.getPosition()));
+
+					for(std::vector<Entity>::iterator it = Floor::getCurrentRoom().getEntities().begin(); it != Floor::getCurrentRoom().getEntities().end(); ++it)
+					{
+						float distance = std::sqrt(std::powf((it->position.x - entity.position.x), 2) + std::powf((it->position.y - entity.position.y), 2));
+
+						if(it->hasComponent(Component::ComponentType::Health) && distance < Utilities::getInstance().getScale() * Room::tileSize * 2.0f)
+							Floor::getCurrentRoom().killEnemy(*it);
+					}
+				}
+			}
 		}
 	}
 }

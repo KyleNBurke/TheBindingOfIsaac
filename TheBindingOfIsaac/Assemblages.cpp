@@ -74,10 +74,25 @@ Entity Assemblages::createPlayerProjectile(sf::Vector2f position, sf::Vector2f v
 	Entity projectile(sf::Sprite(projectilesSpriteSheet, sf::IntRect(0, 0, 4, 4)), position, sf::IntRect(1, 1, 2, 2), 1);
 
 	projectile.addComponent(std::unique_ptr<Component>(new VelocityCom(velocity)));
-	projectile.addComponent(std::unique_ptr<Component>(new ProjectileCom(ProjectileCom::ProjectileType::Player)));
+	projectile.addComponent(std::unique_ptr<Component>(new ProjectileCom(ProjectileCom::ProjectileType::Player, ProjectileCom::ProjectileVariation::Regular)));
 	projectile.addComponent(std::unique_ptr<Component>(new LifetimeCom(0.5f)));
 
 	return projectile;
+}
+
+Entity Assemblages::createPlayerBomb(sf::Vector2f position)
+{
+	Entity bomb(sf::Sprite(projectilesSpriteSheet, sf::IntRect(0, 8, 6, 8)), position, 1);
+
+	bomb.addComponent(std::unique_ptr<Component>(new ProjectileCom(ProjectileCom::ProjectileType::Player, ProjectileCom::ProjectileVariation::Bomb)));
+	bomb.addComponent(std::unique_ptr<Component>(new LifetimeCom(1.0f)));
+
+	std::unique_ptr<AnimationStateDynamic> bombState(new AnimationStateDynamic(sf::IntRect(0, 8, 6, 8), 2, 0.1f));
+	std::unique_ptr<AnimationCom> animationCom(new AnimationCom());
+	animationCom->states.push_back(std::move(bombState));
+	bomb.addComponent(std::move(animationCom));
+
+	return bomb;
 }
 
 Entity Assemblages::createRegularProjectile(sf::Vector2f position, sf::Vector2f velocity)
@@ -85,7 +100,7 @@ Entity Assemblages::createRegularProjectile(sf::Vector2f position, sf::Vector2f 
 	Entity projectile(sf::Sprite(projectilesSpriteSheet, sf::IntRect(0, 4, 4, 4)), position, sf::IntRect(1, 1, 2, 2), 1);
 
 	projectile.addComponent(std::unique_ptr<Component>(new VelocityCom(velocity)));
-	projectile.addComponent(std::unique_ptr<Component>(new ProjectileCom(ProjectileCom::ProjectileType::Enemy)));
+	projectile.addComponent(std::unique_ptr<Component>(new ProjectileCom(ProjectileCom::ProjectileType::Enemy, ProjectileCom::ProjectileVariation::Regular)));
 	projectile.addComponent(std::unique_ptr<Component>(new LifetimeCom(1.0f)));
 
 	return projectile;
@@ -233,4 +248,21 @@ Entity Assemblages::createBlockDestruction(sf::Vector2f position)
 	death.addComponent(std::move(animationCom));
 
 	return death;
+}
+
+Entity Assemblages::createExplosion(sf::Vector2f position)
+{
+	Entity explo(sf::Sprite(projectilesSpriteSheet, sf::IntRect(0, 0, 34, 32)), position, 1);
+
+	const int frames = 12;
+	const float frameTime = 0.04f;
+
+	explo.addComponent(std::unique_ptr<Component>(new LifetimeCom((float)frames * frameTime)));
+
+	std::unique_ptr<AnimationStateDynamic> exploState(new AnimationStateDynamic(sf::IntRect(0, 17, 34, 32), frames, frameTime));
+	std::unique_ptr<AnimationCom> animationCom(new AnimationCom());
+	animationCom->states.push_back(std::move(exploState));
+	explo.addComponent(std::move(animationCom));
+
+	return explo;
 }

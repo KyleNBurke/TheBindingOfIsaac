@@ -15,6 +15,7 @@ public:
 
 	TileType getTileType(int x, int y);
 	void addEntity(Entity entity);
+	void killEnemy(Entity& entity);
 	std::vector<Entity>::iterator removeEntity(std::vector<Entity>::iterator& entityIt);
 	std::vector<Entity>& getEntities();
 	std::vector<Entity>& getAddEntityQueue();

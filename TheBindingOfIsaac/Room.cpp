@@ -3,6 +3,9 @@
 #include "Utilities.hpp"
 #include "Assemblages.hpp"
 
+#include "BouncerCom.hpp"
+#include "GameplayState.hpp"
+
 const int Room::tileSize;
 const int Room::width;
 const int Room::height;
@@ -333,7 +336,7 @@ void Room::load(std::string fileName)
 	//addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 200.0f), Right));
 	//addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 400.0f), Right));
 	//addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 600.0f), Right));
-	addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 800.0f), Right));
+	//addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 800.0f), Right));
 
 	addEntity(Assemblages::getInstance().createBouncer(sf::Vector2f(300.0f, 300.0f), sf::Vector2f(1, -1) / (float)sqrt(2)));
 	//addEntity(Assemblages::getInstance().createJimmy(sf::Vector2f(500.0f, 300.0f)));
@@ -344,7 +347,7 @@ void Room::load(std::string fileName)
 	//addEntity(Assemblages::getInstance().createJimmy(sf::Vector2f(500.0f, 550.0f)));
 	//addEntity(Assemblages::getInstance().createJimmy(sf::Vector2f(500.0f, 600.0f)));
 	//addEntity(Assemblages::getInstance().createJimmy(sf::Vector2f(500.0f, 650.0f)));
-	addEntity(Assemblages::getInstance().createJimmy(sf::Vector2f(500.0f, 700.0f)));
+	//addEntity(Assemblages::getInstance().createJimmy(sf::Vector2f(500.0f, 700.0f)));
 }
 
 Room::TileType Room::getTileType(int x, int y)
@@ -358,6 +361,24 @@ void Room::addEntity(Entity entity)
 		enemies++;
 
 	addEntityQueue.push_back(entity);
+}
+
+void Room::killEnemy(Entity& entity)
+{
+	entity.shouldDelete = true;
+	addEntity(Assemblages::getInstance().createEnemyDeath(entity.sprite.getPosition()));
+
+	if(entity.hasComponent(Component::ComponentType::Bouncer))
+	{
+		float speed = std::dynamic_pointer_cast<BouncerCom>(entity.getComponent(Component::ComponentType::Bouncer))->projectileSpeed;
+
+		addEntity(Assemblages::getInstance().createRegularProjectile(entity.sprite.getPosition(), sf::Vector2f(-1, -1) / (float)sqrt(2) * speed));
+		addEntity(Assemblages::getInstance().createRegularProjectile(entity.sprite.getPosition(), sf::Vector2f(1, -1) / (float)sqrt(2) * speed));
+		addEntity(Assemblages::getInstance().createRegularProjectile(entity.sprite.getPosition(), sf::Vector2f(1, 1) / (float)sqrt(2) * speed));
+		addEntity(Assemblages::getInstance().createRegularProjectile(entity.sprite.getPosition(), sf::Vector2f(-1, 1) / (float)sqrt(2) * speed));
+	}
+
+	GameplayState::updatePlayerCoins(1);
 }
 
 std::vector<Entity>::iterator Room::removeEntity(std::vector<Entity>::iterator& entityIt)

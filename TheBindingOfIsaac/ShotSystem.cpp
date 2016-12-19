@@ -9,6 +9,8 @@
 #include "VelocityCom.hpp"
 #include "JimmyShotCom.hpp"
 
+#include "GameplayState.hpp"
+
 ShotSystem::ShotSystem(const sf::Time& deltaTime) : deltaTime(deltaTime) {}
 
 void ShotSystem::update(Entity& entity)
@@ -67,6 +69,12 @@ void ShotSystem::update(Entity& entity)
 				playerShotCom->fireResetClock.restart();
 			}
 				
+		}
+
+		if(Input::getInstance().keyPressed(sf::Keyboard::Key::E) && GameplayState::getPlayerBombs() > 0)
+		{
+			GameplayState::updatePlayerBombs(-1);
+			Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createPlayerBomb(entity.sprite.getPosition()));
 		}
 	}
 	else if(entity.hasComponent(Component::ComponentType::JimmyShot))

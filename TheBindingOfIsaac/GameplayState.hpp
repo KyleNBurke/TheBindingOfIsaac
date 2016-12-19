@@ -19,7 +19,9 @@ public:
 	void update(sf::Time deltaTime);
 	void draw(sf::RenderWindow& window);
 
-	static void givePlayerCoins(int amount);
+	static void updatePlayerBombs(int amount);
+	static int getPlayerBombs();
+	static void updatePlayerCoins(int amount);
 
 private:
 	StatsState& statsState;
@@ -30,5 +32,6 @@ private:
 	TransitionSystem transitionSystem;
 	RenderSystem renderSystem;
 
+	static int playerBombs;
 	static int playerCoins;
 };

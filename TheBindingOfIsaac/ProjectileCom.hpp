@@ -11,16 +11,16 @@ public:
 		Enemy
 	};
 
-	/*enum Variation {
+	enum ProjectileVariation {
 		Regular,
-		Heatseeking,
-		bounce
-	}*/
+		Bomb
+	};
 
-	ProjectileCom(ProjectileType type);
+	ProjectileCom(ProjectileType type, ProjectileVariation variation);
 
 	Component::ComponentType getType() const;
 
 	const ProjectileType projectileType;
+	const ProjectileVariation projectileVariation;
 	bool alive;
 };
