@@ -266,3 +266,28 @@ Entity Assemblages::createExplosion(sf::Vector2f position)
 
 	return explo;
 }
+
+Entity Assemblages::createExplosionStain(sf::Vector2f position)
+{
+	Entity stain(sf::Sprite(projectilesSpriteSheet, sf::IntRect(0, 50, 11, 12)), position, 0);
+
+	return stain;
+}
+
+Entity Assemblages::createROF_UpItem(sf::Vector2f position)
+{
+	Entity item(sf::Sprite(itemsSpriteSheet, sf::IntRect(0, 0, 8, 8)), position, 2);
+
+	item.addComponent(std::unique_ptr<Component>(new ItemCom(ItemCom::ItemType::ROF_Up, 15, position, "Increased rate of fire")));
+
+	return item;
+}
+
+Entity Assemblages::createPlusTenBombsItem(sf::Vector2f position)
+{
+	Entity item(sf::Sprite(itemsSpriteSheet, sf::IntRect(8, 0, 8, 8)), position, 2);
+
+	item.addComponent(std::unique_ptr<Component>(new ItemCom(ItemCom::ItemType::PlusTenBombs, 5, position, "+10 bombs")));
+
+	return item;
+}

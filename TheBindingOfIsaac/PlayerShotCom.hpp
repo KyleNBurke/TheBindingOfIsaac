@@ -11,5 +11,5 @@ public:
 	Component::ComponentType getType() const;
 
 	sf::Clock fireResetClock;
-	const float fireResetTime;
+	float fireResetTime;
 };

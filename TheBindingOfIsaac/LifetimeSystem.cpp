@@ -26,6 +26,7 @@ void LifetimeSystem::update(Entity& entity)
 				if(std::dynamic_pointer_cast<ProjectileCom>(entity.getComponent(Component::ComponentType::Projectile))->projectileVariation == ProjectileCom::ProjectileVariation::Bomb)
 				{
 					Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createExplosion(entity.sprite.getPosition()));
+					Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createExplosionStain(entity.sprite.getPosition()));
 
 					for(std::vector<Entity>::iterator it = Floor::getCurrentRoom().getEntities().begin(); it != Floor::getCurrentRoom().getEntities().end(); ++it)
 					{

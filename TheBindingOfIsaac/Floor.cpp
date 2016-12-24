@@ -2,9 +2,13 @@
 #include "Floor.hpp"
 #include "Assemblages.hpp"
 
+#include "ItemCom.hpp"
+#include "HUD.hpp"
+
 std::array<std::array<std::shared_ptr<Room>, Floor::sizeY>, Floor::sizeX> Floor::rooms;
 std::shared_ptr<Room> Floor::currentRoom;
-Entity Floor::player(Assemblages::getInstance().createPlayer(sf::Vector2f(72*2, 72*2)));
+Entity Floor::player(Assemblages::getInstance().createPlayer(sf::Vector2f(Utilities::getInstance().getScale() * Room::tileSize * Room::width / 2.0f, 
+	Utilities::getInstance().getScale() * Room::tileSize * Room::height / 2.0f)));
 
 Floor::Floor()
 {
@@ -125,13 +129,19 @@ void Floor::generate()
 					r = true;
 
 				rooms[x][y] = std::shared_ptr<Room>(new Room(u, d, l, r));
-				//rooms[x][y] = std::shared_ptr<Room>(new Room(false, false, false, false));
 			}
 		}
 	}
 
-	rooms[4][2]->load("Rooms/EmptyRoom.bim");
+	rooms[4][2]->complete = true;
+	rooms[4][2]->load("Rooms/MainRoom.bim");
 	currentRoom = std::shared_ptr<Room>(rooms[4][2]);
+
+	//generate main room items
+	float size = (float)Utilities::getInstance().getScale() * Room::tileSize;
+
+	rooms[4][2]->addEntity(Assemblages::getInstance().createROF_UpItem(sf::Vector2f(size * 3.5f, size * 1.5f)));
+	rooms[4][2]->addEntity(Assemblages::getInstance().createPlusTenBombsItem(sf::Vector2f(size * 5.5f, size * 1.5f)));
 }
 
 void Floor::clear(std::array<std::array<bool, sizeY>, sizeX>& ar)
@@ -223,7 +233,7 @@ const std::array<std::array<std::shared_ptr<Room>, Floor::sizeY>, Floor::sizeX>&
 	return rooms;
 }
 
-const Room& Floor::getRoom(int x, int y)
+Room& Floor::getRoom(int x, int y)
 {
 	return *rooms[x][y];
 }

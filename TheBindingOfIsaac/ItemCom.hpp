@@ -7,14 +7,16 @@ class ItemCom : public Component
 {
 public:
 	enum ItemType {
-		//speedUp
-		//doubleShot
-		//etc.
+		ROF_Up,
+		PlusTenBombs
 	};
 
-	ItemCom(ItemType itemType);
+	ItemCom(ItemType itemType, int price, sf::Vector2f entityPosition, sf::String description);
 
 	Component::ComponentType getType() const;
 
 	const ItemType itemType;
+	const int price;
+	sf::Text priceText;
+	sf::String description;
 };

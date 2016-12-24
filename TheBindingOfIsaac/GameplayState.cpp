@@ -37,6 +37,8 @@ GameplayState::GameplayState(StatsState& statsState, sf::RenderWindow& window, c
 	systems.push_back(std::unique_ptr<System>(new ItemSystem(deltaTime)));
 
 	updatePlayerBombs(10);
+	updatePlayerCoins(50);
+	HUD::showNewLevelMessage(1);
 }
 
 void GameplayState::initialize()
@@ -90,7 +92,7 @@ void GameplayState::update(sf::Time deltaTime)
 				(*systemIt)->update(*entityIt);
 
 			if(entityIt->shouldDelete)
-				entityIt = Floor::getCurrentRoom().removeEntity(entityIt);
+				entityIt = entities.erase(entityIt);
 			else
 				++entityIt;
 		}
@@ -102,18 +104,14 @@ void GameplayState::update(sf::Time deltaTime)
 void GameplayState::draw(sf::RenderWindow& window)
 {
 	Room& room = Floor::getCurrentRoom();
-
 	room.drawBackground(window);
 
 	for(std::vector<Entity>::iterator it = room.getEntities().begin(); it != room.getEntities().end(); ++it)
 		renderSystem.update(*it);
 
 	renderSystem.update(Floor::player);
-
 	room.drawForeground(window);
-
 	transitionSystem.draw(window);
-
 	hud.draw(window);
 }
 
@@ -132,4 +130,9 @@ void GameplayState::updatePlayerCoins(int amount)
 {
 	playerCoins += amount;
 	HUD::updatePlayerCoins(playerCoins);
+}
+
+int GameplayState::getPlayerCoins()
+{
+	return playerCoins;
 }

@@ -10,11 +10,19 @@ Game design:
 - Every enemy the player kills rewards with one or more coins
 - Enemies will get harder the deeper the player goes
 - Scenery will change after a certain number of floor are complete
+- Messages
+	- At the start of every floor a message pops up and says "Level 1"
+	- When an item is picked up a messages pops up and says "You got: [picture of item] \n [distription of item]"
 
 Maybies
 - End game final boss
 - Boss before scenery changes
 
-Roaadmap:
-- Tile visuals
-- Fix bouncer code (a projectile type might use it)
+Roadmap:
+- 
+
+Messages
+- update(), check for OK button press to remove the message
+- draw(), draws the message
+- showItemPickupMessage(ItemCom::ItemType::ROF_Up)
+- showNewLevelMessage()

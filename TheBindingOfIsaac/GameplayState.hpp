@@ -22,6 +22,7 @@ public:
 	static void updatePlayerBombs(int amount);
 	static int getPlayerBombs();
 	static void updatePlayerCoins(int amount);
+	static int getPlayerCoins();
 
 private:
 	StatsState& statsState;

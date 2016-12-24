@@ -2,9 +2,16 @@
 #include "HUD.hpp"
 #include "Utilities.hpp"
 #include "HealthCom.hpp"
+#include "GameManager.hpp"
+#include "Input.hpp"
 
 sf::Text HUD::coinAmount;
 sf::Text HUD::bombAmount;
+HUD::MessageType HUD::messageType;
+sf::RectangleShape HUD::messageBackground;
+sf::Text HUD::messageText;
+sf::Sprite HUD::item;
+sf::Text HUD::pressEnterText;
 
 HUD::HUD() :
 	playerMark(spriteSheet, sf::IntRect(18, 0, 5, 3)),
@@ -23,12 +30,10 @@ HUD::HUD() :
 	prevPlayerHealth = health;
 	updatePlayerHealth(health);
 
-	font.loadFromFile("Resources/pixelFont.ttf");
-
 	bomb.setScale(scale, scale);
 	bomb.setPosition(64 * scale, 107 * scale);
 
-	bombAmount.setFont(font);
+	bombAmount.setFont(Utilities::getInstance().getFont());
 	bombAmount.setString("00");
 	bombAmount.setCharacterSize((int)scale * Room::tileSize);
 	bombAmount.setPosition(73 * scale, 106 * scale);
@@ -36,10 +41,23 @@ HUD::HUD() :
 	coin.setScale(scale, scale);
 	coin.setPosition(65 * scale, 118 * scale);
 
-	coinAmount.setFont(font);
+	coinAmount.setFont(Utilities::getInstance().getFont());
 	coinAmount.setString("00");
 	coinAmount.setCharacterSize((int)scale * Room::tileSize);
 	coinAmount.setPosition(73 * scale, 114 * scale);
+
+	messageBackground.setFillColor(sf::Color(50, 50, 50));
+	messageBackground.setSize(sf::Vector2f(scale * 100.0f, scale * 50.0f));
+	messageBackground.setPosition(scale * Room::tileSize * 2.0f, scale * Room::tileSize * 3.0f);
+
+	messageText.setFont(Utilities::getInstance().getFont());
+	messageText.setCharacterSize((int)scale * Room::tileSize);
+	messageText.setPosition(scale * Room::tileSize * 2.0f + scale * 3.0f, scale * Room::tileSize * 3.0f);
+
+	pressEnterText.setFont(Utilities::getInstance().getFont());
+	pressEnterText.setString("Press enter");
+	pressEnterText.setCharacterSize((int)scale * Room::tileSize);
+	pressEnterText.setPosition(scale * Room::tileSize * 8.0f, scale * Room::tileSize * 8.0f);
 }
 
 void HUD::constructFloor(const std::array<std::array<std::shared_ptr<Room>, Floor::sizeY>, Floor::sizeX>& ar)
@@ -85,6 +103,10 @@ void HUD::update()
 		updatePlayerHealth(currPlayerHealth);
 
 	prevPlayerHealth = currPlayerHealth;
+
+	if(messageType != MessageType::none)
+		if(Input::getInstance().keyPressed(sf::Keyboard::Key::Return))
+			messageType = none;
 }
 
 void HUD::draw(sf::RenderWindow& window)
@@ -101,6 +123,16 @@ void HUD::draw(sf::RenderWindow& window)
 
 	for(std::vector<sf::Sprite>::iterator it = hearts.begin(); it != hearts.end(); ++it)
 		window.draw(*it);
+
+	if(messageType != MessageType::none)
+	{
+		window.draw(messageBackground);
+		window.draw(messageText);
+		window.draw(pressEnterText);
+
+		if(messageType == MessageType::itemPickup)
+			window.draw(item);
+	}
 }
 
 void HUD::setCurrentRoom(int x, int y)
@@ -142,4 +174,22 @@ void HUD::updatePlayerCoins(int coins)
 void HUD::updatePlayerBombs(int bombs)
 {
 	bombAmount.setString(std::to_string(bombs));
+}
+
+void HUD::showPickupItemMessage(Entity& entity)
+{
+	std::shared_ptr<ItemCom> itemCom = std::dynamic_pointer_cast<ItemCom>(entity.getComponent(Component::ComponentType::Item));
+
+	messageType = MessageType::itemPickup;
+	messageText.setString("You got:\n\n" + itemCom->description);
+	item = entity.sprite;
+	item.setOrigin(0.0f, 0.0f);
+	int scale = Utilities::getInstance().getScale();
+	item.setPosition(scale * Room::tileSize * 7.0f, scale * Room::tileSize * 3.0f + scale);
+}
+
+void HUD::showNewLevelMessage(int level)
+{
+	messageType = MessageType::newLevel;
+	messageText.setString("Level: " + std::to_string(level));
 }

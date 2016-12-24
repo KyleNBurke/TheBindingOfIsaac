@@ -2,6 +2,7 @@
 
 #include "stdafx.h"
 #include "Floor.hpp"
+#include "ItemCom.hpp"
 
 class HUD
 {
@@ -16,6 +17,8 @@ public:
 
 	static void updatePlayerCoins(int coins);
 	static void updatePlayerBombs(int bombs);
+	static void showPickupItemMessage(Entity& entity);
+	static void showNewLevelMessage(int level);
 
 private:
 	void updatePlayerHealth(int health);
@@ -24,12 +27,22 @@ private:
 	sf::VertexArray floor;
 	sf::Sprite playerMark;
 	std::vector<sf::Sprite> hearts;
-	sf::Font font;
 	sf::Sprite bomb;
 	sf::Sprite coin;
 	static sf::Text coinAmount;
 	static sf::Text bombAmount;
-
 	const int maxPlayerHealth;
 	int prevPlayerHealth;
+	
+	enum MessageType {
+		none,
+		itemPickup,
+		newLevel
+	};
+
+	static MessageType messageType;
+	static sf::RectangleShape messageBackground;
+	static sf::Text messageText;
+	static sf::Sprite item;
+	static sf::Text pressEnterText;
 };

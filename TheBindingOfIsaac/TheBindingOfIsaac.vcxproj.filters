@@ -321,8 +321,5 @@
     <Text Include="Notes.txt">
       <Filter>Source Files\Other</Filter>
     </Text>
-    <Text Include="OldCode.txt">
-      <Filter>Source Files\Other</Filter>
-    </Text>
   </ItemGroup>
 </Project>

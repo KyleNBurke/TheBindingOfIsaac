@@ -24,6 +24,9 @@ public:
 	Entity createProjectileDeath(sf::Vector2f position);
 	Entity createBlockDestruction(sf::Vector2f position);
 	Entity createExplosion(sf::Vector2f position);
+	Entity createExplosionStain(sf::Vector2f position);
+	Entity createROF_UpItem(sf::Vector2f position);
+	Entity createPlusTenBombsItem(sf::Vector2f position);
 
 private:
 	Assemblages();

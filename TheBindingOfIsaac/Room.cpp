@@ -2,7 +2,6 @@
 #include "Room.hpp"
 #include "Utilities.hpp"
 #include "Assemblages.hpp"
-
 #include "BouncerCom.hpp"
 #include "GameplayState.hpp"
 
@@ -311,24 +310,36 @@ void Room::load(std::string fileName)
 		upBlock = sf::Sprite(foregroundTex, sf::IntRect(0, 0, tileSize, tileSize));
 		upBlock.setPosition(8.0f * (float)tileScreenSize, 0.0f);
 		upBlock.setScale(scale, scale);
+
+		if(complete)
+			tileTypes[8][0] = TileType::floor;
 	}
 	if(downOpen)
 	{
 		downBlock = sf::Sprite(foregroundTex, sf::IntRect(0, 0, tileSize, tileSize));
 		downBlock.setPosition(8.0f * (float)tileScreenSize, (height - 1) * (float)tileScreenSize);
 		downBlock.setScale(scale, scale);
+
+		if(complete)
+			tileTypes[8][height - 1] = TileType::floor;
 	}
 	if(leftOpen)
 	{
 		leftBlock = sf::Sprite(foregroundTex, sf::IntRect(0, 0, tileSize, tileSize));
 		leftBlock.setPosition(0.0f, 6.0f * (float)tileScreenSize);
 		leftBlock.setScale(scale, scale);
+
+		if(complete)
+			tileTypes[0][6] = TileType::floor;
 	}
 	if(rightOpen)
 	{
 		rightBlock = sf::Sprite(foregroundTex, sf::IntRect(0, 0, tileSize, tileSize));
 		rightBlock.setPosition((width - 1) * (float)tileScreenSize, 6.0f * (float)tileScreenSize);
 		rightBlock.setScale(scale, scale);
+
+		if(complete)
+			tileTypes[width - 1][6] = TileType::floor;
 	}
 
 
@@ -338,7 +349,7 @@ void Room::load(std::string fileName)
 	//addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 600.0f), Right));
 	//addEntity(Assemblages::getInstance().createPac(sf::Vector2f(300.0f, 800.0f), Right));
 
-	addEntity(Assemblages::getInstance().createBouncer(sf::Vector2f(300.0f, 300.0f), sf::Vector2f(1, -1) / (float)sqrt(2)));
+	//addEntity(Assemblages::getInstance().createBouncer(sf::Vector2f(300.0f, 300.0f), sf::Vector2f(1, -1) / (float)sqrt(2)));
 	//addEntity(Assemblages::getInstance().createJimmy(sf::Vector2f(500.0f, 300.0f)));
 	//addEntity(Assemblages::getInstance().createJimmy(sf::Vector2f(500.0f, 350.0f)));
 	//addEntity(Assemblages::getInstance().createJimmy(sf::Vector2f(500.0f, 400.0f)));
@@ -378,44 +389,36 @@ void Room::killEnemy(Entity& entity)
 		addEntity(Assemblages::getInstance().createRegularProjectile(entity.sprite.getPosition(), sf::Vector2f(-1, 1) / (float)sqrt(2) * speed));
 	}
 
-	GameplayState::updatePlayerCoins(1);
-}
-
-std::vector<Entity>::iterator Room::removeEntity(std::vector<Entity>::iterator& entityIt)
-{
-	if(entityIt->hasComponent(Component::ComponentType::Health))
+	enemies--;
+	if(enemies == 0)
 	{
-		enemies--;
-		if(enemies == 0)
+		float scale = Utilities::getInstance().getScale() * (float)tileSize;
+
+		if(upOpen)
 		{
-			float scale = Utilities::getInstance().getScale() * (float)tileSize;
-
-			if(upOpen)
-			{
-				tileTypes[8][0] = TileType::floor;
-				addEntity(Assemblages::getInstance().createBlockDestruction(sf::Vector2f(width * scale / 2.0f, scale / 2.0f)));
-			}
-			if(downOpen)
-			{
-				tileTypes[8][height - 1] = TileType::floor;
-				addEntity(Assemblages::getInstance().createBlockDestruction(sf::Vector2f(width * scale / 2.0f, height * scale - scale / 2.0f)));
-			}
-			if(leftOpen)
-			{
-				tileTypes[0][6] = TileType::floor;
-				addEntity(Assemblages::getInstance().createBlockDestruction(sf::Vector2f(scale / 2.0f, height * scale / 2.0f)));
-			}
-			if(rightOpen)
-			{
-				tileTypes[width - 1][6] = TileType::floor;
-				addEntity(Assemblages::getInstance().createBlockDestruction(sf::Vector2f(width * scale - scale / 2.0f, height * scale / 2.0f)));
-			}
-
-			complete = true;
+			tileTypes[8][0] = TileType::floor;
+			addEntity(Assemblages::getInstance().createBlockDestruction(sf::Vector2f(width * scale / 2.0f, scale / 2.0f)));
 		}
+		if(downOpen)
+		{
+			tileTypes[8][height - 1] = TileType::floor;
+			addEntity(Assemblages::getInstance().createBlockDestruction(sf::Vector2f(width * scale / 2.0f, height * scale - scale / 2.0f)));
+		}
+		if(leftOpen)
+		{
+			tileTypes[0][6] = TileType::floor;
+			addEntity(Assemblages::getInstance().createBlockDestruction(sf::Vector2f(scale / 2.0f, height * scale / 2.0f)));
+		}
+		if(rightOpen)
+		{
+			tileTypes[width - 1][6] = TileType::floor;
+			addEntity(Assemblages::getInstance().createBlockDestruction(sf::Vector2f(width * scale - scale / 2.0f, height * scale / 2.0f)));
+		}
+
+		complete = true;
 	}
 
-	return entities.erase(entityIt);
+	GameplayState::updatePlayerCoins(1);
 }
 
 std::vector<Entity>& Room::getEntities()
