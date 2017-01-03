@@ -15,23 +15,22 @@ public:
 	void constructFloor(const std::array<std::array<std::shared_ptr<Room>, Floor::sizeY>, Floor::sizeX>& ar);
 	void setCurrentRoom(int x, int y);
 
+	static void updatePlayerHealth(int health);
 	static void updatePlayerCoins(int coins);
 	static void updatePlayerBombs(int bombs);
 	static void showPickupItemMessage(Entity& entity);
 	static void showNewLevelMessage(int level);
 
 private:
-	void updatePlayerHealth(int health);
-
-	sf::Texture spriteSheet;
+	static sf::Texture spriteSheet;
 	sf::VertexArray floor;
 	sf::Sprite playerMark;
-	std::vector<sf::Sprite> hearts;
+	static std::vector<sf::Sprite> hearts;
 	sf::Sprite bomb;
 	sf::Sprite coin;
 	static sf::Text coinAmount;
 	static sf::Text bombAmount;
-	const int maxPlayerHealth;
+	static const int maxPlayerHealth;
 	int prevPlayerHealth;
 	
 	enum MessageType {

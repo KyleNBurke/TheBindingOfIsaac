@@ -8,8 +8,9 @@
 #include <math.h>
 #include "VelocityCom.hpp"
 #include "JimmyShotCom.hpp"
-
 #include "GameplayState.hpp"
+#include "SpawnerShotCom.hpp"
+#include "SpinShotCom.hpp"
 
 ShotSystem::ShotSystem(const sf::Time& deltaTime) : deltaTime(deltaTime) {}
 
@@ -88,12 +89,71 @@ void ShotSystem::update(Entity& entity)
 			shotCom->currentShotTime = 0.0f;
 			shotCom->maxShotTime = (float)std::rand() / (float)RAND_MAX * shotCom->randShotTimeAmount + 1.0f;
 
-			sf::Vector2f direction = Floor::player.position - entity.position;
-			float l = std::sqrt(direction.x * direction.x + direction.y * direction.y);
-			if(l != 0.0f)
-				direction /= l;
+			if(shotCom->variation == JimmyShotCom::Variation::Direct)
+			{
+				sf::Vector2f direction = Floor::player.position - entity.position;
+				float l = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+				if(l != 0.0f)
+					direction /= l;
 
-			Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createRegularProjectile(entity.position, direction * shotCom->projectileSpeed));
+				Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createEnemyRegularProjectile(entity.position, direction * shotCom->projectileSpeed));
+			}
+			else
+			{
+				int amount = 6;
+				for(int i = 0; i < amount; i++)
+				{
+					float directionDeg = 2 * 3.1415f / amount * i;
+					sf::Vector2f direction(std::cos(directionDeg), std::sin(directionDeg));
+
+					Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createEnemyRegularProjectile(entity.position, direction * shotCom->projectileSpeed));
+				}
+			}
+		}
+	}
+	else if(entity.hasComponent(Component::ComponentType::SpawnerShot))
+	{
+		std::shared_ptr<SpawnerShotCom> shotCom = std::dynamic_pointer_cast<SpawnerShotCom>(entity.getComponent(Component::ComponentType::SpawnerShot));
+
+		shotCom->currentShotTime += deltaTime.asSeconds();
+
+		if(shotCom->currentShotTime >= shotCom->maxShotTime)
+		{
+			shotCom->currentShotTime = 0.0f;
+			shotCom->maxShotTime = (float)std::rand() / (float)RAND_MAX * shotCom->randShotTimeAmount + 2.0f;
+
+			switch(shotCom->variation)
+			{
+				case SpawnerShotCom::Variation::Attack:
+					Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createAttackFly(entity.position));
+					break;
+				case SpawnerShotCom::Variation::Bomb:
+					Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createBombFly(entity.position));
+					break;
+				case SpawnerShotCom::Variation::Daddy:
+					Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createDaddyFly(entity.position));
+					break;
+			}
+		}
+	}
+	else if(entity.hasComponent(Component::ComponentType::SpinShot))
+	{
+		std::shared_ptr<SpinShotCom> shotCom = std::dynamic_pointer_cast<SpinShotCom>(entity.getComponent(Component::ComponentType::SpinShot));
+
+		shotCom->currentShotTime += deltaTime.asSeconds();
+
+		if(shotCom->currentShotTime >= shotCom->maxShotTime)
+		{
+			shotCom->currentShotTime = 0.0f;
+
+			float directionDeg = 2 * 3.1415f / shotCom->shotAmount * shotCom->shotIndex;
+			sf::Vector2f direction(std::cos(directionDeg), std::sin(directionDeg));
+			shotCom->shotIndex = shotCom->shotIndex++ % shotCom->shotAmount;
+
+			if(shotCom->variation == SpinShotCom::Variation::Regular)
+				Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createEnemyRegularProjectile(entity.position, direction * shotCom->shotSpeed));
+			else
+				Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createEnemySlideBomb(entity.position, direction * shotCom->shotSpeed));
 		}
 	}
 }

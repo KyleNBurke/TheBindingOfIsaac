@@ -3,16 +3,16 @@
 #include "stdafx.h"
 #include "Component.hpp"
 
-class JimmyShotCom : public Component
+class SpawnerShotCom : public Component
 {
 public:
 	enum Variation {
-		Direct,
-		Round,
-		DirectRocket
+		Attack,
+		Bomb,
+		Daddy
 	};
 
-	JimmyShotCom(Variation variation);
+	SpawnerShotCom(Variation variation);
 
 	Component::ComponentType getType() const;
 
@@ -20,5 +20,4 @@ public:
 	float currentShotTime;
 	const float randShotTimeAmount;
 	float maxShotTime;
-	const float projectileSpeed;
 };

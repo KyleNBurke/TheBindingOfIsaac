@@ -78,28 +78,10 @@ bool ProjectileSystem::resolveEnemyCollisions(Entity& projectile, std::shared_pt
 				std::shared_ptr<HealthCom> healthCom = std::dynamic_pointer_cast<HealthCom>(it->getComponent(Component::ComponentType::Health));
 				healthCom->health -= 1;
 
-				Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createEnemyDamageStain(it->sprite.getPosition()));
+				//Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createEnemyDamageStain(it->sprite.getPosition()));
 
 				if(healthCom->health <= 0)
-				{
-					/*it->shouldDelete = true;
-					Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createEnemyDeath(it->sprite.getPosition()));
-					//Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createEnemyDeathStain(it->sprite.getPosition()));
-
-					if(it->hasComponent(Component::ComponentType::Bouncer))
-					{
-						float speed = std::dynamic_pointer_cast<BouncerCom>(it->getComponent(Component::ComponentType::Bouncer))->projectileSpeed;
-
-						Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createRegularProjectile(it->sprite.getPosition(), sf::Vector2f(-1, -1) / (float)sqrt(2) * speed));
-						Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createRegularProjectile(it->sprite.getPosition(), sf::Vector2f(1, -1) / (float)sqrt(2) * speed));
-						Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createRegularProjectile(it->sprite.getPosition(), sf::Vector2f(1, 1) / (float)sqrt(2) * speed));
-						Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createRegularProjectile(it->sprite.getPosition(), sf::Vector2f(-1, 1) / (float)sqrt(2) * speed));
-					}
-
-					GameplayState::givePlayerCoins(1);*/
-
 					Floor::getCurrentRoom().killEnemy(*it);
-				}
 
 				healthCom->flashing = true;
 
@@ -112,10 +94,7 @@ bool ProjectileSystem::resolveEnemyCollisions(Entity& projectile, std::shared_pt
 		if(projectile.getBounds().intersects(Floor::player.getBounds()))
 		{
 			projectile.shouldDelete = true;
-
-			std::shared_ptr<HealthCom> healthCom = std::dynamic_pointer_cast<HealthCom>(Floor::player.getComponent(Component::ComponentType::Health));
-			healthCom->health -= 1;
-			healthCom->flashing = true;
+			Floor::damagePlayer(1);
 		}
 
 	}

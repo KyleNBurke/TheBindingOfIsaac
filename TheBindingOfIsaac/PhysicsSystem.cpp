@@ -2,6 +2,7 @@
 #include "PhysicsSystem.hpp"
 #include "PacMoveCom.hpp"
 #include "HealthCom.hpp"
+#include "WalkMoveCom.hpp"
 
 PhysicsSystem::PhysicsSystem(const sf::Time& deltaTime) : deltaTime(deltaTime) {}
 
@@ -12,10 +13,8 @@ void PhysicsSystem::update(Entity& entity)
 		std::shared_ptr<VelocityCom> velocityCom = std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity));
 		std::shared_ptr<AccelerationCom> accelCom = std::dynamic_pointer_cast<AccelerationCom>(entity.getComponent(Component::ComponentType::AccelDecel));
 
-		if(entity.hasComponent(Component::ComponentType::Item))
-			int i = 4;
-
 		velocityCom->velocity += accelCom->acceleration;
+		velocityCom->velocity *= accelCom->drag;
 
 		if(std::abs(velocityCom->velocity.x) < 0.05f)
 			velocityCom->velocity.x = 0.0f;
@@ -43,7 +42,7 @@ void PhysicsSystem::update(Entity& entity)
 		if(std::floor(leftToHalfInt) != leftToHalfInt)
 			entity.sprite.setPosition(Utilities::getInstance().round(entity.position.x + 0.5f) - 0.5f, entity.position.y);
 
-
+		
 
 		entity.position.y += velocityCom->velocity.y * deltaTime.asSeconds();
 		entity.sprite.setPosition(entity.position);
@@ -68,16 +67,15 @@ void PhysicsSystem::update(Entity& entity)
 			std::shared_ptr<VelocityCom> velocityComEntity = std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity));
 			std::shared_ptr<VelocityCom> velocityComPlayer = std::dynamic_pointer_cast<VelocityCom>(Floor::player.getComponent(Component::ComponentType::Velocity));
 
-			float hDepth = Utilities::getInstance().getHorIntersectionDepth(entity.getBounds(), Floor::player.getBounds());
+			/*float hDepth = Utilities::getInstance().getHorIntersectionDepth(entity.getBounds(), Floor::player.getBounds());
 			float vDepth = Utilities::getInstance().getVertIntersectionDepth(entity.getBounds(), Floor::player.getBounds());
 
 			if(abs(hDepth) < abs(vDepth))
 				velocityComPlayer->velocity.x = velocityComEntity->velocity.x;
 			else
-				velocityComPlayer->velocity.y = velocityComEntity->velocity.y;
+				velocityComPlayer->velocity.y = velocityComEntity->velocity.y;*/
 
-			healthCom->flashing = true;
-			healthCom->health -= 1;
+			Floor::damagePlayer(1);
 		}
 	}
 }
@@ -108,6 +106,8 @@ void PhysicsSystem::resolveCollisions(Direction direction, Entity& entity, bool 
 					pacMoveResolution(entity, direction, depthX, depthY);
 				else if(entity.hasComponent(Component::ComponentType::Bouncer))
 					bouncerResolution(entity, direction, depthX, depthY);
+				else if(entity.hasComponent(Component::ComponentType::WalkMove))
+					walkMoveResolution(entity, direction, depthX, depthY);
 				else
 					regularResolution(entity, direction, depthX, depthY);
 
@@ -159,5 +159,19 @@ void PhysicsSystem::bouncerResolution(Entity& entity, Direction direction, float
 		entity.sprite.move(0.0f, depthY);
 		std::shared_ptr<VelocityCom> velocityCom = std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity));
 		velocityCom->velocity.y = -velocityCom->velocity.y;
+	}
+}
+
+void PhysicsSystem::walkMoveResolution(Entity& entity, Direction direction, float depthX, float depthY)
+{
+	if(direction == Horizontal && depthX != 0.0f)
+	{
+		entity.sprite.move(depthX, 0.0f);
+		std::dynamic_pointer_cast<WalkMoveCom>(entity.getComponent(Component::ComponentType::WalkMove))->collided = true;
+	}
+	else if(direction == Vertical && depthY != 0.0f)
+	{
+		entity.sprite.move(0.0f, depthY);
+		std::dynamic_pointer_cast<WalkMoveCom>(entity.getComponent(Component::ComponentType::WalkMove))->collided = true;
 	}
 }

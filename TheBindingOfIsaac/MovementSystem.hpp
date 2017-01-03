@@ -16,6 +16,8 @@ private:
 	const sf::Time& deltaTime;
 
 	bool searchForPlayer(Entity& entity);
-	void calculateTurn(Entity& entity);
+	void calculatePacTurn(Entity& entity);
+	void calculateWalkTurn(Entity& entity);
 	bool evaluateDirection(Entity& entity, Direction d, Direction forwardDir);
+	bool evaluateWalkDirection(Direction d, int left, int right, int top, int bottom);
 };

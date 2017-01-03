@@ -94,7 +94,9 @@
     <ClInclude Include="Assemblages.hpp" />
     <ClInclude Include="BouncerCom.hpp" />
     <ClInclude Include="Component.hpp" />
+    <ClInclude Include="DashieMoveCom.hpp" />
     <ClInclude Include="FlashSystem.hpp" />
+    <ClInclude Include="FlyMoveCom.hpp" />
     <ClInclude Include="ItemCom.hpp" />
     <ClInclude Include="ItemSystem.hpp" />
     <ClInclude Include="JimmyMoveCom.hpp" />
@@ -112,6 +114,8 @@
     <ClInclude Include="Input.hpp" />
     <ClInclude Include="InputSystem.hpp" />
     <ClInclude Include="Floor.hpp" />
+    <ClInclude Include="SpawnerShotCom.hpp" />
+    <ClInclude Include="SpinShotCom.hpp" />
     <ClInclude Include="TransitionSystem.hpp" />
     <ClInclude Include="PhysicsSystem.hpp" />
     <ClInclude Include="PitCollisionCom.hpp" />
@@ -128,6 +132,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Utilities.hpp" />
     <ClInclude Include="VelocityCom.hpp" />
+    <ClInclude Include="WalkMoveCom.hpp" />
     <ClInclude Include="WallCollisionCom.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -140,7 +145,9 @@
     <ClCompile Include="Assemblages.cpp" />
     <ClCompile Include="BouncerCom.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="DashieMoveCom.cpp" />
     <ClCompile Include="FlashSystem.cpp" />
+    <ClCompile Include="FlyMoveCom.cpp" />
     <ClCompile Include="ItemCom.cpp" />
     <ClCompile Include="ItemSystem.cpp" />
     <ClCompile Include="JimmyMoveCom.cpp" />
@@ -158,6 +165,8 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="Floor.cpp" />
+    <ClCompile Include="SpawnerShotCom.cpp" />
+    <ClCompile Include="SpinShotCom.cpp" />
     <ClCompile Include="TransitionSystem.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="PitCollisionCom.cpp" />
@@ -177,6 +186,7 @@
     <ClCompile Include="System.cpp" />
     <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="VelocityCom.cpp" />
+    <ClCompile Include="WalkMoveCom.cpp" />
     <ClCompile Include="WallCollisionCom.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

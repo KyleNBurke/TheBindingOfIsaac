@@ -7,11 +7,10 @@ class AccelerationCom : public Component
 {
 public:
 	AccelerationCom();
-	AccelerationCom(sf::Vector2f acceleration);
+	AccelerationCom(float drag);
 
 	Component::ComponentType getType() const;
 
-	//const float acceleration;
 	sf::Vector2f acceleration;
-	//const float maxSpeed;
+	const float drag;
 };

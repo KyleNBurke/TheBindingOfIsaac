@@ -77,16 +77,62 @@ namespace MapConverter
 				for(int i = 0; i < entityCount; i++)
 				{
 					xmlReader.ReadToFollowing("object");
-					writer.Write((uint)Convert.ToInt32(xmlReader.GetAttribute("x").Split('.')[0]));
-					writer.Write((uint)Convert.ToInt32(xmlReader.GetAttribute("y").Split('.')[0]));
+
+					uint x = (uint)Convert.ToInt32(xmlReader.GetAttribute("x").Split('.')[0]);
+					uint y = (uint)Convert.ToInt32(xmlReader.GetAttribute("y").Split('.')[0]);
+					uint sizeX = (uint)Convert.ToInt32(xmlReader.GetAttribute("width"));
+					uint sizeY = (uint)Convert.ToInt32(xmlReader.GetAttribute("height"));
+
+					writer.Write(x + sizeX / 2);
+					writer.Write(y + sizeY / 2);
 
 					switch (xmlReader.GetAttribute("name"))
 					{
-						case "turret":
-							{
-								writer.Write((byte)0);
-								break;
-							}
+						case "bouncer":
+							writer.Write((byte)0);
+                            break;
+						case "direct_jimmy":
+							writer.Write((byte)1);
+							break;
+						case "round_jimmy":
+							writer.Write((byte)2);
+							break;
+						case "attack_fly":
+							writer.Write((byte)3);
+							break;
+						case "bomb_fly":
+							writer.Write((byte)4);
+							break;
+						case "daddy_fly":
+							writer.Write((byte)5);
+							break;
+						case "attack_fly_spawner":
+							writer.Write((byte)6);
+							break;
+						case "bomb_fly_spawner":
+							writer.Write((byte)7);
+							break;
+						case "random_dashie":
+							writer.Write((byte)8);
+							break;
+						case "direct_dashie":
+							writer.Write((byte)9);
+							break;
+						case "spinny":
+							writer.Write((byte)10);
+							break;
+						case "bomb_spinny":
+							writer.Write((byte)11);
+							break;
+						case "walker":
+							writer.Write((byte)12);
+							break;
+						case "round_shot_walker":
+							writer.Write((byte)13);
+							break;
+						case "fast_walker":
+							writer.Write((byte)14);
+							break;
 					}
 
 				}

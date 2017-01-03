@@ -38,7 +38,7 @@ GameplayState::GameplayState(StatsState& statsState, sf::RenderWindow& window, c
 
 	updatePlayerBombs(10);
 	updatePlayerCoins(50);
-	HUD::showNewLevelMessage(1);
+	//HUD::showNewLevelMessage(1);
 }
 
 void GameplayState::initialize()
@@ -76,6 +76,13 @@ void GameplayState::update(sf::Time deltaTime)
 		if(statsState.getActive())
 			statsState.reset();
 	}
+
+	if(Input::getInstance().keyPressed(sf::Keyboard::Key::F))
+		for(std::vector<Entity>::iterator& it = entities.begin(); it != entities.end(); ++it)
+			if(it->hasComponent(Component::ComponentType::Health))
+				Floor::getCurrentRoom().killEnemy(*it);
+
+
 
 	if(!transitionSystem.transitioning)
 		for(std::vector<std::unique_ptr<System>>::iterator it = systems.begin(); it != systems.end(); ++it)

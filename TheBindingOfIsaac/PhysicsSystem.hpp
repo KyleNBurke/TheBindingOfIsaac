@@ -22,6 +22,7 @@ private:
 	void regularResolution(Entity& entity, Direction direction, float depthX, float depthY);
 	void pacMoveResolution(Entity& entity, Direction direction, float depthX, float depthY);
 	void bouncerResolution(Entity& entity, Direction direction, float depthX, float depthY);
+	void walkMoveResolution(Entity& entity, Direction direction, float depthX, float depthY);
 
 	const sf::Time& deltaTime;
 };

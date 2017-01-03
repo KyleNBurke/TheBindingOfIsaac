@@ -23,10 +23,7 @@ void FlashSystem::update(Entity& entity)
 				{
 					flip = !flip;
 					if(flip)
-					{
 						Floor::player.sprite.setColor(sf::Color::White);
-						Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createPlayerDamageStain(Floor::player.sprite.getPosition()));
-					}
 					else
 						Floor::player.sprite.setColor(sf::Color::Black);
 

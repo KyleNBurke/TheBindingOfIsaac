@@ -13,14 +13,18 @@ public:
 		WallCollision,
 		Projectile,
 		Health,
-		TurretShot,
 		PlayerShot,
 		JimmyShot,
+		SpawnerShot,
+		SpinShot,
 		Bouncer,
 		Lifetime,
 		Animation,
 		PacMove,
 		JimmyMove,
+		FlyMove,
+		DashieMove,
+		WalkMove,
 		Item
 	};
 

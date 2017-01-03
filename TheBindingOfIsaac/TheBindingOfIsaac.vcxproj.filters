@@ -182,6 +182,21 @@
     <ClInclude Include="ItemCom.hpp">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="FlyMoveCom.hpp">
+      <Filter>Source Files\Components\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnerShotCom.hpp">
+      <Filter>Source Files\Components\Shot</Filter>
+    </ClInclude>
+    <ClInclude Include="DashieMoveCom.hpp">
+      <Filter>Source Files\Components\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="SpinShotCom.hpp">
+      <Filter>Source Files\Components\Shot</Filter>
+    </ClInclude>
+    <ClInclude Include="WalkMoveCom.hpp">
+      <Filter>Source Files\Components\Movement</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -315,6 +330,21 @@
     </ClCompile>
     <ClCompile Include="ItemCom.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyMoveCom.cpp">
+      <Filter>Source Files\Components\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnerShotCom.cpp">
+      <Filter>Source Files\Components\Shot</Filter>
+    </ClCompile>
+    <ClCompile Include="DashieMoveCom.cpp">
+      <Filter>Source Files\Components\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="SpinShotCom.cpp">
+      <Filter>Source Files\Components\Shot</Filter>
+    </ClCompile>
+    <ClCompile Include="WalkMoveCom.cpp">
+      <Filter>Source Files\Components\Movement</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

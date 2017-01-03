@@ -5,6 +5,9 @@
 #include "GameManager.hpp"
 #include "Input.hpp"
 
+sf::Texture HUD::spriteSheet;
+std::vector<sf::Sprite> HUD::hearts;
+const int HUD::maxPlayerHealth = 15;
 sf::Text HUD::coinAmount;
 sf::Text HUD::bombAmount;
 HUD::MessageType HUD::messageType;
@@ -16,8 +19,7 @@ sf::Text HUD::pressEnterText;
 HUD::HUD() :
 	playerMark(spriteSheet, sf::IntRect(18, 0, 5, 3)),
 	bomb(spriteSheet, sf::IntRect(7, 0, 6, 8)),
-	coin(spriteSheet, sf::IntRect(13, 0, 4, 4)),
-	maxPlayerHealth(15)
+	coin(spriteSheet, sf::IntRect(13, 0, 4, 4))
 {
 	spriteSheet.loadFromFile("Resources/HUD.png");
 	floor.setPrimitiveType(sf::Quads);
@@ -47,7 +49,7 @@ HUD::HUD() :
 	coinAmount.setPosition(73 * scale, 114 * scale);
 
 	messageBackground.setFillColor(sf::Color(50, 50, 50));
-	messageBackground.setSize(sf::Vector2f(scale * 100.0f, scale * 50.0f));
+	messageBackground.setSize(sf::Vector2f(scale * Room::tileSize * 13.0f, scale * Room::tileSize * 6.0f));
 	messageBackground.setPosition(scale * Room::tileSize * 2.0f, scale * Room::tileSize * 3.0f);
 
 	messageText.setFont(Utilities::getInstance().getFont());
@@ -57,7 +59,7 @@ HUD::HUD() :
 	pressEnterText.setFont(Utilities::getInstance().getFont());
 	pressEnterText.setString("Press enter");
 	pressEnterText.setCharacterSize((int)scale * Room::tileSize);
-	pressEnterText.setPosition(scale * Room::tileSize * 8.0f, scale * Room::tileSize * 8.0f);
+	pressEnterText.setPosition(scale * Room::tileSize * 8.0f + scale * 4.0f, scale * Room::tileSize * 8.0f - scale * 2.0f);
 }
 
 void HUD::constructFloor(const std::array<std::array<std::shared_ptr<Room>, Floor::sizeY>, Floor::sizeX>& ar)
@@ -96,14 +98,6 @@ void HUD::constructFloor(const std::array<std::array<std::shared_ptr<Room>, Floo
 
 void HUD::update()
 {
-	std::shared_ptr<HealthCom> healthCom = std::dynamic_pointer_cast<HealthCom>(Floor::player.getComponent(Component::ComponentType::Health));
-	int currPlayerHealth = healthCom->health;
-
-	if(currPlayerHealth != prevPlayerHealth)
-		updatePlayerHealth(currPlayerHealth);
-
-	prevPlayerHealth = currPlayerHealth;
-
 	if(messageType != MessageType::none)
 		if(Input::getInstance().keyPressed(sf::Keyboard::Key::Return))
 			messageType = none;

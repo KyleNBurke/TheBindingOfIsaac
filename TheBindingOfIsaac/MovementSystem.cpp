@@ -6,6 +6,9 @@
 #include "AnimationCom.hpp"
 #include "JimmyMoveCom.hpp"
 #include "AccelerationCom.hpp"
+#include "FlyMoveCom.hpp"
+#include "DashieMoveCom.hpp"
+#include "WalkMoveCom.hpp"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -33,7 +36,7 @@ void MovementSystem::update(Entity& entity)
 
 					if(moveCom->collided || moveCom->elapsedTime > moveCom->travelTime)
 					{
-						calculateTurn(entity);
+						calculatePacTurn(entity);
 
 						moveCom->collided = false;
 						moveCom->travelTime = (float)std::rand() / RAND_MAX * moveCom->randInterval + moveCom->randOffset;
@@ -46,7 +49,7 @@ void MovementSystem::update(Entity& entity)
 				if(moveCom->collided)
 				{
 					moveCom->state = PacMoveCom::State::Passive;
-					calculateTurn(entity);
+					calculatePacTurn(entity);
 					moveCom->collided = false;
 					animCom->currentState = 0;
 				}
@@ -72,6 +75,70 @@ void MovementSystem::update(Entity& entity)
 		float newDirY = std::sin(directionRad);
 
 		accelCom->acceleration = sf::Vector2f(newDirX, newDirY) * moveCom->accelerationSpeed;
+	}
+	else if(entity.hasComponent(Component::ComponentType::FlyMove))
+	{
+		std::shared_ptr<FlyMoveCom> moveCom = std::dynamic_pointer_cast<FlyMoveCom>(entity.getComponent(Component::ComponentType::FlyMove));
+		std::shared_ptr<VelocityCom> velCom = std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity));
+
+		sf::Vector2f direction = (Floor::player.position - entity.position);
+		float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+		direction /= length;
+
+		velCom->velocity = direction * moveCom->speed;
+	}
+	else if(entity.hasComponent(Component::ComponentType::DashieMove))
+	{
+		std::shared_ptr<DashieMoveCom> moveCom = std::dynamic_pointer_cast<DashieMoveCom>(entity.getComponent(Component::ComponentType::DashieMove));
+		std::shared_ptr<VelocityCom> velCom = std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity));
+		std::shared_ptr<AccelerationCom> accelCom = std::dynamic_pointer_cast<AccelerationCom>(entity.getComponent(Component::ComponentType::AccelDecel));
+
+		moveCom->currentMoveTime += deltaTime.asSeconds();
+
+		if(moveCom->currentMoveTime >= moveCom->maxMoveTime)
+		{
+			moveCom->currentMoveTime = 0.0f;
+			moveCom->maxMoveTime = (float)std::rand() / RAND_MAX * moveCom->randomMoveTimeAmount + moveCom->baseMoveTimeAmount;
+
+			sf::Vector2f direction;
+			if(moveCom->variation == DashieMoveCom::Variation::Random)
+			{
+				float directionRad = moveCom->prevDirectionRad + (float)M_PI / 4.0f + (float)std::rand() / RAND_MAX * (float)M_PI;
+
+				directionRad = std::fmodf(directionRad, 2.0f * (float)M_PI);
+				moveCom->prevDirectionRad = directionRad;
+				direction = sf::Vector2f(std::cos(directionRad), std::sin(directionRad));
+			}
+			else
+			{
+				direction = (Floor::player.position - entity.position);
+				float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+				direction /= length;
+			}
+
+			velCom->velocity = direction * moveCom->speed;
+		}
+
+		float length = std::sqrt(velCom->velocity.x * velCom->velocity.x + velCom->velocity.y * velCom->velocity.y);
+		if(length == 0.0f)
+			length = 1.0f;
+
+		accelCom->acceleration = -velCom->velocity / length * moveCom->decel;
+	}
+	else if(entity.hasComponent(Component::ComponentType::WalkMove))
+	{
+		std::shared_ptr<WalkMoveCom> moveCom = std::dynamic_pointer_cast<WalkMoveCom>(entity.getComponent(Component::ComponentType::WalkMove));
+
+		moveCom->elapsedTime += deltaTime.asSeconds();
+
+		if(moveCom->collided || moveCom->elapsedTime > moveCom->travelTime)
+		{
+			calculateWalkTurn(entity);
+
+			moveCom->collided = false;
+			moveCom->travelTime = (float)std::rand() / RAND_MAX * moveCom->randInterval + moveCom->randOffset;
+			moveCom->elapsedTime = 0.0f;
+		}
 	}
 }
 
@@ -226,7 +293,7 @@ bool MovementSystem::searchForPlayer(Entity& entity)
 	return false;
 }
 
-void MovementSystem::calculateTurn(Entity& entity)
+void MovementSystem::calculatePacTurn(Entity& entity)
 {
 	std::shared_ptr<PacMoveCom> moveCom = std::dynamic_pointer_cast<PacMoveCom>(entity.getComponent(Component::ComponentType::PacMove));
 	std::vector<Direction> availableDirs;
@@ -279,6 +346,111 @@ void MovementSystem::calculateTurn(Entity& entity)
 			moveCom->backwardsDir = Left;
 			entity.sprite.setRotation(0.0f);
 			break;
+	}
+}
+
+void MovementSystem::calculateWalkTurn(Entity& entity)
+{
+	std::shared_ptr<WalkMoveCom> moveCom = std::dynamic_pointer_cast<WalkMoveCom>(entity.getComponent(Component::ComponentType::WalkMove));
+	std::vector<Direction> availableDirs;
+
+	sf::FloatRect entityBounds = entity.getBounds();
+	int scale = Room::tileSize * Utilities::getInstance().getScale();
+
+	int left = (int)(std::floorf(entityBounds.left / scale));
+	int right = (int)(std::ceilf((entityBounds.left + entityBounds.width) / scale)) - 1;
+	int top = (int)(std::floorf(entityBounds.top / scale));
+	int bottom = (int)(std::ceilf((entityBounds.top + entityBounds.height) / scale)) - 1;
+
+	for(int d = 0; d < 4; d++)
+	{
+		if(d == moveCom->backwardDir || d == moveCom->forwardDir)
+			continue;
+
+		if(evaluateWalkDirection((Direction)d, left, right, top, bottom))
+			availableDirs.push_back((Direction)d);
+	}
+
+	Direction newDir;
+	if(availableDirs.size() == 0)
+	{
+		if(evaluateWalkDirection(moveCom->forwardDir, left, right, top, bottom))
+			newDir = moveCom->forwardDir;
+		else
+			newDir = moveCom->backwardDir;
+	}
+	else
+		newDir = availableDirs[std::rand() % availableDirs.size()];
+
+	std::shared_ptr<VelocityCom> velCom = std::dynamic_pointer_cast<VelocityCom>(entity.getComponent(Component::ComponentType::Velocity));
+
+	switch(newDir)
+	{
+		case Up:
+			velCom->velocity = sf::Vector2f(0.0f, -moveCom->speed);
+			moveCom->forwardDir = Direction::Up;
+			moveCom->backwardDir = Direction::Down;
+			break;
+		case Down:
+			velCom->velocity = sf::Vector2f(0.0f, moveCom->speed);
+			moveCom->forwardDir = Direction::Down;
+			moveCom->backwardDir = Direction::Up;
+			break;
+		case Left:
+			velCom->velocity = sf::Vector2f(-moveCom->speed, 0.0f);
+			moveCom->forwardDir = Direction::Left;
+			moveCom->backwardDir = Direction::Right;
+			break;
+		case Right:
+			velCom->velocity = sf::Vector2f(moveCom->speed, 0.0f);
+			moveCom->forwardDir = Direction::Right;
+			moveCom->backwardDir = Direction::Left;
+			break;
+	}
+}
+
+bool MovementSystem::evaluateWalkDirection(Direction d, int left, int right, int top, int bottom)
+{
+	switch(d)
+	{
+		case Direction::Up:
+			if(top - 1 < 0)
+				return false;
+
+			for(int x = left; x <= right; x++)
+				if(Floor::getCurrentRoom().getTileType(x, top - 1) != Room::TileType::floor)
+					return false;
+
+			return true;
+		case Direction::Down:
+			if(bottom + 1 > Room::height)
+				return false;
+
+			for(int x = left; x <= right; x++)
+				if(Floor::getCurrentRoom().getTileType(x, bottom + 1) != Room::TileType::floor)
+					return false;
+
+			return true;
+		case Direction::Left:
+			if(left - 1 < 0)
+				return false;
+
+			for(int y = top; y <= bottom; y++)
+				if(Floor::getCurrentRoom().getTileType(left - 1, y) != Room::TileType::floor)
+					return false;
+
+			return true;
+		case Direction::Right:
+			if(right + 1 > Room::width)
+				return false;
+
+			for(int y = top; y <= bottom; y++)
+				if(Floor::getCurrentRoom().getTileType(right + 1, y) != Room::TileType::floor)
+					return false;
+
+			return true;
+		default:
+			return false;
 	}
 }
 

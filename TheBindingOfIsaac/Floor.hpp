@@ -17,10 +17,13 @@ public:
 
 	static const int sizeX = 9;
 	static const int sizeY = 5;
-	static const int maxRooms = 2;
+	static const int maxRooms = 19;
+	static std::vector<int> availableRooms;
 	const std::array<std::array<std::shared_ptr<Room>, sizeY>, sizeX>& getFloor() const;
 	void clear(std::array<std::array<bool, sizeY>, sizeX>& ar);
 	std::vector<Direction> getAvialableDirections(std::array<std::array<bool, sizeY>, sizeX>& ar, int x, int y);
+	static void damagePlayer(int damage);
+
 	static Entity player;
 	sf::Texture backgroundTex;
 	sf::Texture foregroundTex;

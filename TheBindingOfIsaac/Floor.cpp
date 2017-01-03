@@ -4,11 +4,13 @@
 
 #include "ItemCom.hpp"
 #include "HUD.hpp"
+#include "HealthCom.hpp"
 
 std::array<std::array<std::shared_ptr<Room>, Floor::sizeY>, Floor::sizeX> Floor::rooms;
 std::shared_ptr<Room> Floor::currentRoom;
 Entity Floor::player(Assemblages::getInstance().createPlayer(sf::Vector2f(Utilities::getInstance().getScale() * Room::tileSize * Room::width / 2.0f, 
 	Utilities::getInstance().getScale() * Room::tileSize * Room::height / 2.0f)));
+std::vector<int> Floor::availableRooms;
 
 Floor::Floor()
 {
@@ -16,6 +18,9 @@ Floor::Floor()
 	foregroundTex.loadFromFile("Resources/Foreground.png");
 	Room::backgroundTex = backgroundTex;
 	Room::foregroundTex = foregroundTex;
+
+	for(int i = 0; i < maxRooms; i++)
+		availableRooms.push_back(i);
 }
 
 void Floor::generate()
@@ -228,6 +233,15 @@ std::vector<Direction> Floor::getAvialableDirections(std::array<std::array<bool,
 	return directions;
 }
 
+void Floor::damagePlayer(int damage)
+{
+	getCurrentRoom().addEntity(Assemblages::getInstance().createPlayerDamageStain(Floor::player.sprite.getPosition()));
+	std::shared_ptr<HealthCom> healthCom = std::dynamic_pointer_cast<HealthCom>(player.getComponent(Component::ComponentType::Health));
+	healthCom->health -= damage;
+	healthCom->flashing = true;
+	HUD::updatePlayerHealth(healthCom->health);
+}
+
 const std::array<std::array<std::shared_ptr<Room>, Floor::sizeY>, Floor::sizeX>& Floor::getFloor() const
 {
 	return rooms;
@@ -246,8 +260,19 @@ Room& Floor::getCurrentRoom()
 void Floor::setCurrentRoom(int x, int y)
 {
 	if(!rooms[x][y]->complete)
-		//rooms[x][y]->load("Rooms/EmptyRoom.bim");
-		rooms[x][y]->load("Rooms/" + std::to_string(rand() % maxRooms + 1) + ".bim");
+	{
+		//rooms[x][y]->load("Rooms/19.bim");
+
+		if(availableRooms.size() == 0)
+			for(int i = 0; i < maxRooms; i++)
+				availableRooms.push_back(i);
+
+		int roomIndex = rand() % availableRooms.size() + 1;
+		int room = availableRooms[roomIndex];
+		availableRooms.erase(availableRooms.begin() + roomIndex);
+
+		rooms[x][y]->load("Rooms/" + std::to_string(room) + ".bim");
+	}
 
 	currentRoom = std::shared_ptr<Room>(rooms[x][y]);
 }
