@@ -6,6 +6,8 @@
 #include "Utilities.hpp"
 #include "Room.hpp"
 
+#include "MainMenuState.hpp"
+
 GameManager::GameManager() : windowHasFocus(true),
 timeStep(sf::seconds(1.0f / 60.0f)) {}
 
@@ -24,28 +26,22 @@ void GameManager::initialize()
 
 	sf::Vector2i windowSize = sf::Vector2i(tileSize * scale * Room::width, tileSize * scale * Room::height + (22 * scale));
 
-	window.create(sf::VideoMode(windowSize.x, windowSize.y), "The Binding of Isaac - Pre Alpha v0.0.0");
+	window.create(sf::VideoMode(windowSize.x, windowSize.y), "The Binding of Isaac");
 	window.setKeyRepeatEnabled(false);
 	window.setFramerateLimit(60);
 	std::shared_ptr<StatsState> statsState(new StatsState());
-	std::shared_ptr<GameplayState> gameplayState(new GameplayState(*statsState, window, timeStep));
-	addState(gameplayState);
-	gameplayState->initialize();
+	//std::shared_ptr<GameplayState> gameplayState(new GameplayState(*statsState));
+	//addState(gameplayState);
+	//gameplayState->initialize();
 	addState(statsState);
 	statsState->initialize();
 
-
-	//temp
-	//for(std::vector<std::shared_ptr<State>>::iterator it = statesToAdd.begin(); it != statesToAdd.end(); ++it)
-		//states.push_back(std::move(*it));
+	std::shared_ptr<MainMenuState> mainMenuState(new MainMenuState());
+	addState(mainMenuState);
 }
 
 void GameManager::gameLoop()
 {
-	//float dt = 1.0 / 60.0f;
-	//float currentTime = 0.0f;
-	//float accumulator = 0.0f;
-
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -98,7 +94,7 @@ void GameManager::gameLoop()
 
 				for (std::vector<std::shared_ptr<State>>::iterator it = states.begin(); it != states.end();)
 				{
-					if ((*it)->getActive())
+					if ((*it)->getUpdatable())
 						(*it)->update(timeStep);
 
 					if ((*it)->getDeleteState())
@@ -112,7 +108,7 @@ void GameManager::gameLoop()
 
 			for (std::vector<std::shared_ptr<State>>::iterator it = states.begin(); it != states.end(); ++it)
 			{
-				if ((*it)->getActive())
+				if((*it)->getDrawable())
 					(*it)->draw(window);
 			}
 
@@ -128,7 +124,20 @@ void GameManager::addState(std::shared_ptr<State> state)
 	statesToAdd.push_back(std::move(state));
 }
 
-const sf::RenderWindow& GameManager::getWindow() const
+void GameManager::resetGameplay()
+{
+	for(std::vector<std::shared_ptr<State>>::iterator it = states.begin(); it != states.end(); ++it)
+		(*it)->setDeleteState(true);
+
+	std::shared_ptr<StatsState> statsState(new StatsState());
+	std::shared_ptr<GameplayState> gameplayState(new GameplayState(*statsState));
+	addState(gameplayState);
+	gameplayState->initialize();
+	addState(statsState);
+	statsState->initialize();
+}
+
+sf::RenderWindow& GameManager::getWindow()
 {
 	return window;
 }
@@ -136,4 +145,9 @@ const sf::RenderWindow& GameManager::getWindow() const
 bool GameManager::getWindowHasFocus() const
 {
 	return windowHasFocus;
+}
+
+const sf::Time& GameManager::getTimeStep() const
+{
+	return timeStep;
 }

@@ -11,6 +11,7 @@ std::shared_ptr<Room> Floor::currentRoom;
 Entity Floor::player(Assemblages::getInstance().createPlayer(sf::Vector2f(Utilities::getInstance().getScale() * Room::tileSize * Room::width / 2.0f, 
 	Utilities::getInstance().getScale() * Room::tileSize * Room::height / 2.0f)));
 std::vector<int> Floor::availableRooms;
+bool Floor::floorComplete = false;
 
 Floor::Floor()
 {
@@ -19,7 +20,7 @@ Floor::Floor()
 	Room::backgroundTex = backgroundTex;
 	Room::foregroundTex = foregroundTex;
 
-	for(int i = 0; i < maxRooms; i++)
+	for(int i = 1; i <= maxRooms; i++)
 		availableRooms.push_back(i);
 }
 
@@ -142,11 +143,19 @@ void Floor::generate()
 	rooms[4][2]->load("Rooms/MainRoom.bim");
 	currentRoom = std::shared_ptr<Room>(rooms[4][2]);
 
-	//generate main room items
+	generateItems();
+}
+
+void Floor::generateItems()
+{
 	float size = (float)Utilities::getInstance().getScale() * Room::tileSize;
 
 	rooms[4][2]->addEntity(Assemblages::getInstance().createROF_UpItem(sf::Vector2f(size * 3.5f, size * 1.5f)));
 	rooms[4][2]->addEntity(Assemblages::getInstance().createPlusTenBombsItem(sf::Vector2f(size * 5.5f, size * 1.5f)));
+	rooms[4][2]->addEntity(Assemblages::getInstance().createRangeUpItem(sf::Vector2f(size * 10.5f, size * 1.5f)));
+	rooms[4][2]->addEntity(Assemblages::getInstance().createProjectileBombsItem(sf::Vector2f(size * 12.5f, size * 1.5f)));
+	rooms[4][2]->addEntity(Assemblages::getInstance().createPlusOneHeartItem(sf::Vector2f(size * 11.5f, size * 6.5f)));
+	rooms[4][2]->addEntity(Assemblages::getInstance().createPlusOneBomb(sf::Vector2f(size * 5.5f, size * 6.5f)));
 }
 
 void Floor::clear(std::array<std::array<bool, sizeY>, sizeX>& ar)
@@ -163,6 +172,7 @@ void Floor::clear(std::array<std::array<bool, sizeY>, sizeX>& ar)
 		for(int y = 0; y < sizeY; y++)
 		{
 			ar[x][y] = false;
+			rooms[x][y].reset();
 		}
 	}
 }
@@ -240,6 +250,10 @@ void Floor::damagePlayer(int damage)
 	healthCom->health -= damage;
 	healthCom->flashing = true;
 	HUD::updatePlayerHealth(healthCom->health);
+
+	if(healthCom->health <= 0)
+		HUD::showDeadMessage();
+
 }
 
 const std::array<std::array<std::shared_ptr<Room>, Floor::sizeY>, Floor::sizeX>& Floor::getFloor() const
@@ -250,6 +264,11 @@ const std::array<std::array<std::shared_ptr<Room>, Floor::sizeY>, Floor::sizeX>&
 Room& Floor::getRoom(int x, int y)
 {
 	return *rooms[x][y];
+}
+
+std::shared_ptr<Room> Floor::getRoomPtr(int x, int y)
+{
+	return rooms[x][y];
 }
 
 Room& Floor::getCurrentRoom()
@@ -264,13 +283,14 @@ void Floor::setCurrentRoom(int x, int y)
 		//rooms[x][y]->load("Rooms/19.bim");
 
 		if(availableRooms.size() == 0)
-			for(int i = 0; i < maxRooms; i++)
+			for(int i = 1; i <= maxRooms; i++)
 				availableRooms.push_back(i);
 
-		int roomIndex = rand() % availableRooms.size() + 1;
+		int roomIndex = rand() % availableRooms.size();
 		int room = availableRooms[roomIndex];
 		availableRooms.erase(availableRooms.begin() + roomIndex);
 
+		std::cout << "loading room: " << room << std::endl;
 		rooms[x][y]->load("Rooms/" + std::to_string(room) + ".bim");
 	}
 

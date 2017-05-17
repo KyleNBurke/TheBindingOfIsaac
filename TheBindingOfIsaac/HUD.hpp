@@ -20,6 +20,8 @@ public:
 	static void updatePlayerBombs(int bombs);
 	static void showPickupItemMessage(Entity& entity);
 	static void showNewLevelMessage(int level);
+	static void showFloorCompeteMessage();
+	static void showDeadMessage();
 
 private:
 	static sf::Texture spriteSheet;
@@ -32,11 +34,14 @@ private:
 	static sf::Text bombAmount;
 	static const int maxPlayerHealth;
 	int prevPlayerHealth;
+	sf::Sprite arrow;
 	
 	enum MessageType {
 		none,
 		itemPickup,
-		newLevel
+		newLevel,
+		floorComplete,
+		dead
 	};
 
 	static MessageType messageType;

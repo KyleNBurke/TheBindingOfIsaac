@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "State.hpp"
 
-State::State() : deleteState(false), active(true) {}
+State::State() : deleteState(false), updatable(true), drawable(true) {}
 
 void State::update(sf::Time deltaTime) {}
 
@@ -17,12 +17,22 @@ bool State::getDeleteState() const
 	return deleteState;
 }
 
-void State::setActive(bool active)
+void State::setUpdatable(bool updatable)
 {
-	this->active = active;
+	this->updatable = updatable;
 }
 
-bool State::getActive() const
+bool State::getUpdatable() const
 {
-	return active;
+	return updatable;
+}
+
+void State::setDrawable(bool drawable)
+{
+	this->drawable = drawable;
+}
+
+bool State::getDrawable() const
+{
+	return drawable;
 }

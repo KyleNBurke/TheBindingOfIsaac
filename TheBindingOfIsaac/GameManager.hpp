@@ -11,10 +11,11 @@ public:
 	void initialize();
 	void gameLoop();
 	void addState(std::shared_ptr<State> state);
-	void popState();
+	void resetGameplay();
 
-	const sf::RenderWindow& getWindow() const;
+	sf::RenderWindow& getWindow();
 	bool getWindowHasFocus() const;
+	const sf::Time& getTimeStep() const;
 
 private:
 	GameManager();

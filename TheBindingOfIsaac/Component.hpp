@@ -25,7 +25,8 @@ public:
 		FlyMove,
 		DashieMove,
 		WalkMove,
-		Item
+		Item,
+		StatusEffect
 	};
 
 	Component();

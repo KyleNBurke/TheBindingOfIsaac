@@ -11,7 +11,9 @@ public:
 	Floor();
 
 	void generate();
+	void generateItems();
 	static Room& getRoom(int x, int y);
+	static std::shared_ptr<Room> getRoomPtr(int x, int y);
 	static Room& getCurrentRoom();
 	static void setCurrentRoom(int x, int y);
 
@@ -23,6 +25,7 @@ public:
 	void clear(std::array<std::array<bool, sizeY>, sizeX>& ar);
 	std::vector<Direction> getAvialableDirections(std::array<std::array<bool, sizeY>, sizeX>& ar, int x, int y);
 	static void damagePlayer(int damage);
+	static bool floorComplete;
 
 	static Entity player;
 	sf::Texture backgroundTex;

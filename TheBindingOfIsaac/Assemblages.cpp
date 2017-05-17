@@ -22,8 +22,11 @@
 #include "DashieMoveCom.hpp"
 #include "SpinShotCom.hpp"
 #include "WalkMoveCom.hpp"
+#include "StatusEffectCom.hpp"
 
-Assemblages::Assemblages() {}
+Assemblages::Assemblages() :
+	playerProjectileLifetime(0.3f)
+{}
 
 Assemblages& Assemblages::getInstance()
 {
@@ -80,7 +83,7 @@ Entity Assemblages::createPlayerProjectile(sf::Vector2f position, sf::Vector2f v
 
 	projectile.addComponent(std::unique_ptr<Component>(new VelocityCom(velocity)));
 	projectile.addComponent(std::unique_ptr<Component>(new ProjectileCom(ProjectileCom::ProjectileType::Player, ProjectileCom::ProjectileVariation::Regular)));
-	projectile.addComponent(std::unique_ptr<Component>(new LifetimeCom(0.3f)));
+	projectile.addComponent(std::unique_ptr<Component>(new LifetimeCom(playerProjectileLifetime)));
 
 	return projectile;
 }
@@ -506,7 +509,7 @@ Entity Assemblages::createROF_UpItem(sf::Vector2f position)
 {
 	Entity item(sf::Sprite(itemsSpriteSheet, sf::IntRect(0, 0, 8, 8)), position, 2);
 
-	item.addComponent(std::unique_ptr<Component>(new ItemCom(ItemCom::ItemType::ROF_Up, 15, position, "Increased rate of fire")));
+	item.addComponent(std::unique_ptr<Component>(new ItemCom(ItemCom::ItemType::ROF_Up, 35, position, "Increased rate of fire")));
 
 	return item;
 }
@@ -515,7 +518,44 @@ Entity Assemblages::createPlusTenBombsItem(sf::Vector2f position)
 {
 	Entity item(sf::Sprite(itemsSpriteSheet, sf::IntRect(8, 0, 8, 8)), position, 2);
 
-	item.addComponent(std::unique_ptr<Component>(new ItemCom(ItemCom::ItemType::PlusTenBombs, 5, position, "+10 bombs")));
+	item.addComponent(std::unique_ptr<Component>(new ItemCom(ItemCom::ItemType::PlusTenBombs, 25, position, "+10 bombs")));
+
+	return item;
+}
+
+Entity Assemblages::createRangeUpItem(sf::Vector2f position)
+{
+	Entity item(sf::Sprite(itemsSpriteSheet, sf::IntRect(16, 0, 8, 8)), position, 2);
+
+	item.addComponent(std::unique_ptr<Component>(new ItemCom(ItemCom::ItemType::RangeUp, 35, position, "Range up")));
+
+	return item;
+}
+
+
+Entity Assemblages::createProjectileBombsItem(sf::Vector2f position)
+{
+	Entity item(sf::Sprite(itemsSpriteSheet, sf::IntRect(24, 0, 8, 8)), position, 2);
+
+	item.addComponent(std::unique_ptr<Component>(new ItemCom(ItemCom::ItemType::ProjectileBombs, 30, position, "Bombs now explode into\nprojectiles")));
+
+	return item;
+}
+
+Entity Assemblages::createPlusOneHeartItem(sf::Vector2f position)
+{
+	Entity item(sf::Sprite(itemsSpriteSheet, sf::IntRect(32, 0, 8, 8)), position, 2);
+
+	item.addComponent(std::unique_ptr<Component>(new ItemCom(ItemCom::ItemType::PlusOneHeart, 5, position, "+1 Heart")));
+
+	return item;
+}
+
+Entity Assemblages::createPlusOneBomb(sf::Vector2f position)
+{
+	Entity item(sf::Sprite(itemsSpriteSheet, sf::IntRect(40, 0, 8, 8)), position, 2);
+
+	item.addComponent(std::unique_ptr<Component>(new ItemCom(ItemCom::ItemType::PlusOneBomb, 5, position, "+1 Bomb")));
 
 	return item;
 }

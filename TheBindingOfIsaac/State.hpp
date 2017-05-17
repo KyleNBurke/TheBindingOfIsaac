@@ -12,10 +12,13 @@ public:
 
 	void setDeleteState(bool deleteState);
 	bool getDeleteState() const;
-	void setActive(bool active);
-	bool getActive() const;
+	bool getUpdatable() const;
+	void setUpdatable(bool updatable);
+	bool getDrawable() const;
+	void setDrawable(bool drawable);
 
 protected:
 	bool deleteState;
-	bool active;
+	bool updatable;
+	bool drawable;
 };

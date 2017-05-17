@@ -8,11 +8,10 @@
 #include "RenderSystem.hpp"
 #include "TransitionSystem.hpp"
 
-
 class GameplayState : public State
 {
 public:
-	GameplayState(StatsState& statsState, sf::RenderWindow& window, const sf::Time& deltaTime);
+	GameplayState(StatsState& statsState);
 
 	void initialize();
 
@@ -24,6 +23,8 @@ public:
 	static void updatePlayerCoins(int amount);
 	static int getPlayerCoins();
 
+	StatsState& getStatsState() const;
+
 private:
 	StatsState& statsState;
 	HUD hud;
@@ -33,6 +34,7 @@ private:
 	TransitionSystem transitionSystem;
 	RenderSystem renderSystem;
 
+	int currentFloor;
 	static int playerBombs;
 	static int playerCoins;
 };

@@ -18,11 +18,35 @@ Maybies
 - End game final boss
 - Boss before scenery changes
 
-Roadmap:
-- 
 
-Messages
-- update(), check for OK button press to remove the message
-- draw(), draws the message
-- showItemPickupMessage(ItemCom::ItemType::ROF_Up)
-- showNewLevelMessage()
+
+Status Effects
+- Projectiles will have a status effect assosiated with them that will be inflicted on enemies upon hit
+- The shot system will handle when a projectile gets the status effect
+- The projectile system will check if a projectile has a status effect upon hit and inflict it upon the enemy
+
+Status effects:
+ - Freeze - enemy cannot move or shoot
+ - Poison/fire - enemy takes damage over time
+
+ Freezing enemies:
+- Give enemy a freeze component
+- In movement system
+	- check if enemy has a freeze component
+	- if so just return, don't move the enemy
+- In shot system
+	- check if enemy has a freeze component
+	- if so just return, don't shoot anything
+
+Fire/posion
+- Give enemy a fire/posion component
+- I would have to implement a fire/poision system
+	- check if enemy has a fire/posion component
+	- damage enemy over time
+
+StatusEffectCom : Component
+enum { Freeze, Fire/poison }
+
+FireStatusEffectCom : StatusEffectCom
+float currentTime
+float maxTime

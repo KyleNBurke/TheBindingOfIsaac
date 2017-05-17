@@ -11,4 +11,6 @@ public:
 
 private:
 	const sf::Time& deltaTime;
+	bool canPickupHeart;
+	bool canPickupBomb;
 };

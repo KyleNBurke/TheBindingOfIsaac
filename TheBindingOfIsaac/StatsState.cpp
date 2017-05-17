@@ -4,7 +4,8 @@
 
 StatsState::StatsState() : fps("FPS: -", Utilities::getInstance().getFont()), drawCalls("Draw Calls: ", Utilities::getInstance().getFont()), frames(0), draws(0)
 {
-	active = false;
+	drawable = false;
+	updatable = false;
 }
 
 void StatsState::initialize() {

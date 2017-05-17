@@ -48,6 +48,11 @@ HUD::HUD() :
 	coinAmount.setCharacterSize((int)scale * Room::tileSize);
 	coinAmount.setPosition(73 * scale, 114 * scale);
 
+	arrow.setScale(scale, scale);
+	arrow.setTexture(spriteSheet);
+	arrow.setTextureRect(sf::IntRect(23, 0, 5, 6));
+	arrow.setPosition(Room::width / 2 * scale * Room::tileSize + 1.5f * scale, Room::height / 2 * scale * Room::tileSize + 1.0f * scale);
+
 	messageBackground.setFillColor(sf::Color(50, 50, 50));
 	messageBackground.setSize(sf::Vector2f(scale * Room::tileSize * 13.0f, scale * Room::tileSize * 6.0f));
 	messageBackground.setPosition(scale * Room::tileSize * 2.0f, scale * Room::tileSize * 3.0f);
@@ -64,6 +69,8 @@ HUD::HUD() :
 
 void HUD::constructFloor(const std::array<std::array<std::shared_ptr<Room>, Floor::sizeY>, Floor::sizeX>& ar)
 {
+	floor.clear();
+
 	sf::Vertex vertTL;
 	sf::Vertex vertBL;
 	sf::Vertex vertBR;
@@ -99,8 +106,15 @@ void HUD::constructFloor(const std::array<std::array<std::shared_ptr<Room>, Floo
 void HUD::update()
 {
 	if(messageType != MessageType::none)
+	{
 		if(Input::getInstance().keyPressed(sf::Keyboard::Key::Return))
+		{
+			if(messageType == MessageType::dead)
+				GameManager::getInstance().resetGameplay();
+
 			messageType = none;
+		}
+	}
 }
 
 void HUD::draw(sf::RenderWindow& window)
@@ -114,6 +128,9 @@ void HUD::draw(sf::RenderWindow& window)
 	window.draw(bombAmount);
 	window.draw(coin);
 	window.draw(coinAmount);
+
+	if(Floor::floorComplete && &Floor::getCurrentRoom() == &Floor::getRoom(Floor::sizeX / 2, Floor::sizeY / 2))
+		window.draw(arrow);
 
 	for(std::vector<sf::Sprite>::iterator it = hearts.begin(); it != hearts.end(); ++it)
 		window.draw(*it);
@@ -185,5 +202,17 @@ void HUD::showPickupItemMessage(Entity& entity)
 void HUD::showNewLevelMessage(int level)
 {
 	messageType = MessageType::newLevel;
-	messageText.setString("Level: " + std::to_string(level));
+	messageText.setString("Level: " + std::to_string(level) +"\nUse WASD to move\nUse IJKL to shoot\nUse E to place a bomb");
+}
+
+void HUD::showFloorCompeteMessage()
+{
+	messageType = MessageType::floorComplete;
+	messageText.setString("Floor complete!");
+}
+
+void HUD::showDeadMessage()
+{
+	messageType = MessageType::dead;
+	messageText.setString("You have died");
 }

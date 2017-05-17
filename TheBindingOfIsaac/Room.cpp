@@ -306,6 +306,7 @@ void Room::load(std::string fileName)
 			12 - Walker
 			13 - Round Shot Walker
 			14 - Fast Walker
+			// wtf you forgot about pacs
 			*/
 
 			case 0:
@@ -460,7 +461,7 @@ void Room::killEnemy(Entity& entity)
 			if(moveCom->variation == FlyMoveCom::Variation::Daddy)
 			{
 				float speed = 350.0f;
-				int amount = 6;
+				int amount = 10;
 
 				for(int i = 0; i < amount; i++)
 				{
@@ -472,6 +473,8 @@ void Room::killEnemy(Entity& entity)
 			}
 		}
 	}
+
+	GameplayState::updatePlayerCoins(1);
 
 	enemies--;
 	if(enemies == 0)
@@ -500,9 +503,26 @@ void Room::killEnemy(Entity& entity)
 		}
 
 		complete = true;
-	}
 
-	GameplayState::updatePlayerCoins(1);
+		bool allComplete = true;
+		for(int x = 0; x < Floor::sizeX; x++)
+		{
+			for(int y = 0; y < Floor::sizeY; y++)
+			{
+				if(Floor::getRoomPtr(x, y) && !Floor::getRoomPtr(x, y)->complete)
+				{
+					allComplete = false;
+					break;
+				}
+			}
+		}
+
+		if(allComplete)
+		{
+			HUD::showFloorCompeteMessage();
+			Floor::floorComplete = true;
+		}
+	}
 }
 
 std::vector<Entity>& Room::getEntities()

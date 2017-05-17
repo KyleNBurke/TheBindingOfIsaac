@@ -41,6 +41,12 @@ public:
 	Entity createExplosionStain(sf::Vector2f position);
 	Entity createROF_UpItem(sf::Vector2f position);
 	Entity createPlusTenBombsItem(sf::Vector2f position);
+	Entity createRangeUpItem(sf::Vector2f position);
+	Entity createProjectileBombsItem(sf::Vector2f position);
+	Entity createPlusOneHeartItem(sf::Vector2f position);
+	Entity createPlusOneBomb(sf::Vector2f position);
+
+	float playerProjectileLifetime;
 
 private:
 	Assemblages();

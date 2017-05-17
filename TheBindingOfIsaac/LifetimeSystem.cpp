@@ -4,6 +4,7 @@
 #include "Floor.hpp"
 #include "Assemblages.hpp"
 #include "ProjectileCom.hpp"
+#include "ItemCom.hpp"
 
 LifetimeSystem::LifetimeSystem(const sf::Time& deltaTime) : deltaTime(deltaTime) {}
 
@@ -28,6 +29,25 @@ void LifetimeSystem::update(Entity& entity)
 				{
 					Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createExplosion(entity.sprite.getPosition()));
 					Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createExplosionStain(entity.sprite.getPosition()));
+
+					if(Floor::player.hasComponent(Component::ComponentType::Item))
+					{
+						std::shared_ptr<ItemCom> itemCom = std::dynamic_pointer_cast<ItemCom>(Floor::player.getComponent(Component::ComponentType::Item));
+						
+						if(itemCom->itemType == ItemCom::ItemType::ProjectileBombs && projCom->projectileType == ProjectileCom::ProjectileType::Player)
+						{
+							float speed = 350.0f;
+							int amount = 10;
+
+							for(int i = 0; i < amount; i++)
+							{
+								float directionDeg = 2 * 3.1415f / amount * i;
+								sf::Vector2f direction(std::cos(directionDeg), std::sin(directionDeg));
+
+								Floor::getCurrentRoom().addEntity(Assemblages::getInstance().createPlayerProjectile(entity.position, direction * speed));
+							}
+						}
+					}
 
 					if(projCom->projectileType == ProjectileCom::ProjectileType::Player)
 					{
