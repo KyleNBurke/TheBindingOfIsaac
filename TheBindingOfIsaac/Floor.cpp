@@ -12,6 +12,7 @@ Entity Floor::player(Assemblages::getInstance().createPlayer(sf::Vector2f(Utilit
 	Utilities::getInstance().getScale() * Room::tileSize * Room::height / 2.0f)));
 std::vector<int> Floor::availableRooms;
 bool Floor::floorComplete = false;
+std::vector<int> Floor::loadedRooms;
 
 Floor::Floor()
 {
@@ -144,6 +145,7 @@ void Floor::generate()
 	currentRoom = std::shared_ptr<Room>(rooms[4][2]);
 
 	generateItems();
+	loadedRooms.clear();
 }
 
 void Floor::generateItems()
@@ -251,9 +253,9 @@ void Floor::damagePlayer(int damage)
 	healthCom->flashing = true;
 	HUD::updatePlayerHealth(healthCom->health);
 
-	if(healthCom->health <= 0)
+	if(healthCom->health <= 0) {
 		HUD::showDeadMessage();
-
+	}
 }
 
 const std::array<std::array<std::shared_ptr<Room>, Floor::sizeY>, Floor::sizeX>& Floor::getFloor() const
@@ -287,12 +289,27 @@ void Floor::setCurrentRoom(int x, int y)
 				availableRooms.push_back(i);
 
 		int roomIndex = rand() % availableRooms.size();
+
+		if(loadedRooms.size() < maxRooms - 4)
+			while(std::find(loadedRooms.begin(), loadedRooms.end(), roomIndex) != loadedRooms.end())
+				roomIndex = rand() % availableRooms.size();
+
 		int room = availableRooms[roomIndex];
 		availableRooms.erase(availableRooms.begin() + roomIndex);
 
 		std::cout << "loading room: " << room << std::endl;
 		rooms[x][y]->load("Rooms/" + std::to_string(room) + ".bim");
+
+		loadedRooms.push_back(roomIndex);
 	}
 
 	currentRoom = std::shared_ptr<Room>(rooms[x][y]);
+}
+
+void Floor::resetPlayerComponents()
+{
+	player.components.clear();
+	sf::Vector2f position(Utilities::getInstance().getScale() * Room::tileSize * Room::width / 2.0f,
+		Utilities::getInstance().getScale() * Room::tileSize * Room::height / 2.0f);
+	player = Assemblages::getInstance().createPlayer(position);
 }

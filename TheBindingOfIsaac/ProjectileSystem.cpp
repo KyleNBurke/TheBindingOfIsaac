@@ -7,7 +7,6 @@
 #include "BouncerCom.hpp"
 #include "VelocityCom.hpp"
 #include "GameplayState.hpp"
-#include "StatusEffectCom.hpp"
 
 ProjectileSystem::ProjectileSystem(const sf::Time& deltaTime) : deltaTime(deltaTime) {}
 

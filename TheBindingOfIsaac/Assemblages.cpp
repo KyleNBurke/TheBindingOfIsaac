@@ -22,7 +22,6 @@
 #include "DashieMoveCom.hpp"
 #include "SpinShotCom.hpp"
 #include "WalkMoveCom.hpp"
-#include "StatusEffectCom.hpp"
 
 Assemblages::Assemblages() :
 	playerProjectileLifetime(0.3f)

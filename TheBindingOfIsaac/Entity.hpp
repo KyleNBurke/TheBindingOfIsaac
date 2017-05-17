@@ -21,9 +21,10 @@ public:
 	bool shouldDelete;
 	int drawPriority;
 
+	std::vector<std::shared_ptr<Component>> components;
+
 private:
 	sf::IntRect bounds;
-	std::vector<std::shared_ptr<Component>> components;
 };
 
 //A possible preformance increase would be to have hasComponent return an index and have getComponent take the index for one less interation cycle

@@ -13,6 +13,7 @@
 #include "LifetimeSystem.hpp"
 #include "ItemSystem.hpp"
 #include "PauseMenuState.hpp"
+#include "HealthCom.hpp"
 
 int GameplayState::playerBombs = 0;
 int GameplayState::playerCoins = 0;
@@ -40,8 +41,8 @@ GameplayState::GameplayState(StatsState& statsState) :
 	systems.push_back(std::unique_ptr<System>(new AnimationSystem(deltaTime)));
 	systems.push_back(std::unique_ptr<System>(new ItemSystem(deltaTime)));
 
-	updatePlayerBombs(3);
-	//updatePlayerCoins(50);
+	reset();
+	//updatePlayerCoins(100);
 	HUD::showNewLevelMessage(currentFloor);
 }
 
@@ -154,6 +155,21 @@ void GameplayState::draw(sf::RenderWindow& window)
 	room.drawForeground(window);
 	transitionSystem.draw(window);
 	hud.draw(window);
+}
+
+void GameplayState::reset()
+{
+	playerBombs = 3;
+	HUD::updatePlayerBombs(playerBombs);
+
+	playerCoins = 0;
+	HUD::updatePlayerCoins(playerCoins);
+
+	std::shared_ptr<HealthCom> healthCom = std::dynamic_pointer_cast<HealthCom>(Floor::player.getComponent(Component::ComponentType::Health));
+	healthCom->health = 6;
+	HUD::updatePlayerHealth(healthCom->health);
+
+	Floor::resetPlayerComponents();
 }
 
 void GameplayState::updatePlayerBombs(int amount)

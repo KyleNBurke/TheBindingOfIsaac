@@ -17,6 +17,7 @@ public:
 
 	void update(sf::Time deltaTime);
 	void draw(sf::RenderWindow& window);
+	void reset();
 
 	static void updatePlayerBombs(int amount);
 	static int getPlayerBombs();
