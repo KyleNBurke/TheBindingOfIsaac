@@ -1,4 +1,4 @@
 # TheBindingOfIsaac
-Personal game project inspired by "The Binding of Isaac"
+Click the image below for a gameplay video.
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/oZJ6UN2vDuw/0.jpg)](https://www.youtube.com/watch?v=oZJ6UN2vDuw)
+[![YouTube Link](https://img.youtube.com/vi/oZJ6UN2vDuw/0.jpg)](https://www.youtube.com/watch?v=oZJ6UN2vDuw)
